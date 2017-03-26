@@ -1,6 +1,7 @@
 package com.idogfooding.backbone.ui;
 
 import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
@@ -9,6 +10,8 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
@@ -45,6 +48,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         setActivityView(getLayoutId());
         ButterKnife.bind(this);
         Logger.d(TAG + ".onCreate->afterContentView");
+    }
+
+    /**
+     * hidden status bar
+     */
+    protected void fullScreen() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    }
+
+    /**
+     * [沉浸状态栏]
+     */
+    private void steepStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
     }
 
     protected void setActivityView(@LayoutRes int layoutResID) {
