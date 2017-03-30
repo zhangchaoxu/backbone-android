@@ -12,4 +12,8 @@
         <item name="android:clipToPadding">true</item>
     </style>
 
+    <style name="RootView.Full">
+        <item name="android:fitsSystemWindows">false</item>
+    </style>
+
 </resources>

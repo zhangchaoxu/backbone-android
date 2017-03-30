@@ -1,13 +1,13 @@
 package com.idogfooding.backbone.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,20 +20,34 @@ import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.zhy.autolayout.AutoLayoutActivity;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import io.reactivex.subjects.BehaviorSubject;
+
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * BaseActivity
  *
  * @author Charles
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AutoLayoutActivity {
 
     protected final String TAG = getClass().getSimpleName();
+
+    public String getSimpleName() {
+        return TAG;
+    }
+
+    private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
     private ArrayMap<String, UIComponent> mUIComponents;
 
@@ -45,9 +59,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         onConfigureActivity();
         mConfigured = true;
         super.onCreate(savedInstanceState);
+        lifecycleSubject.onNext(ActivityEvent.CREATE);
+
         setActivityView(getLayoutId());
         ButterKnife.bind(this);
         Logger.d(TAG + ".onCreate->afterContentView");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lifecycleSubject.onNext(ActivityEvent.START);
     }
 
     /**
@@ -58,16 +80,62 @@ public abstract class BaseActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
-    /**
-     * [沉浸状态栏]
-     */
-    private void steepStatusBar() {
+    protected void translucentStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            // 透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+            layoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | layoutParams.flags);
         }
+    }
+
+    protected void darkStatusBarIcon(boolean bDark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = getWindow().getDecorView();
+            if (decorView != null) {
+                decorView.setSystemUiVisibility(bDark ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : View.SYSTEM_UI_FLAG_VISIBLE);
+            }
+        }
+    }
+
+    /**
+     * add UIComponents, it will use {@link UIComponent#getTag()} as name, same component will be replaced
+     * should be called {@link #attachContentView(View, int)}
+     *
+     * @return current uiComponents
+     */
+    protected final ArrayMap<String, UIComponent> addUIComponents(UIComponent... uiComponents) {
+        if (mUIComponents == null) {
+            mUIComponents = new ArrayMap<>();
+        }
+        for (int i = 0, s = uiComponents.length; i < s; i++) {
+            mUIComponents.put(uiComponents[i].getTag(), uiComponents[i]);
+        }
+        return mUIComponents;
+    }
+
+    protected final ArrayMap<String, UIComponent> getUIComponents() {
+        return mUIComponents;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected final <T> T getUIComponent(String tag) {
+        if (mUIComponents != null) {
+            return (T) mUIComponents.get(tag);
+        }
+        return null;
+    }
+
+    public final View getContainerView() {
+        return ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+    }
+
+    protected void onConfigureActivity() {
+        translucentStatusBar();
+    }
+
+    @BeforeConfigActivity
+    protected void setRootLayoutId(@LayoutRes int rootLayoutId) {
+        checkConfigured();
+        mRootLayoutId = rootLayoutId;
     }
 
     protected void setActivityView(@LayoutRes int layoutResID) {
@@ -79,10 +147,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             attachContentView(getContainerView(), layoutResID);
             inflateComponents(getContainerView(), getUIComponents());
         }
-    }
-
-    protected final ArrayMap<String, UIComponent> getUIComponents() {
-        return mUIComponents;
     }
 
     /**
@@ -112,27 +176,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public final View getContainerView() {
-        return ((ViewGroup) $(android.R.id.content)).getChildAt(0);
+    protected final boolean isConfigured() {
+        return mConfigured;
     }
 
-    //##########  construct methods  ##########
-    protected void onConfigureActivity() {
-        //Stub
+    protected final void checkConfigured() {
+        if (mConfigured) {
+            throw new IllegalStateException("You must call this method in onConfigureActivity");
+        }
     }
 
     protected abstract int getLayoutId();
 
     //##########  Protected helper methods ##########
-    @SuppressWarnings("unchecked")
-    protected final <T extends View> T $(int viewId) {
-        return (T) findViewById(viewId);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected final <T extends View> T $(View view, int viewId) {
-        return (T) view.findViewById(viewId);
-    }
 
     //##########  PERMISSION REQUEST ##########
     protected List<PermissionRequest> permissionRequests = new ArrayList<>();
@@ -239,6 +295,19 @@ public abstract class BaseActivity extends AppCompatActivity {
                 })
                 .onNegative((dialog, which) -> finish())
                 .show();
+    }
+
+    // open activity
+    public void openActivity(Class<?> activity) {
+        startActivity(new Intent(this, activity));
+    }
+
+    /**
+     * Annotated methods should run in {@link #onConfigureActivity()}
+     */
+    @Target(ElementType.METHOD)
+    @Retention(SOURCE)
+    public @interface BeforeConfigActivity {
     }
 
 }

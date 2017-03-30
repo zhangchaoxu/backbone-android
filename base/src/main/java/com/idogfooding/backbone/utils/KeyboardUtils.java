@@ -19,10 +19,24 @@ public class KeyboardUtils {
      * @param view
      * @return view
      */
-    public static View hideSoftInput(final View view) {
+    public static View hideSoftInput(View view) {
         InputMethodManager manager = (InputMethodManager) view.getContext().getSystemService(INPUT_METHOD_SERVICE);
         if (manager != null)
             manager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+        return view;
+    }
+
+    /**
+     * Show soft input method manager
+     *
+     * @param view
+     * @return view
+     */
+    public static View showSoftInput(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext().getSystemService(INPUT_METHOD_SERVICE);
+        if (manager != null)
+            manager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        view.requestFocus();
         return view;
     }
 }

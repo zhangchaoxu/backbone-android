@@ -18,4 +18,10 @@
     <color name="swipe_refresh_start">@color/primary_dark</color>
     <color name="swipe_refresh_process">@color/primary</color>
     <color name="swipe_refresh_end">@color/primary_light</color>
+
+    <!-- base color -->
+    <color name="transparent">#00000000</color>
+    <color name="half_transparent">#60000000</color>
+    <color name="half_transparent_dark">#e0000000</color>
+    <color name="half_transparent_light">#aa000000</color>
 </resources>
