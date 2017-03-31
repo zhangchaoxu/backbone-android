@@ -18,3 +18,7 @@
 # bugly https://bugly.qq.com/docs/user-guide/instruction-manual-android/
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+
+# Router https://github.com/chenenyu/Router
+-keep class com.chenenyu.router.** {*;}
+-keep class * implements com.chenenyu.router.RouteInterceptor {*;}

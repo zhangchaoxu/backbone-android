@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.support.multidex.MultiDex;
 
 import com.bumptech.glide.request.target.ViewTarget;
+import com.chenenyu.router.Router;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.List;
@@ -30,6 +31,9 @@ public class BaseApplication extends Application {
         // https://github.com/bumptech/glide/issues/370
         // http://stackoverflow.com/questions/34833627/error-you-must-not-call-settag-on-a-view-glide-is-targeting-when-use-glide/35096552
         ViewTarget.setTagId(R.id.glide_tag);
+        // init router
+        // Router.openLog();
+        Router.initialize(this);
         // init bugly
         CrashReport.initCrashReport(getApplicationContext(), CfgConst.BUGLY_APPID, false);
     }
