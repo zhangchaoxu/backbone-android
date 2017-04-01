@@ -2,9 +2,9 @@ package com.idogfooding.backbone;
 
 /**
  * CfgConst
+ *
+ * @author Charles
  */
+public interface CfgConst {
 
-public class CfgConst {
-
-    public static String BUGLY_APPID = "";
 }

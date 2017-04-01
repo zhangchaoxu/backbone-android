@@ -80,6 +80,8 @@ dependencies {
     compile 'com.github.czy1121:update:1.0.5'
     // event https://github.com/greenrobot/EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
+    // json https://github.com/google/gson
+    compile 'com.google.code.gson:gson:2.8.0'
 
     // logger https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:1.15'
