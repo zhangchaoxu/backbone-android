@@ -1,16 +1,12 @@
 package com.idogfooding.backbone.ui.tab;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.ui.BaseActivity;
 import com.idogfooding.backbone.widget.ViewPager;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 
@@ -21,8 +17,6 @@ import butterknife.ButterKnife;
  */
 public abstract class TabLayoutPagerActivity extends BaseActivity {
 
-    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-    ArrayList<Fragment> fragments = new ArrayList<>();
     CommonTabLayout tabLayout;
     ViewPager pager;
     TabFragmentPagerAdapter adapter;
@@ -37,10 +31,7 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         tabLayout = ButterKnife.findById(this, R.id.tab_layout);
         pager = ButterKnife.findById(this, R.id.pager);
-        /*for (int i = 0; i <= 4; i++) {
-            mTabEntities.add(new TabEntity("index" + i, android.R.drawable.sym_def_app_icon, android.R.drawable.sym_def_app_icon));
-            fragments.add(EmptyFragment.newInstance("index" + i));
-        }*/
+
         // setup ViewPager
         pager.setScrollable(true);
 

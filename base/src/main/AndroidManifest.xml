@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.idogfooding.backbone">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
