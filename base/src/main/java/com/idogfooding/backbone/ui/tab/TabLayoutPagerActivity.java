@@ -39,14 +39,16 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                onTabClick(position);
-                updateCurrentItem(position);
+                if (onTabClick(position)) {
+                    updateCurrentItem(position);
+                }
             }
 
             @Override
             public void onTabReselect(int position) {
-                onTabClick(position);
-                onTabLayoutReselect(position);
+                if (onTabClick(position)) {
+                    onTabLayoutReselect(position);
+                }
             }
         });
 
@@ -65,8 +67,8 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
         }
     }
 
-    protected void onTabClick(final int newPosition) {
-
+    protected boolean onTabClick(final int position) {
+        return true;
     }
 
     protected void onTabLayoutReselect(int position) {
