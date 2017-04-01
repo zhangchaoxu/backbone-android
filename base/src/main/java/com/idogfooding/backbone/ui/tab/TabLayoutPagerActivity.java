@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  */
 public abstract class TabLayoutPagerActivity extends BaseActivity {
 
-    CommonTabLayout tabLayout;
+    protected CommonTabLayout tabLayout;
     ViewPager pager;
     TabFragmentPagerAdapter adapter;
 
