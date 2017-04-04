@@ -12,19 +12,46 @@ import com.idogfooding.backbone.BaseApplication;
  */
 public class ToastUtils {
 
+    private static String oldMsg;
+    private static Toast toast = null;
+    /**
+     * first show time
+     */
+    private static long firstToastTime = 0;
+    /**
+     * second show time
+     */
+    private static long secondToastTime = 0;
+
     public static void show(@StringRes int resId) {
         show(resId, Toast.LENGTH_SHORT);
     }
 
+    public static void show(String msg) {
+        show(msg, Toast.LENGTH_SHORT);
+    }
+
     public static void show(@StringRes int resId, int duration) {
-        Toast.makeText(BaseApplication.context(), resId, duration).show();
+        show(BaseApplication.context().getString(resId), duration);
     }
 
-    public static void show(String toastStr) {
-        show(toastStr, Toast.LENGTH_SHORT);
-    }
-
-    public static void show(String toastStr, int duration) {
-        Toast.makeText(BaseApplication.context(), toastStr, duration).show();
+    public static void show(String msg, int duration) {
+        if (toast == null) {
+            toast = Toast.makeText(BaseApplication.context(), msg, duration);
+            toast.show();
+            firstToastTime = System.currentTimeMillis();
+        } else {
+            secondToastTime = System.currentTimeMillis();
+            if (msg.equals(oldMsg)) {
+                if (secondToastTime - firstToastTime > Toast.LENGTH_SHORT) {
+                    toast.show();
+                }
+            } else {
+                oldMsg = msg;
+                toast.setText(msg);
+                toast.show();
+            }
+        }
+        firstToastTime = secondToastTime;
     }
 }
