@@ -1,12 +1,14 @@
 package com.idogfooding.backbone.ui;
 
 import android.Manifest;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -297,9 +299,20 @@ public abstract class BaseActivity extends AutoLayoutActivity {
                 .show();
     }
 
-    // open activity
-    public void openActivity(Class<?> activity) {
-        startActivity(new Intent(this, activity));
+    /**
+     * replace fragment
+     * @param fragmentId
+     * @param fragment
+     */
+    protected void replaceFragment(@IdRes int fragmentId, Fragment fragment) {
+        // replace content with fragment
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(fragmentId, fragment);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    protected void replaceFragment(Fragment fragment) {
+        replaceFragment(android.R.id.content, fragment);
     }
 
     /**
