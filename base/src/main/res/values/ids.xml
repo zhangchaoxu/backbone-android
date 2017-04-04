@@ -4,5 +4,6 @@
     <item type="id" name="glide_tag">false</item>
     <item type="id" name="root_view">false</item>
     <item type="id" name="tab_layout">false</item>
+    <item type="id" name="pager">false</item>
 
 </resources>

@@ -10,13 +10,13 @@
         android:visibility="gone"/>
 
     <com.idogfooding.backbone.widget.ViewPager
-        android:id="@+id/pager"
+        android:id="@id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <com.flyco.tablayout.CommonTabLayout
-        android:id="@+id/tab_layout"
+        android:id="@id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/gray0"

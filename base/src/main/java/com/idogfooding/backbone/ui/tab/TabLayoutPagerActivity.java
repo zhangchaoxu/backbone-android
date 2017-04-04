@@ -33,7 +33,7 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
         pager = ButterKnife.findById(this, R.id.pager);
 
         // setup ViewPager
-        pager.setScrollable(true);
+        pager.setScrollable(false);
 
         //set up tab layout
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
