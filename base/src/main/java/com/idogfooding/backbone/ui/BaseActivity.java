@@ -315,6 +315,39 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         replaceFragment(android.R.id.content, fragment);
     }
 
+    // [+] Loading Dialog
+    /**
+     * Shows the progress UI and hides the login_bg form.
+     */
+    private MaterialDialog mLoadingDialog;
+
+    public void dismissLoading() {
+        if (null != mLoadingDialog && mLoadingDialog.isShowing() && !isFinishing())
+            mLoadingDialog.dismiss();
+    }
+
+    public void showLoadingDialog() {
+        showLoadingDialog(R.string.msg_loading);
+    }
+
+    public void showLoadingDialog(int contentResId) {
+        showLoadingDialog(getString(contentResId));
+    }
+
+    public void showLoadingDialog(String content) {
+        if (null == mLoadingDialog) {
+            mLoadingDialog = new MaterialDialog.Builder(this)
+                    .content(content)
+                    .progress(true, 0)
+                    .cancelable(false)
+                    .show();
+        } else {
+            mLoadingDialog.setContent(content);
+            mLoadingDialog.show();
+        }
+    }
+    // [-] Loading Dialog
+
     /**
      * Annotated methods should run in {@link #onConfigureActivity()}
      */

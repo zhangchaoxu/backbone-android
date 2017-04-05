@@ -5,4 +5,10 @@
 
     <string name="msg_loading">请稍候&#8230;</string>
     <string name="msg_network_unavailable">网络不可用，请稍后再试</string>
+
+    <string name="phone">手机号</string>
+    <string name="sms">验证码</string>
+    <string name="sms_resend">重新发送?</string>
+    <string name="sms_send">发送验证码</string>
+    <string name="sms_receive_msg">请稍等(%d秒)</string>
 </resources>

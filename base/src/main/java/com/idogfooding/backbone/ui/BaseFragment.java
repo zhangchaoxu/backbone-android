@@ -306,4 +306,8 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
 
     protected abstract void onSetupFragment(View view, Bundle savedInstanceState);
 
+    protected BaseActivity getBaseActivity() {
+        return (BaseActivity) getActivity();
+    }
+
 }
