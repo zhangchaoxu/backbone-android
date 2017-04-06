@@ -418,7 +418,7 @@ public final class Fragments {
             transaction.commitAllowingStateLoss();
 
             if (childFragment != null && childFragment instanceof BaseFragment) {
-                ((BaseFragment) childFragment).onUserInvisible();
+                ((BaseFragment) childFragment).onInvisible();
             }
 
             transaction = null;
@@ -649,7 +649,7 @@ public final class Fragments {
             transaction.commitAllowingStateLoss();
 
             if (fragment != null && fragment instanceof BaseFragment) {
-                ((BaseFragment) fragment).onUserVisible();
+                ((BaseFragment) fragment).onVisible();
             }
 
             transaction = null;
