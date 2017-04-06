@@ -74,7 +74,7 @@ public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCa
      * 第一次fragment可见（进行初始化工作）
      */
     @Override
-    public void onFirstUserVisible() {
+    public void onFirstVisible() {
         Logger.d(msg + "onFirstUserVisible");
     }
 
@@ -82,7 +82,7 @@ public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCa
      * fragment可见（切换回来或者onResume）
      */
     @Override
-    public void onUserVisible() {
+    public void onVisible() {
         Logger.d(msg + "onUserVisible");
     }
 
@@ -90,7 +90,7 @@ public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCa
      * 第一次fragment不可见（不建议在此处理事件）
      */
     @Override
-    public void onFirstUserInvisible() {
+    public void onFirstInvisible() {
         Logger.d(msg + "onFirstUserInvisible");
 
     }
@@ -99,9 +99,8 @@ public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCa
      * fragment不可见（切换掉或者onPause）
      */
     @Override
-    public void onUserInvisible() {
+    public void onInvisible() {
         Logger.d(msg + "onUserInvisible");
-
     }
 
     @Override

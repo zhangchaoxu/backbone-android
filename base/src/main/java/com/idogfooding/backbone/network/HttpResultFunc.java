@@ -1,5 +1,7 @@
 package com.idogfooding.backbone.network;
 
+import com.google.common.base.Optional;
+
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 

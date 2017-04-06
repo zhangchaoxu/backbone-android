@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 public abstract class TabLayoutPagerActivity extends BaseActivity {
 
     protected CommonTabLayout tabLayout;
-    ViewPager pager;
+    protected ViewPager pager;
     TabFragmentPagerAdapter adapter;
 
     @Override
@@ -32,10 +32,15 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
         tabLayout = ButterKnife.findById(this, R.id.tab_layout);
         pager = ButterKnife.findById(this, R.id.pager);
 
-        // setup ViewPager
-        pager.setScrollable(false);
+        adapter = createAdapter();
 
-        //set up tab layout
+        // init ViewPager
+        pager.setScrollable(isPagerScrollable());
+        pager.setOffscreenPageLimit(getPagerOffscreenPageLimit());
+        pager.setAdapter(adapter);
+
+        // init TabLayout
+        tabLayout.setTabData(adapter.getTabEntities());
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
@@ -51,11 +56,24 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
                 }
             }
         });
+    }
 
-        //tabLayout.setTabData(mTabEntities, this, android.R.id.tabcontent, fragments);
-        adapter = createAdapter();
-        pager.setAdapter(adapter);
-        tabLayout.setTabData(adapter.getTabEntities());
+    /**
+     * is pager scrollable
+     *
+     * @return scrollable
+     */
+    protected boolean isPagerScrollable() {
+        return false;
+    }
+
+    /**
+     * get Pager OffscreenPageLimit
+     *
+     * @return offscreenPageLimit
+     */
+    protected int getPagerOffscreenPageLimit() {
+        return adapter.getCount() - 1;
     }
 
     protected abstract TabFragmentPagerAdapter createAdapter();

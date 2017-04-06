@@ -21,7 +21,7 @@ import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * BaseFragment
- * lazy load see {http://www.cnblogs.com/leevey/p/5678037.html}
+ * lazy load {http://www.cnblogs.com/leevey/p/5678037.html}
  *
  * @author Charles
  */
@@ -39,16 +39,29 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     private DataLoader mDataLoader;
     private boolean mRegisterEventBus;
 
-    // 第一次onResume中的调用onUserVisible避免操作与onFirstUserVisible操作重复
     private boolean isPrepared;
     private boolean isFirstResume = true;
     private boolean isFirstInvisible = true;
     private boolean isFirstVisible = true;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initPrepare();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (isFirstVisible) {
+                isFirstVisible = false;
+                initPrepare();
+            } else {
+                onVisible();
+            }
+        } else {
+            if (isFirstInvisible) {
+                isFirstInvisible = false;
+                onFirstInvisible();
+            } else {
+                onInvisible();
+            }
+        }
     }
 
     @Override
@@ -92,6 +105,12 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initPrepare();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
     }
@@ -105,7 +124,7 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
             return;
         }
         if (getUserVisibleHint()) {
-            onUserVisible();
+            onVisible();
         }
 
         lifecycleSubject.onNext(FragmentEvent.RESUME);
@@ -125,60 +144,12 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (isFirstVisible) {
-                isFirstVisible = false;
-                initPrepare();
-            } else {
-                onUserVisible();
-            }
-        } else {
-            if (isFirstInvisible) {
-                isFirstInvisible = false;
-                onFirstUserInvisible();
-            } else {
-                onUserInvisible();
-            }
-        }
-    }
-
-    public synchronized void initPrepare() {
-        if (isPrepared) {
-            onFirstUserVisible();
-        } else {
-            isPrepared = true;
-        }
-    }
-
-    /**
-     * 第一次fragment可见（进行初始化工作）
-     */
-    public abstract void onFirstUserVisible();
-
-    /**
-     * fragment可见（切换回来或者onResume）
-     */
-    public abstract void onUserVisible();
-
-    /**
-     * 第一次fragment不可见（不建议在此处理事件）
-     */
-    public abstract void onFirstUserInvisible();
-
-    /**
-     * fragment不可见（切换掉或者onPause）
-     */
-    public abstract void onUserInvisible();
-
-    @Override
     public void onPause() {
         lifecycleSubject.onNext(FragmentEvent.PAUSE);
         super.onPause();
 
         if (getUserVisibleHint()) {
-            onUserInvisible();
+            onInvisible();
         }
 
         if (mRegisterEventBus) {
@@ -221,6 +192,47 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
         }
     }
 
+    public synchronized void initPrepare() {
+        if (isPrepared) {
+            onFirstVisible();
+        } else {
+            isPrepared = true;
+        }
+    }
+
+    /**
+     *  on fragment first visible
+     *  do init
+     */
+    public void onFirstVisible() {
+
+    }
+
+    /**
+     * fragment visible
+     * onResume or scroll to this fragment
+     */
+    public void onVisible() {
+
+    }
+
+    /**
+     * on first invisible
+     * on first fragment invisible
+     * *do nothing is this method as setUserVisibleHint called before onCreate, bound and view will be null*
+     */
+    public void onFirstInvisible() {
+
+    }
+
+    /**
+     * on fragment invisible
+     * scroll out or onPause
+     */
+    public void onInvisible() {
+
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -230,7 +242,6 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
             getDataLoader().onSavedState(outState);
         }
     }
-
 
     public DataLoader getDataLoader() {
         return mDataLoader;

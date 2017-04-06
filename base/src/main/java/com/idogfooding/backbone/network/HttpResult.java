@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class HttpResult<T> implements Serializable {
 
+    private static final int CODE_SUCCESS = 0;
+
     private int code;
     private String msg;
     private T data;
@@ -39,7 +41,7 @@ public class HttpResult<T> implements Serializable {
     }
 
     public boolean isSuccess() {
-        return code == 0;
+        return code == CODE_SUCCESS;
     }
 
     @Override
