@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 import com.idogfooding.backbone.utils.Fragments;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * BaseFragment
@@ -25,15 +25,13 @@ import io.reactivex.subjects.BehaviorSubject;
  *
  * @author Charles
  */
-public abstract class BaseFragment extends android.support.v4.app.Fragment {
+public abstract class BaseFragment extends RxFragment {
 
     protected final String TAG = getClass().getSimpleName();
 
     public String getSimpleName() {
         return TAG;
     }
-
-    private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
 
     private Unbinder unbinder;
     private DataLoader mDataLoader;
@@ -65,15 +63,8 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        lifecycleSubject.onNext(FragmentEvent.ATTACH);
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        lifecycleSubject.onNext(FragmentEvent.CREATE);
 
         setHasOptionsMenu(true);
         Bundle data = getArguments();
@@ -127,8 +118,6 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
             onVisible();
         }
 
-        lifecycleSubject.onNext(FragmentEvent.RESUME);
-
         // register eventBus
         if (mRegisterEventBus) {
             EventBus eventBus = EventBus.getDefault();
@@ -145,7 +134,6 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
 
     @Override
     public void onPause() {
-        lifecycleSubject.onNext(FragmentEvent.PAUSE);
         super.onPause();
 
         if (getUserVisibleHint()) {
@@ -161,20 +149,7 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-    public void onStop() {
-        lifecycleSubject.onNext(FragmentEvent.STOP);
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        lifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
-        super.onDestroyView();
-    }
-
-    @Override
     public void onDestroy() {
-        lifecycleSubject.onNext(FragmentEvent.DESTROY);
         super.onDestroy();
         // BINDING RESET
         // Fragments have a different view lifecycle than activities.
@@ -278,27 +253,6 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
             transaction.commitAllowingStateLoss();
         }
     }
-
-    // LIFECYCLE
-   /* protected final Observable<FragmentEvent> lifecycle() {
-        return lifecycleSubject.asObservable();
-    }
-
-    protected final <T> LifecycleTransformer<T> bindUntilEvent(@NonNull FragmentEvent event) {
-        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
-    }
-
-    protected final <T> LifecycleTransformer<T> bindToLifecycle() {
-        return RxLifecycleAndroid.bindFragment(lifecycleSubject);
-    }
-
-    protected <T> ObservableTransformer<T, T> io() {
-        return IOUtils.io();
-    }
-
-    protected <T> ObservableTransformer<T, T> computation() {
-        return IOUtils.computation();
-    }*/
 
     /**
      * called when onCreate and fragment has Arguments

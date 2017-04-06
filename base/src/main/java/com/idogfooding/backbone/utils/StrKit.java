@@ -16,26 +16,42 @@ public class StrKit {
     /**
      * Returns true if the string is null or 0-length after trim
      */
-    public static boolean isEmpty(CharSequence str) {
-        return TextUtils.isEmpty(str) || TextUtils.isEmpty(str.toString().trim());
+    public static boolean isEmpty(CharSequence source) {
+        return TextUtils.isEmpty(source) || TextUtils.isEmpty(source.toString().trim());
     }
 
     /**
      * Compares this string to the specified object.
      */
-    public static boolean equals(String source, String key) {
+    public static boolean equals(CharSequence source, CharSequence key) {
         return source != null && source.equals(key);
     }
 
     /**
-     * 是否大陆手机号码
-     * 大陆手机号码11位数，匹配格式：前2位固定格式+后9位任意数
+     * is china mobile phone number
      */
-    public static boolean isChinaMobilePhoneNumber(String number) {
+    public static boolean isChinaMobilePhoneNumber(CharSequence source) {
         String regExp = "^(1[3-8])\\d{9}$";
         Pattern p = Pattern.compile(regExp);
-        Matcher m = p.matcher(number);
+        Matcher m = p.matcher(source);
         return m.matches();
     }
+
+    /**
+     * match length
+     * @param source
+     * @param minLength
+     * @param maxLength
+     * @return
+     */
+    public static boolean matchLength(CharSequence source, int minLength, int maxLength) {
+        if (null == source) {
+            return false;
+        } else {
+            return source.length() >= minLength && source.length() <= maxLength;
+        }
+    }
+
+
 
 }

@@ -28,13 +28,18 @@ android {
         versionName "0.0.1"
 
         multiDexEnabled true
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
 }
 
@@ -73,13 +78,19 @@ dependencies {
     // rxlifecycle
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
     // json https://github.com/google/gson
     compile 'com.google.code.gson:gson:2.8.0'
     // event https://github.com/greenrobot/EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
 
-    // rxpermission https://github.com/tbruyelle/RxPermissions
+    // permission https://github.com/tbruyelle/RxPermissions
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    // preferences https://github.com/f2prateek/rx-preferences
+    // compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC1'
+    // cache https://github.com/vincentbrison/dualcache
+    compile 'com.vincentbrison.openlibraries.android:dualcache:3.1.1'
+    compile 'com.vincentbrison.openlibraries.android:dualcache-jsonserializer:3.1.1'
 
     // dialogs https://github.com/afollestad/material-dialogs
     compile 'com.afollestad.material-dialogs:core:0.9.4.2'
