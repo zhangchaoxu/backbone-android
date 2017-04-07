@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tl="http://schemas.android.com/apk/res-auto"
-              style="@style/RootView">
+              style="@style/RootView.Full">
 
     <FrameLayout
         android:id="@android:id/tabcontent"

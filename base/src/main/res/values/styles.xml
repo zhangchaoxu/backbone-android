@@ -16,4 +16,39 @@
         <item name="android:fitsSystemWindows">false</item>
     </style>
 
+    <style name="Layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Layout.V">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:id">@id/toolbar</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+        <item name="android:minHeight">@dimen/toolbar_height</item>
+        <item name="android:layout_marginTop">@dimen/status_bar_height</item>
+    </style>
+
+    <style name="Toolbar.LeftIcon">
+        <item name="android:id">@id/toolbar_left</item>
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="Toolbar.RightIcon">
+        <item name="android:id">@id/toolbar_right</item>
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
 </resources>

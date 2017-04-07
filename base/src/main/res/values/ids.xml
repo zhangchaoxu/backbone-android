@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item type="id" name="glide_tag">false</item>
-    <item type="id" name="root_view">false</item>
-    <item type="id" name="tab_layout">false</item>
-    <item type="id" name="pager">false</item>
+    <item name="glide_tag" type="id">false</item>
+    <item name="root_view" type="id">false</item>
+    <item name="tab_layout" type="id">false</item>
+    <item name="pager" type="id">false</item>
+    <item name="toolbar" type="id">false</item>
+    <item name="toolbar_left" type="id">false</item>
+    <item name="toolbar_right" type="id">false</item>
+    <item name="toolbar_title" type="id">false</item>
+    <item name="toolbar_subtitle" type="id">false</item>
 
 </resources>
