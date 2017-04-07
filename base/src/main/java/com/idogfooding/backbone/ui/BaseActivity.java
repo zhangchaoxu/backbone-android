@@ -20,7 +20,6 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
-import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zhy.autolayout.AutoLayoutActivity;
@@ -61,11 +60,15 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         onConfigureActivity();
         mConfigured = true;
         super.onCreate(savedInstanceState);
-        lifecycleSubject.onNext(ActivityEvent.CREATE);
 
         setActivityView(getLayoutId());
         ButterKnife.bind(this);
-        Logger.d(TAG + ".onCreate->afterContentView");
+
+        onSetupActivity(savedInstanceState);
+    }
+
+    protected void onSetupActivity(Bundle savedInstanceState) {
+
     }
 
     @Override

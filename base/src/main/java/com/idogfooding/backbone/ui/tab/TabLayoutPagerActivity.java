@@ -27,8 +27,9 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onSetupActivity(Bundle savedInstanceState) {
+        super.onSetupActivity(savedInstanceState);
+
         tabLayout = ButterKnife.findById(this, R.id.tab_layout);
         pager = ButterKnife.findById(this, R.id.pager);
 
@@ -57,6 +58,7 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
             }
         });
     }
+
 
     /**
      * is pager scrollable

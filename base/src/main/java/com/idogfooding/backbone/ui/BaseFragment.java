@@ -1,6 +1,5 @@
 package com.idogfooding.backbone.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.idogfooding.backbone.utils.Fragments;
 import com.orhanobut.logger.Logger;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -176,8 +174,8 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     /**
-     *  on fragment first visible
-     *  do init
+     * on fragment first visible
+     * do init
      */
     public void onFirstVisible() {
 
@@ -273,6 +271,12 @@ public abstract class BaseFragment extends RxFragment {
 
     protected BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();
+    }
+
+    protected void finishActivity() {
+        if (null != getActivity()) {
+            getActivity().finish();
+        }
     }
 
 }
