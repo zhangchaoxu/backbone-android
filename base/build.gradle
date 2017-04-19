@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'me.tatarka.retrolambda'
-// apply plugin: 'com.chenenyu.router'
 // maven
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
@@ -45,11 +44,11 @@ android {
 
 dependencies {
     // support
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:recyclerview-v7:25.3.0'
-    compile 'com.android.support:cardview-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
-    compile 'com.android.support:percent:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:percent:25.3.1'
     // multidex
     compile 'com.android.support:multidex:1.0.1'
 
@@ -66,15 +65,15 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
     // okhttp3 https://github.com/square/okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
 
     // retrofit2 https://github.com/square/retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     // rxjava https://github.com/ReactiveX/RxJava
-    compile "io.reactivex.rxjava2:rxjava:2.0.7"
+    compile "io.reactivex.rxjava2:rxjava:2.0.8"
     // rxandroid https://github.com/ReactiveX/rxandroid
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     // rxlifecycle
@@ -87,19 +86,21 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
 
     // permission https://github.com/tbruyelle/RxPermissions
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     // preferences https://github.com/f2prateek/rx-preferences
     // compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC1'
+    // preferences https://github.com/grandcentrix/tray
+    compile 'net.grandcentrix.tray:tray:0.11.1'
     // cache https://github.com/vincentbrison/dualcache
     compile 'com.vincentbrison.openlibraries.android:dualcache:3.1.1'
     compile 'com.vincentbrison.openlibraries.android:dualcache-jsonserializer:3.1.1'
 
     // dialogs https://github.com/afollestad/material-dialogs
-    compile 'com.afollestad.material-dialogs:core:0.9.4.2'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.3'
     // TabLayout https://github.com/H07000223/FlycoTabLayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     // update https://github.com/czy1121/update
-    compile 'com.github.czy1121:update:1.0.5'
+    compile 'com.github.czy1121:update:1.1.0'
 
     // logger https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:1.15'
@@ -107,8 +108,8 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:2.5.0'
     // debug
     // stetho https://github.com/facebook/stetho
-    compile 'com.facebook.stetho:stetho:1.4.2'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     // photo https://github.com/Bilibili/boxing
     //compile 'com.bilibili:boxing:0.5.0'
     //compile 'com.bilibili:boxing-impl:0.5.0'
