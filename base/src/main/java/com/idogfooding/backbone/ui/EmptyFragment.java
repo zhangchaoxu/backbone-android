@@ -7,11 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.idogfooding.backbone.event.NetworkEvent;
-import com.idogfooding.backbone.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.Subscribe;
 
 /**
  * EmptyFragment
@@ -19,7 +15,7 @@ import org.greenrobot.eventbus.Subscribe;
  *
  * @author Charles Zhang
  */
-public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCallback {
+public class EmptyFragment extends BaseFragment {
 
     String msg;
     TextView tvMsg;
@@ -52,12 +48,6 @@ public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCa
     }
 
     @Override
-    protected void onSetupFragment(View view, Bundle savedInstanceState) {
-        registerDataLoader(true, this);
-        registerEventBus();
-    }
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvMsg.setText(msg);
@@ -65,9 +55,8 @@ public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCa
         Logger.d(msg);
     }
 
-    @Subscribe
-    public void onNetworkEvent(NetworkEvent event) {
-        ToastUtils.show(event.message);
+    @Override
+    protected void onSetupFragment(View view, Bundle savedInstanceState) {
     }
 
     /**
@@ -103,18 +92,4 @@ public class EmptyFragment extends BaseFragment implements DataLoader.ListLoadCa
         Logger.d(msg + "onUserInvisible");
     }
 
-    @Override
-    public void onRefreshStart() {
-        Logger.d("onRefreshStart called");
-    }
-
-    @Override
-    public void notifyDataLoaded() {
-        Logger.d("notifyDataLoaded called");
-    }
-
-    @Override
-    public boolean onLoadStart() {
-        return false;
-    }
 }
