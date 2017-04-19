@@ -5,9 +5,15 @@
 
     <string name="msg_loading">请稍候&#8230;</string>
     <string name="msg_network_unavailable">网络不可用，请稍后再试</string>
+    <string name="msg_data_empty">数据为空</string>
+    <string name="msg_data_error">数据错误</string>
+    <string name="msg_data_format_error">数据格式错误</string>
 
     <string name="phone">手机号</string>
+    <string name="msg_phone_format_error">手机号格式不正确</string>
     <string name="sms">验证码</string>
+    <string name="msg_sms_sending">正在发送验证码</string>
+    <string name="msg_sms_format_error">验证码格式不正确</string>
     <string name="sms_resend">重新发送?</string>
     <string name="sms_send">发送验证码</string>
     <string name="sms_receive_msg">请稍等(%d秒)</string>
@@ -16,6 +22,8 @@
     <string name="confirm">确定</string>
     <string name="login">登录</string>
     <string name="logout">退出登录</string>
-    <string name="msg_logout">您确定退出登录吗？</string>
+    <string name="msg_logout_confirm">您确定退出登录吗？</string>
+    <string name="msg_login_success">您已成功登录</string>
+    <string name="msg_logout_success">您已退出登录</string>
 
 </resources>

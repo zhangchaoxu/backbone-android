@@ -8,6 +8,8 @@ import android.support.multidex.MultiDex;
 
 import com.bumptech.glide.request.target.ViewTarget;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 /**

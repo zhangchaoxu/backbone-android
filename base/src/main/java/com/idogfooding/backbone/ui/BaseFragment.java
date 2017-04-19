@@ -1,5 +1,6 @@
 package com.idogfooding.backbone.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -32,7 +33,6 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     private Unbinder unbinder;
-    private DataLoader mDataLoader;
     private boolean mRegisterEventBus;
 
     private boolean isPrepared;
@@ -85,23 +85,12 @@ public abstract class BaseFragment extends RxFragment {
         super.onViewCreated(view, savedInstanceState);
 
         onSetupFragment(view, savedInstanceState);
-
-        if (getDataLoader() != null) {
-            if (savedInstanceState != null) {
-                getDataLoader().onRestoreState(savedInstanceState);
-            }
-        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initPrepare();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
@@ -115,18 +104,12 @@ public abstract class BaseFragment extends RxFragment {
         if (getUserVisibleHint()) {
             onVisible();
         }
-
         // register eventBus
         if (mRegisterEventBus) {
             EventBus eventBus = EventBus.getDefault();
             if (!eventBus.isRegistered(this)) {
                 eventBus.register(this);
             }
-        }
-
-        // handle data loader
-        if (mDataLoader != null) {
-            mDataLoader.startLoad();
         }
     }
 
@@ -137,7 +120,6 @@ public abstract class BaseFragment extends RxFragment {
         if (getUserVisibleHint()) {
             onInvisible();
         }
-
         if (mRegisterEventBus) {
             EventBus eventBus = EventBus.getDefault();
             if (eventBus.isRegistered(this)) {
@@ -157,20 +139,19 @@ public abstract class BaseFragment extends RxFragment {
         unbinder.unbind();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (mDataLoader != null) {
-            mDataLoader.destroy();
-        }
-    }
-
     public synchronized void initPrepare() {
         if (isPrepared) {
             onFirstVisible();
         } else {
             isPrepared = true;
         }
+    }
+
+    /**
+     * register EventBus on resume/pause by default, must be called before onResume/onPause
+     */
+    protected void registerEventBus() {
+        mRegisterEventBus = true;
     }
 
     /**
@@ -211,31 +192,8 @@ public abstract class BaseFragment extends RxFragment {
         super.onSaveInstanceState(outState);
         outState.putBoolean(Fragments.KEY_RESTORE, isVisible());
         outState.putBoolean(Fragments.KEY_RESTORE_VIEWPAGER, getView() != null && getView().getParent() instanceof ViewPager);
-        if (getDataLoader() != null) {
-            getDataLoader().onSavedState(outState);
-        }
     }
 
-    public DataLoader getDataLoader() {
-        return mDataLoader;
-    }
-
-    /**
-     * register EventBus on resume/pause by default, must be called before onResume/onPause
-     */
-    protected void registerEventBus() {
-        mRegisterEventBus = true;
-    }
-
-    /**
-     * use a data loader to control data load state
-     *
-     * @param useNetwork if is network data loader, it will not request if no network there.
-     */
-    protected DataLoader registerDataLoader(boolean useNetwork, DataLoader.LoadCallback callback) {
-        mDataLoader = DataLoader.init(useNetwork, callback);
-        return mDataLoader;
-    }
 
     private void restoreFragmentState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -273,8 +231,23 @@ public abstract class BaseFragment extends RxFragment {
         return (BaseActivity) getActivity();
     }
 
+    // finish activity with result
     protected void finishActivity() {
         if (null != getActivity()) {
+            getActivity().finish();
+        }
+    }
+
+    protected void finishActivity(int resultCode) {
+        if (null != getActivity()) {
+            getActivity().setResult(resultCode);
+            getActivity().finish();
+        }
+    }
+
+    protected void finishActivity(int resultCode, Intent data) {
+        if (null != getActivity()) {
+            getActivity().setResult(resultCode, data);
             getActivity().finish();
         }
     }

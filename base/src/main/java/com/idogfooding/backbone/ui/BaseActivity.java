@@ -24,6 +24,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -48,6 +50,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         return TAG;
     }
 
+    private boolean mRegisterEventBus;
     private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
     private ArrayMap<String, UIComponent> mUIComponents;
@@ -75,6 +78,47 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected void onStart() {
         super.onStart();
         lifecycleSubject.onNext(ActivityEvent.START);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register eventBus
+        if (mRegisterEventBus) {
+            EventBus eventBus = EventBus.getDefault();
+            if (!eventBus.isRegistered(this)) {
+                eventBus.register(this);
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mRegisterEventBus) {
+            EventBus eventBus = EventBus.getDefault();
+            if (eventBus.isRegistered(this)) {
+                eventBus.unregister(this);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
+        super.onDestroy();
+    }
+
+    /**
+     * register EventBus on resume/pause by default, must be called before onResume/onPause
+     */
+    protected void registerEventBus() {
+        mRegisterEventBus = true;
     }
 
     /**
@@ -304,6 +348,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
     /**
      * replace fragment
+     *
      * @param fragmentId
      * @param fragment
      */
