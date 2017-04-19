@@ -4,6 +4,7 @@
     <item name="glide_tag" type="id">false</item>
     <item name="root_view" type="id">false</item>
     <item name="tab_layout" type="id">false</item>
+    <item name="srl_container" type="id">false</item>
     <item name="pager" type="id">false</item>
     <item name="toolbar" type="id">false</item>
     <item name="toolbar_left" type="id">false</item>
