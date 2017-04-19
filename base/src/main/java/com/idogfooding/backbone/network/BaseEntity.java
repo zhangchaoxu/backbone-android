@@ -11,7 +11,8 @@ import java.io.Serializable;
  */
 public class BaseEntity implements Serializable {
 
-    public String getJson() {
+    public String toJson() {
         return new Gson().toJson(this);
     }
+
 }

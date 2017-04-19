@@ -14,6 +14,13 @@ import java.util.regex.Pattern;
 public class StrKit {
 
     /**
+     * Returns true if the string is not null or 0-length after trim
+     */
+    public static boolean notEmpty(CharSequence source) {
+        return !TextUtils.isEmpty(source) && !TextUtils.isEmpty(source.toString().trim());
+    }
+
+    /**
      * Returns true if the string is null or 0-length after trim
      */
     public static boolean isEmpty(CharSequence source) {
