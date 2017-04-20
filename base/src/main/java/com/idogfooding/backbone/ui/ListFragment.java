@@ -43,7 +43,7 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
         recyclerView.setLayoutManager(layoutManager);
         DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, ViewUtils.dip2px(getContext(), 0.5f), ViewUtils.dip2px(getContext(), 72), 0);
         itemDecoration.setDrawLastItem(false);
-        itemDecoration.setDrawHeaderFooter(true);
+        itemDecoration.setDrawHeaderFooter(false);
         recyclerView.addItemDecoration(itemDecoration);
 
         // init adapter
