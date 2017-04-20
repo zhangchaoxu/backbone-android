@@ -25,6 +25,18 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="Layout.H">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Layout.V.WRAPH">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Layout.H.WRAPH">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="Toolbar">
         <item name="android:id">@id/toolbar</item>
         <item name="android:layout_width">match_parent</item>

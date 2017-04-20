@@ -63,6 +63,11 @@ dependencies {
     compile 'com.zhy:autolayout:1.4.5'
     // circleimageview https://github.com/hdodenhof/CircleImageView
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    // recycler https://github.com/cymcsg/UltimateRecyclerView
+    compile 'com.marshalchen.ultimaterecyclerview:library:0.7.2'
+    compile 'com.jude:easyrecyclerview:4.4.0'
+    // FloatingActionButton https://github.com/Clans/FloatingActionButton
+    compile 'com.github.clans:fab:1.6.4'
 
     // okhttp3 https://github.com/square/okhttp
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
