@@ -3,6 +3,7 @@ package com.idogfooding.backbone.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -41,10 +42,8 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
         // init recyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, ViewUtils.dip2px(getContext(), 0.5f), ViewUtils.dip2px(getContext(), 72), 0);
-        itemDecoration.setDrawLastItem(false);
-        itemDecoration.setDrawHeaderFooter(false);
-        recyclerView.addItemDecoration(itemDecoration);
+
+        recyclerView.addItemDecoration(getItemDecoration());
 
         // init adapter
         createAdapter();
@@ -114,6 +113,13 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
 
     protected void initHeaderAndFooterView() {
 
+    }
+
+    protected RecyclerView.ItemDecoration getItemDecoration() {
+        DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, ViewUtils.dip2px(getContext(), 0.5f), ViewUtils.dip2px(getContext(), 72), 0);
+        itemDecoration.setDrawLastItem(false);
+        itemDecoration.setDrawHeaderFooter(false);
+        return itemDecoration;
     }
 
     protected void loadData(boolean refresh, boolean loadMore) {
