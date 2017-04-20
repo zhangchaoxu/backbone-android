@@ -99,9 +99,11 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
 
     protected abstract void createAdapter();
 
-    protected void onListItemClick(int position, T data) {}
+    protected void onListItemClick(int position, T data) {
+    }
 
-    protected void onListItemLongClick(int position, T data) {}
+    protected void onListItemLongClick(int position, T data) {
+    }
 
     protected boolean isLoadMore() {
         return true;
