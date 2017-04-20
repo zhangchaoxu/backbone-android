@@ -33,7 +33,7 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
     @Override
     protected void onSetupFragment(View view, Bundle savedInstanceState) {
         // find view
-        btnTop = (FloatingActionButton) view.findViewById(R.id.top);
+        btnTop = (FloatingActionButton) view.findViewById(R.id.btn_top);
         recyclerView = (EasyRecyclerView) view.findViewById(R.id.recycler_view);
 
         btnTop.setOnClickListener(v -> recyclerView.scrollToPosition(0));
