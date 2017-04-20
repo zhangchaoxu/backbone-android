@@ -49,13 +49,14 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
 
         btnTop.setOnClickListener(v -> recyclerView.scrollToPosition(0));
 
+        // init adapter
+        createAdapter();
+
         // init recyclerView
         recyclerView.setLayoutManager(getLayoutManager());
 
         recyclerView.addItemDecoration(getItemDecoration());
 
-        // init adapter
-        createAdapter();
         recyclerView.setAdapterWithProgress(adapter);
         adapter.setOnItemClickListener(position -> onListItemClick(position, adapter.getItem(position)));
         adapter.setOnItemLongClickListener(position -> {
