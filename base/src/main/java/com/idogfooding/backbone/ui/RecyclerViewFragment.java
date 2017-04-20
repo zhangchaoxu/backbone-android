@@ -50,8 +50,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         btnTop.setOnClickListener(v -> recyclerView.scrollToPosition(0));
 
         // init recyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(getLayoutManager());
 
         recyclerView.addItemDecoration(getItemDecoration());
 
@@ -133,11 +132,8 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
 
     }
 
-    protected RecyclerView.ItemDecoration getItemDecoration() {
-        DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, ViewUtils.dip2px(getContext(), 0.5f), ViewUtils.dip2px(getContext(), 10), ViewUtils.dip2px(getContext(), 10));
-        itemDecoration.setDrawLastItem(false);
-        itemDecoration.setDrawHeaderFooter(false);
-        return itemDecoration;
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(getContext());
     }
 
     protected void loadData(boolean refresh, boolean loadMore) {
@@ -146,6 +142,13 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
 
     protected void loadDataFromCache() {
 
+    }
+
+    protected RecyclerView.ItemDecoration getItemDecoration() {
+        DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, ViewUtils.dip2px(getContext(), 0.5f), ViewUtils.dip2px(getContext(), 10), ViewUtils.dip2px(getContext(), 10));
+        itemDecoration.setDrawLastItem(false);
+        itemDecoration.setDrawHeaderFooter(false);
+        return itemDecoration;
     }
 
     protected RecyclerView.ItemDecoration getEmptyItemDecoration() {
