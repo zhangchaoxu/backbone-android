@@ -8,10 +8,18 @@ import android.view.View;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.network.BasePagedResult;
+import com.idogfooding.backbone.utils.ToastUtils;
 import com.idogfooding.backbone.utils.ViewUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * ListFragment
@@ -25,6 +33,8 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
     protected A adapter;
 
     protected int pageNumber = 1;
+    protected static int pageSize = 10;
+    protected boolean hasMore = true;
 
     @Override
     protected int getLayoutId() {
@@ -68,7 +78,11 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
             adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
                 @Override
                 public void onMoreShow() {
-                    loadData(false, true);
+                    if (hasMore) {
+                        loadData(false, true);
+                    } else {
+                        adapter.stopMore();
+                    }
                 }
 
                 @Override
@@ -76,7 +90,7 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
 
                 }
             });
-            adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
+            adapter.setNoMore(R.layout.view_no_more, new RecyclerArrayAdapter.OnNoMoreListener() {
                 @Override
                 public void onNoMoreShow() {
                     adapter.resumeMore();
@@ -89,12 +103,14 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
             });
         }
         if (isRefreshable()) {
-            recyclerView.setRefreshListener(() -> loadData(true, false));
+            recyclerView.setRefreshListener(() -> {
+                pageNumber = 1;
+                hasMore = true;
+                loadData(true, false);
+            });
         }
 
         initHeaderAndFooterView();
-
-        loadData(false, false);
     }
 
     protected abstract void createAdapter();
@@ -118,16 +134,89 @@ public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends
     }
 
     protected RecyclerView.ItemDecoration getItemDecoration() {
-        DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, ViewUtils.dip2px(getContext(), 0.5f), ViewUtils.dip2px(getContext(), 72), 0);
+        DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, ViewUtils.dip2px(getContext(), 0.5f), ViewUtils.dip2px(getContext(), 10), ViewUtils.dip2px(getContext(), 10));
         itemDecoration.setDrawLastItem(false);
         itemDecoration.setDrawHeaderFooter(false);
         return itemDecoration;
     }
 
     protected void loadData(boolean refresh, boolean loadMore) {
+
+    }
+
+    protected void loadDataFromCache() {
+
+    }
+
+    protected RecyclerView.ItemDecoration getEmptyItemDecoration() {
+        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, 0, 0, 0);
+        itemDecoration.setDrawLastItem(false);
+        itemDecoration.setDrawHeaderFooter(false);
+        return itemDecoration;
+    }
+
+    // load data
+    protected DisposableObserver getDisposableObserver(boolean refresh, boolean loadMore) {
+        return new DisposableObserver<BasePagedResult<T>>() {
+            @Override
+            public void onNext(BasePagedResult<T> pagedResult) {
+                onLoadNext(pagedResult, refresh, loadMore);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                onLoadError(e);
+            }
+
+            @Override
+            public void onComplete() {
+                onLoadComplete();
+            }
+        };
+    }
+
+    protected void onLoadNext(BasePagedResult<T> pagedResult, boolean refresh, boolean loadMore) {
         if (refresh) {
-            pageNumber = 1;
+            adapter.clear();
         }
+        List<T> list = pagedResult.getList();
+        if (list.size() > 0) {
+            adapter.addAll(list);
+            if (pagedResult.hasNextPage()) {
+                pageNumber++;
+                hasMore = true;
+            } else {
+                adapter.stopMore();
+                hasMore = false;
+            }
+        } else {
+            adapter.stopMore();
+            hasMore = false;
+        }
+
+        // cache
+        onLoadCache();
+    }
+
+    protected void onLoadError(Throwable e) {
+        recyclerView.setRefreshing(false);
+        recyclerView.showError();
+        ToastUtils.show(e.getMessage());
+    }
+
+    protected void onLoadComplete() {
+        recyclerView.setRefreshing(false);
+    }
+
+    protected void onLoadCache() {
+
+    }
+
+    protected Map<String, Object> getPagedQueryMap() {
+        Map<String, Object> fields = new HashMap<>();
+        fields.put("pageNumber", pageNumber);
+        fields.put("pageSize", pageSize);
+        return fields;
     }
 
 }

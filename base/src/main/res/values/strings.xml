@@ -26,4 +26,9 @@
     <string name="msg_login_success">您已成功登录</string>
     <string name="msg_logout_success">您已退出登录</string>
 
+    <string name="msg_list_loading">加载中&#8230;</string>
+    <string name="msg_list_no_more">没有更多了</string>
+    <string name="msg_list_loading_more">更多加载中&#8230;</string>
+
+
 </resources>
