@@ -92,12 +92,6 @@ dependencies {
 
     // permission https://github.com/tbruyelle/RxPermissions
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-    // preferences https://github.com/f2prateek/rx-preferences
-    // preferences https://github.com/grandcentrix/tray
-    compile 'net.grandcentrix.tray:tray:0.11.1'
-    // cache https://github.com/vincentbrison/dualcache
-    compile 'com.vincentbrison.openlibraries.android:dualcache:3.1.1'
-    compile 'com.vincentbrison.openlibraries.android:dualcache-jsonserializer:3.1.1'
 
     // dialogs https://github.com/afollestad/material-dialogs
     compile 'com.afollestad.material-dialogs:core:0.9.4.3'
