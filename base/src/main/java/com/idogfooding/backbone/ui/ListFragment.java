@@ -19,7 +19,7 @@ import com.jude.easyrecyclerview.decoration.DividerDecoration;
  */
 public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends BaseFragment {
 
-    private EasyRecyclerView recyclerView;
+    protected EasyRecyclerView recyclerView;
     protected FloatingActionButton btnTop;
     protected A adapter;
 
