@@ -12,7 +12,6 @@ public class ApiException extends RuntimeException {
     private int code;
     private Object data;
 
-
     public ApiException(int code, String msg) {
         super(TextUtils.isEmpty(msg) ? "unknown error" : msg);
         this.code = code;
