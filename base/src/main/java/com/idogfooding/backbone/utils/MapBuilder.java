@@ -43,9 +43,5 @@ public class MapBuilder<T> {
         }
     }
 
-    public static void main(String[] args) {
-        MapBuilder<String> build = new MapBuilder.Builder<String>().map("a", "b").build();
-        System.out.println(build.get("a"));
-    }
 
 }
