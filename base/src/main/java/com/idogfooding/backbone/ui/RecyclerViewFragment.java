@@ -22,11 +22,11 @@ import java.util.Map;
 import io.reactivex.observers.DisposableObserver;
 
 /**
- * ListFragment
+ * RecyclerViewFragment
  *
  * @author Charles
  */
-public abstract class ListFragment<T, A extends RecyclerArrayAdapter<T>> extends BaseFragment {
+public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>> extends BaseFragment {
 
     protected EasyRecyclerView recyclerView;
     protected FloatingActionButton btnTop;
