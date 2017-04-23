@@ -11,5 +11,6 @@
     <item name="toolbar_right" type="id">false</item>
     <item name="toolbar_title" type="id">false</item>
     <item name="toolbar_subtitle" type="id">false</item>
+    <item name="toolbar_shadow" type="id">false</item>
 
 </resources>

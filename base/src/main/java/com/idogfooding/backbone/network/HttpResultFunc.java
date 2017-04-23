@@ -15,7 +15,7 @@ public class HttpResultFunc<T> implements Function<HttpResult<T>, Optional<T>> {
 
     @Override
     public Optional<T> apply(@NonNull HttpResult<T> httpResult) throws Exception {
-        if (httpResult.isSuccess()) {
+        if (null != httpResult && httpResult.isSuccess()) {
             return Optional.fromNullable(httpResult.getData());
         } else {
             throw new ApiException(httpResult.getCode(), httpResult.getMsg(), httpResult.getData());
