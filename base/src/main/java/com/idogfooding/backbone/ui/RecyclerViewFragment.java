@@ -34,7 +34,6 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
 
     protected int pageNumber = 1;
     protected static int pageSize = 10;
-    protected boolean hasMore = true;
 
     @Override
     protected int getLayoutId() {
@@ -78,11 +77,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
             adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
                 @Override
                 public void onMoreShow() {
-                    if (hasMore) {
-                        loadData(false, true);
-                    } else {
-                        adapter.stopMore();
-                    }
+                    loadData(false, true);
                 }
 
                 @Override
@@ -90,22 +85,11 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
 
                 }
             });
-            adapter.setNoMore(R.layout.view_no_more, new RecyclerArrayAdapter.OnNoMoreListener() {
-                @Override
-                public void onNoMoreShow() {
-                    adapter.resumeMore();
-                }
-
-                @Override
-                public void onNoMoreClick() {
-                    adapter.resumeMore();
-                }
-            });
+            adapter.setNoMore(R.layout.view_no_more);
         }
         if (isRefreshable()) {
             recyclerView.setRefreshListener(() -> {
                 pageNumber = 1;
-                hasMore = true;
                 loadData(true, false);
             });
         }
@@ -188,14 +172,11 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
             adapter.addAll(list);
             if (pagedResult.hasNextPage()) {
                 pageNumber++;
-                hasMore = true;
             } else {
                 adapter.stopMore();
-                hasMore = false;
             }
         } else {
             adapter.stopMore();
-            hasMore = false;
         }
 
         // cache

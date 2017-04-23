@@ -21,6 +21,7 @@
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
     <string name="login">登录</string>
+    <string name="login_request">请先登录</string>
     <string name="logout">退出登录</string>
     <string name="msg_logout_confirm">您确定退出登录吗？</string>
     <string name="msg_login_success">您已成功登录</string>

@@ -1,6 +1,7 @@
 package com.idogfooding.backbone.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -20,6 +21,7 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
+import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.zhy.autolayout.AutoLayoutActivity;
@@ -62,6 +64,10 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         onConfigureActivity();
         mConfigured = true;
+        Intent intent = getIntent();
+        if (intent != null) {
+            onIntentReceived(intent);
+        }
         super.onCreate(savedInstanceState);
 
         setActivityView(getLayoutId());
@@ -72,6 +78,13 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
     protected void onSetupActivity(Bundle savedInstanceState) {
 
+    }
+
+    /**
+     * called when onCreate and fragment has Arguments
+     */
+    protected void onIntentReceived(Intent intent) {
+        Logger.d("onIntentReceived, data = " + intent.toString());
     }
 
     @Override
