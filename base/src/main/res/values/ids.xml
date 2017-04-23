@@ -12,5 +12,6 @@
     <item name="toolbar_title" type="id">false</item>
     <item name="toolbar_subtitle" type="id">false</item>
     <item name="toolbar_shadow" type="id">false</item>
+    <item name="view_progress" type="id">false</item>
 
 </resources>
