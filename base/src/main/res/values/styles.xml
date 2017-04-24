@@ -41,40 +41,7 @@
         <item name="android:id">@id/toolbar</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
-        <item name="android:minHeight">@dimen/toolbar_height</item>
         <item name="android:layout_marginTop">@dimen/status_bar_height</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="Toolbar.IconLeft">
-        <item name="android:id">@id/toolbar_left</item>
-        <item name="android:layout_width">28dp</item>
-        <item name="android:layout_height">28dp</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="Toolbar.Title">
-        <item name="android:id">@id/toolbar_title</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/secondary_text</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="Toolbar.IconRight">
-        <item name="android:id">@id/toolbar_right</item>
-        <item name="android:layout_width">28dp</item>
-        <item name="android:layout_height">28dp</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_marginRight">20dp</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:visibility">gone</item>
     </style>
 
 </resources>

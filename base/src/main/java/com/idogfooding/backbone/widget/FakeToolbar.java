@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.idogfooding.backbone.R;
@@ -19,7 +19,7 @@ import com.idogfooding.backbone.utils.StrKit;
  *
  * @author Charles
  */
-public class FakeToolbar extends RelativeLayout {
+public class FakeToolbar extends LinearLayout {
 
     Context mContext;
 
@@ -50,12 +50,12 @@ public class FakeToolbar extends RelativeLayout {
         super(context, attrs, defStyleAttr);
         mContext = context;
 
-        getAttr(attrs);
+        getAttr(attrs, defStyleAttr);
         init();
     }
 
-    private void getAttr(AttributeSet defStyleAttr) {
-        TypedArray ta = mContext.obtainStyledAttributes(defStyleAttr, R.styleable.FakeToolbar);
+    private void getAttr(AttributeSet attrs,int defStyleAttr) {
+        TypedArray ta = mContext.obtainStyledAttributes(attrs, R.styleable.FakeToolbar, defStyleAttr, 0);
         layoutId = ta.getResourceId(R.styleable.FakeToolbar_fb_layout, R.layout.fake_toolbar);
         title = ta.getString(R.styleable.FakeToolbar_fb_title);
         titleLeft = ta.getString(R.styleable.FakeToolbar_fb_title_left);
@@ -92,8 +92,10 @@ public class FakeToolbar extends RelativeLayout {
             iconRightImageView.setVisibility(View.GONE);
         } else {
             iconRightImageView.setVisibility(View.VISIBLE);
-            iconRightImageView.setImageDrawable(iconLeftDrawable);
+            iconRightImageView.setImageDrawable(iconRightDrawable);
         }
+        // shadow
+        shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
     }
 
     public FakeToolbar setTitle(CharSequence string) {
@@ -101,7 +103,5 @@ public class FakeToolbar extends RelativeLayout {
         titleTextView.setText(string);
         return this;
     }
-
-
 
 }
