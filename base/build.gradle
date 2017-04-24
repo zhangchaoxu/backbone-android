@@ -104,13 +104,15 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     // bugly https://bugly.qq.com/docs/user-guide/instruction-manual-android
     compile 'com.tencent.bugly:crashreport:2.5.0'
+
     // debug
     // stetho https://github.com/facebook/stetho
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    // photo https://github.com/Bilibili/boxing
-    //compile 'com.bilibili:boxing:0.5.0'
-    //compile 'com.bilibili:boxing-impl:0.5.0'
+
+    // image
+    // photo picker https://github.com/donglua/PhotoPicker
+    compile 'me.iwf.photopicker:PhotoPicker:0.9.7@aar'
 
     testCompile 'junit:junit:4.12'
 }
