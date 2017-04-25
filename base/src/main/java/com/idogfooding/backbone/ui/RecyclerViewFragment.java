@@ -180,7 +180,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         }
 
         // cache
-        onLoadCache();
+        onLoadCache(pagedResult.getList());
     }
 
     protected void onLoadError(Throwable e) {
@@ -193,7 +193,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         recyclerView.setRefreshing(false);
     }
 
-    protected void onLoadCache() {
+    protected void onLoadCache(List<T> list) {
 
     }
 
@@ -202,6 +202,10 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         fields.put("pageNumber", pageNumber);
         fields.put("pageSize", pageSize);
         return fields;
+    }
+
+    protected Map<String, Object> getQueryMap() {
+        return new HashMap<>();
     }
 
 }
