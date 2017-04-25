@@ -25,7 +25,7 @@ import com.idogfooding.backbone.widget.ViewPager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.zhy.autolayout.AutoLayoutActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,7 +45,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  *
  * @author Charles
  */
-public abstract class BaseActivity extends AutoLayoutActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected final String TAG = getClass().getSimpleName();
 

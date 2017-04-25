@@ -113,7 +113,8 @@ dependencies {
     // image
     // photo picker https://github.com/donglua/PhotoPicker
     compile 'me.iwf.photopicker:PhotoPicker:0.9.7@aar'
-
+    // photo compress https://github.com/nanchen2251/CompressHelper
+    compile 'com.github.nanchen2251:CompressHelper:1.0.3'
     testCompile 'junit:junit:4.12'
 }
 
