@@ -16,5 +16,6 @@
 
     <item name="btn_submit" type="id">false</item>
     <item name="rv_photos" type="id">false</item>
+    <item name="et_remark" type="id">false</item>
 
 </resources>
