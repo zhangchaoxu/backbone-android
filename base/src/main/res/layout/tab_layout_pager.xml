@@ -16,13 +16,6 @@
         tl:tl_textUnselectColor="@color/primary_text"
         tl:tl_textsize="16sp"/>
 
-    <FrameLayout
-        android:id="@android:id/tabcontent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone"/>
-
     <com.idogfooding.backbone.widget.ViewPager
         android:id="@id/pager"
         android:layout_width="match_parent"

@@ -9,7 +9,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +21,7 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
+import com.idogfooding.backbone.widget.ViewPager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -362,18 +363,31 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     /**
      * replace fragment
      *
-     * @param fragmentId
+     * @param pagerId
      * @param fragment
      */
-    protected void replaceFragment(@IdRes int fragmentId, Fragment fragment) {
+    protected void replaceFragment(@IdRes int pagerId, Fragment fragment) {
+        FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return fragment;
+            }
+
+            @Override
+            public int getCount() {
+                return 1;
+            }
+        };
+        ((ViewPager)findViewById(pagerId)).setAdapter(adapter);
         // replace content with fragment
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        /*FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(fragmentId, fragment);
         fragmentTransaction.commitAllowingStateLoss();
+        fragment.setUserVisibleHint(true);*/
     }
 
     protected void replaceFragment(Fragment fragment) {
-        replaceFragment(android.R.id.content, fragment);
+        replaceFragment(R.id.pager, fragment);
     }
 
     // [+] Loading Dialog

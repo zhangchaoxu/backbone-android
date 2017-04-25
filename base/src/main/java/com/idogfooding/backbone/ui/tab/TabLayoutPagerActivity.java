@@ -59,7 +59,6 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
         });
     }
 
-
     /**
      * is pager scrollable
      *
