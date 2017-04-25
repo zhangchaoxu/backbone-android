@@ -15,5 +15,6 @@
     <item name="view_progress" type="id">false</item>
 
     <item name="btn_submit" type="id">false</item>
+    <item name="rv_photos" type="id">false</item>
 
 </resources>
