@@ -1,10 +1,17 @@
 package com.idogfooding.backbone.utils;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Gson utilities.
@@ -27,9 +34,7 @@ public abstract class GsonUtils {
     /**
      * Create the standard {@link Gson} configuration
      *
-     * @param serializeNulls
-     *            whether nulls should be serialized
-     *
+     * @param serializeNulls whether nulls should be serialized
      * @return created gson, never null
      */
     public static final Gson createGson(final boolean serializeNulls) {
@@ -88,7 +93,14 @@ public abstract class GsonUtils {
      * @return instance of type
      */
     public static final <V> V fromJson(String json, Class<V> type) {
-        return GSON.fromJson(json, type);
+        V v = null;
+        if (!TextUtils.isEmpty(json)) {
+            try {
+                v = GSON.fromJson(json, type);
+            } catch (Exception e) {
+            }
+        }
+        return v;
     }
 
     /**
@@ -123,4 +135,29 @@ public abstract class GsonUtils {
     public static final <V> V fromJson(Reader reader, Type type) {
         return GSON.fromJson(reader, type);
     }
+
+
+    /**
+     * see {http://stackoverflow.com/questions/20773850/gson-typetoken-with-dynamic-arraylist-item-type}
+     *
+     * @param json
+     * @param type
+     * @param <V>
+     * @return
+     */
+    public static final <V> List<V> fromJsonToList(String json, Class<V> type) {
+        List<V> list = new ArrayList<>();
+        if (!TextUtils.isEmpty(json)) {
+            try {
+                JsonArray array = new JsonParser().parse(json).getAsJsonArray();
+                for (final JsonElement elem : array) {
+                    list.add(GSON.fromJson(elem, type));
+                }
+            } catch (Exception e) {
+            }
+        }
+        return list;
+    }
+
+
 }
