@@ -21,6 +21,7 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
+import com.idogfooding.backbone.utils.StrKit;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -86,6 +87,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      */
     protected void onIntentReceived(Intent intent) {
         Logger.d("onIntentReceived, data = " + intent.toString());
+        if (StrKit.notEmpty(intent.getStringExtra("title"))) {
+            setTitle(intent.getStringExtra("title"));
+        }
     }
 
     @Override
