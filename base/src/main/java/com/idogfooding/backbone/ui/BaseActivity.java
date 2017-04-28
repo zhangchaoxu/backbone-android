@@ -21,7 +21,6 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
-import com.idogfooding.backbone.utils.StrKit;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -66,14 +65,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         onConfigureActivity();
         mConfigured = true;
-        Intent intent = getIntent();
-        if (intent != null) {
-            onIntentReceived(intent);
-        }
         super.onCreate(savedInstanceState);
-
         setActivityView(getLayoutId());
         ButterKnife.bind(this);
+        onIntentReceived(getIntent());
 
         onSetupActivity(savedInstanceState);
     }
@@ -86,10 +81,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * called when onCreate and fragment has Arguments
      */
     protected void onIntentReceived(Intent intent) {
+        if (null == intent)
+            return;
+
         Logger.d("onIntentReceived, data = " + intent.toString());
-        if (StrKit.notEmpty(intent.getStringExtra("title"))) {
-            setTitle(intent.getStringExtra("title"));
-        }
     }
 
     @Override
@@ -126,7 +121,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(mLoadingDialog != null && mLoadingDialog.isShowing()) {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
         super.onDestroy();
@@ -382,7 +377,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
                 return 1;
             }
         };
-        ((ViewPager)findViewById(pagerId)).setAdapter(adapter);
+        ((ViewPager) findViewById(pagerId)).setAdapter(adapter);
         // replace content with fragment
         /*FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(fragmentId, fragment);
