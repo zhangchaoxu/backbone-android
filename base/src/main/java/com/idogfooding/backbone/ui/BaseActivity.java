@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.permission.PermissionRequest;
+import com.idogfooding.backbone.statusbar.StatusBarFontHelper;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
 import com.idogfooding.backbone.widget.ViewPager;
@@ -150,12 +151,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void darkStatusBarIcon(boolean bDark) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            View decorView = getWindow().getDecorView();
-            if (decorView != null) {
-                decorView.setSystemUiVisibility(bDark ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : View.SYSTEM_UI_FLAG_VISIBLE);
-            }
-        }
+        StatusBarFontHelper.setStatusBarMode(this, bDark);
     }
 
     /**
