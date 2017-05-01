@@ -100,7 +100,9 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
             });
         }
 
-        initHeaderAndFooterView();
+        if (initHeaderAndFooterView()) {
+            //recyclerView.setEmptyView(R.layout.view_empty);
+        }
     }
 
     protected abstract void createAdapter();
@@ -119,8 +121,8 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         return true;
     }
 
-    protected void initHeaderAndFooterView() {
-
+    protected boolean initHeaderAndFooterView() {
+        return false;
     }
 
     protected RecyclerView.LayoutManager getLayoutManager() {
