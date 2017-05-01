@@ -14,7 +14,6 @@ import com.idogfooding.backbone.utils.ViewUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
-import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -79,9 +78,10 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
             adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
                 @Override
                 public void onMoreShow() {
-                    Logger.e("onMoreShow");
                     if (hasMore) {
                         loadData(false, true);
+                    } else {
+                        adapter.stopMore();
                     }
                 }
 
@@ -175,6 +175,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         }
         List<T> list = pagedResult.getList();
         if (list.size() > 0) {
+            adapter.addAll(list);
             if (pagedResult.hasNextPage()) {
                 pageNumber++;
                 hasMore = true;
@@ -182,7 +183,6 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
                 adapter.stopMore();
                 hasMore = false;
             }
-            adapter.addAll(list);
         } else {
             adapter.stopMore();
             hasMore = false;
