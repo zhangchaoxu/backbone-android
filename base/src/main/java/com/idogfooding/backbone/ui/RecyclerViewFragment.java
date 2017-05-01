@@ -14,6 +14,7 @@ import com.idogfooding.backbone.utils.ViewUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +35,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
 
     protected int pageNumber = 1;
     protected static int pageSize = 10;
+    protected boolean hasMore = false;
 
     @Override
     protected int getLayoutId() {
@@ -77,7 +79,10 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
             adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
                 @Override
                 public void onMoreShow() {
-                    loadData(false, true);
+                    Logger.e("onMoreShow");
+                    if (hasMore) {
+                        loadData(false, true);
+                    }
                 }
 
                 @Override
@@ -90,6 +95,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         if (isRefreshable()) {
             recyclerView.setRefreshListener(() -> {
                 pageNumber = 1;
+                hasMore = true;
                 loadData(true, false);
             });
         }
@@ -169,18 +175,21 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         }
         List<T> list = pagedResult.getList();
         if (list.size() > 0) {
-            adapter.addAll(list);
             if (pagedResult.hasNextPage()) {
                 pageNumber++;
+                hasMore = true;
             } else {
                 adapter.stopMore();
+                hasMore = false;
             }
+            adapter.addAll(list);
         } else {
             adapter.stopMore();
+            hasMore = false;
         }
 
         // cache
-        onLoadCache(pagedResult.getList());
+        onLoadCache(refresh, loadMore, pagedResult.getList());
     }
 
     protected void onLoadError(Throwable e) {
@@ -193,7 +202,7 @@ public abstract class RecyclerViewFragment<T, A extends RecyclerArrayAdapter<T>>
         recyclerView.setRefreshing(false);
     }
 
-    protected void onLoadCache(List<T> list) {
+    protected void onLoadCache(boolean refresh, boolean loadMore, List<T> list) {
 
     }
 
