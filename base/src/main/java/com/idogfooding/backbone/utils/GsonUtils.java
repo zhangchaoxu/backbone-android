@@ -41,6 +41,7 @@ public abstract class GsonUtils {
         final GsonBuilder builder = new GsonBuilder();
         if (serializeNulls)
             builder.serializeNulls();
+            builder.setDateFormat("yyyy-MM-dd HH:mm:ss");
         return builder.create();
     }
 
