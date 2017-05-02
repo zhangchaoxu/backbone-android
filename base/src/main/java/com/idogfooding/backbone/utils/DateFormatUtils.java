@@ -16,7 +16,7 @@ public class DateFormatUtils {
     }
 
     public static CharSequence formatYMDHMS(Date date) {
-        return null == date ? "" : formatDate("yyyy.MM.dd kk:mm:ss", date);
+        return null == date ? "" : formatDate("yyyy.MM.dd HH:mm:ss", date);
     }
 
     public static CharSequence formatYMDHM(long millseconds) {
@@ -24,7 +24,7 @@ public class DateFormatUtils {
     }
 
     public static CharSequence formatYMDHM(Date date) {
-        return null == date ? "" : formatDate("yyyy.MM.dd kk:mm", date);
+        return null == date ? "" : formatDate("yyyy.MM.dd HH:mm", date);
     }
 
     public static CharSequence formatYM(long millseconds) {
