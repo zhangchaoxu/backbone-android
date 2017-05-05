@@ -1,6 +1,6 @@
 package com.idogfooding.backbone.network;
 
-import com.google.gson.Gson;
+import com.idogfooding.backbone.utils.GsonUtils;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class BaseEntity implements Serializable {
 
     public String toJson() {
-        return new Gson().toJson(this);
+        return GsonUtils.toJson(this);
     }
 
 }
