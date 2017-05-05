@@ -39,7 +39,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         inflater = LayoutInflater.from(mContext);
     }
 
-
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = null;
