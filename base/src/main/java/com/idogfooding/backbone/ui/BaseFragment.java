@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.idogfooding.backbone.utils.Fragments;
-import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -213,9 +212,7 @@ public abstract class BaseFragment extends RxFragment {
     /**
      * called when onCreate and fragment has Arguments
      */
-    protected void onBundleReceived(Bundle data) {
-        Logger.d("onBundleReceived, data = " + data.toString());
-    }
+    protected void onBundleReceived(Bundle data) {}
 
     protected int getLayoutId() {
         return 0;
