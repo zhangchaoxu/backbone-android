@@ -3,8 +3,10 @@
 
     <item name="glide_tag" type="id">false</item>
     <item name="root_view" type="id">false</item>
+    <item name="root_item" type="id">false</item>
     <item name="tab_layout" type="id">false</item>
     <item name="srl_container" type="id">false</item>
+    <item name="rv_list" type="id">false</item>
     <item name="pager" type="id">false</item>
     <item name="toolbar" type="id">false</item>
     <item name="toolbar_left" type="id">false</item>
@@ -12,7 +14,7 @@
     <item name="toolbar_title" type="id">false</item>
     <item name="toolbar_subtitle" type="id">false</item>
     <item name="toolbar_shadow" type="id">false</item>
-    <item name="view_progress" type="id">false</item>
+    <item name="view_loading" type="id">false</item>
 
     <item name="btn_submit" type="id">false</item>
     <item name="rv_photos" type="id">false</item>
