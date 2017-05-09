@@ -1,6 +1,5 @@
 package com.idogfooding.backbone.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,6 +67,10 @@ public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, 
     protected void cfgRecyclerView() {
         // cfg RecyclerView
         mRecyclerView.setLayoutManager(getLayoutManager());
+        RecyclerView.ItemDecoration itemDecoration = getItemDecoration();
+        if (itemDecoration != null) {
+            mRecyclerView.addItemDecoration(itemDecoration);
+        }
     }
 
     protected void cfgSwipeRefresh() {
@@ -75,7 +78,7 @@ public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, 
         mSwipeRefreshLayout.setEnabled(isRefreshable());
         if (isRefreshable()) {
             mSwipeRefreshLayout.setOnRefreshListener(this);
-            mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
+            mSwipeRefreshLayout.setColorSchemeResources(R.color.swipe_refresh_start, R.color.swipe_refresh_process, R.color.swipe_refresh_end);
         }
     }
 
@@ -190,6 +193,10 @@ public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, 
         fields.put("pageNumber", pageNumber);
         fields.put("pageSize", pageSize);
         return fields;
+    }
+
+    protected RecyclerView.ItemDecoration getItemDecoration() {
+        return null;
     }
 
 }
