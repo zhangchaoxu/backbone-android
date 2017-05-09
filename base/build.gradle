@@ -62,7 +62,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // recyclerview
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.15'
-    compile 'com.jude:easyrecyclerview:4.4.0'
+    // compile 'com.jude:easyrecyclerview:4.4.0'
     // FloatingActionButton https://github.com/Clans/FloatingActionButton
     compile 'com.github.clans:fab:1.6.4'
 
