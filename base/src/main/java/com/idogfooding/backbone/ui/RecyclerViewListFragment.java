@@ -87,8 +87,10 @@ public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, 
     protected void cfgAdapter() {
         if (isLoadMore()) {
             mAdapter.setOnLoadMoreListener(this, mRecyclerView);
-            mAdapter.openLoadAnimation(getLoadAnimation());
+        } else {
+            mAdapter.bindToRecyclerView(mRecyclerView);
         }
+        mAdapter.openLoadAnimation(getLoadAnimation());
     }
 
     protected RecyclerView.LayoutManager getLayoutManager() {
