@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">backbone</string>
     <string name="settings">设置</string>
-    <string name="dev">尽请期待</string>
+    <string name="more">更多</string>
+    <string name="dev">敬请期待</string>
+    <string name="empty"></string>
 
     <string name="msg_loading">请稍候&#8230;</string>
     <string name="msg_network_unavailable">网络不可用，请检查网络后</string>

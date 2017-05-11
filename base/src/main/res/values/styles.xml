@@ -42,6 +42,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
         <item name="android:layout_marginTop">@dimen/status_bar_height</item>
+        <item name="android:background">@color/primary</item>
     </style>
 
 </resources>
