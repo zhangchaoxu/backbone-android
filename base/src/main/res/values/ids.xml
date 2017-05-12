@@ -8,6 +8,7 @@
     <item name="srl_container" type="id">false</item>
     <item name="rv_list" type="id">false</item>
     <item name="pager" type="id">false</item>
+    <item name="banner" type="id">false</item>
     <item name="toolbar" type="id">false</item>
     <item name="toolbar_left" type="id">false</item>
     <item name="toolbar_right" type="id">false</item>
