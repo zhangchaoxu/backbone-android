@@ -6,11 +6,13 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.statusbar.StatusBarUtils;
 import com.idogfooding.backbone.utils.StrKit;
 
 /**
@@ -30,6 +32,7 @@ public class FakeToolbar extends LinearLayout {
     ImageView iconLeftImageView;
     ImageView iconRightImageView;
     View shadowView;
+    View statusBar;
 
     Drawable iconLeftDrawable;
     Drawable iconRightDrawable;
@@ -52,7 +55,7 @@ public class FakeToolbar extends LinearLayout {
         mContext = context;
 
         getAttr(attrs, defStyleAttr);
-        init();
+        setup();
     }
 
     private void getAttr(AttributeSet attrs, int defStyleAttr) {
@@ -67,36 +70,55 @@ public class FakeToolbar extends LinearLayout {
         ta.recycle();
     }
 
-    private void init() {
+    private void setup() {
         LayoutInflater.from(mContext).inflate(layoutId, this, true);
         titleTextView = (TextView) findViewById(R.id.toolbar_title);
         iconLeftImageView = (ImageView) findViewById(R.id.toolbar_left);
         iconRightImageView = (ImageView) findViewById(R.id.toolbar_right);
         shadowView = findViewById(R.id.toolbar_shadow);
+        statusBar = findViewById(R.id.toolbar_status_bar);
 
         // title
-        if (StrKit.isEmpty(title)) {
-            titleTextView.setVisibility(View.GONE);
-        } else {
-            titleTextView.setVisibility(View.VISIBLE);
-            titleTextView.setText(title);
+        if (titleTextView != null) {
+            if (StrKit.isEmpty(title)) {
+                titleTextView.setVisibility(View.GONE);
+            } else {
+                titleTextView.setVisibility(View.VISIBLE);
+                titleTextView.setText(title);
+            }
         }
+
         // left icon
-        if (null == iconLeftDrawable) {
-            iconLeftImageView.setVisibility(View.GONE);
-        } else {
-            iconLeftImageView.setVisibility(View.VISIBLE);
-            iconLeftImageView.setImageDrawable(iconLeftDrawable);
+        if (iconLeftImageView != null) {
+            if (null == iconLeftDrawable) {
+                iconLeftImageView.setVisibility(View.GONE);
+            } else {
+                iconLeftImageView.setVisibility(View.VISIBLE);
+                iconLeftImageView.setImageDrawable(iconLeftDrawable);
+            }
         }
+
         // right icon
-        if (null == iconRightDrawable) {
-            iconRightImageView.setVisibility(View.GONE);
-        } else {
-            iconRightImageView.setVisibility(View.VISIBLE);
-            iconRightImageView.setImageDrawable(iconRightDrawable);
+        if (null != iconRightImageView) {
+            if (null == iconRightDrawable) {
+                iconRightImageView.setVisibility(View.GONE);
+            } else {
+                iconRightImageView.setVisibility(View.VISIBLE);
+                iconRightImageView.setImageDrawable(iconRightDrawable);
+            }
         }
+
         // shadow
-        shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
+        if (null != shadowView) {
+            shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
+        }
+
+        // status bar
+        if (null != statusBar) {
+            ViewGroup.LayoutParams params = statusBar.getLayoutParams();
+            params.height = StatusBarUtils.getStatusBarHeight(getContext());
+            statusBar.setLayoutParams(params);
+        }
     }
 
     public FakeToolbar setTitle(CharSequence string) {

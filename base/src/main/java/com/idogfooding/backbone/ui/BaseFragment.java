@@ -2,6 +2,7 @@ package com.idogfooding.backbone.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -9,11 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.R2;
+import com.idogfooding.backbone.statusbar.StatusBarUtils;
 import com.idogfooding.backbone.utils.Fragments;
+import com.idogfooding.backbone.widget.FakeToolbar;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -212,7 +218,8 @@ public abstract class BaseFragment extends RxFragment {
     /**
      * called when onCreate and fragment has Arguments
      */
-    protected void onBundleReceived(Bundle data) {}
+    protected void onBundleReceived(Bundle data) {
+    }
 
     protected int getLayoutId() {
         return 0;
