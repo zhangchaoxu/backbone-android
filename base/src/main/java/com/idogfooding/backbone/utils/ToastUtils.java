@@ -36,6 +36,9 @@ public class ToastUtils {
     }
 
     public static void show(String msg, int duration) {
+        if (StrKit.isEmpty(msg))
+            return;
+
         if (toast == null) {
             toast = Toast.makeText(BaseApplication.context(), msg, duration);
             toast.show();

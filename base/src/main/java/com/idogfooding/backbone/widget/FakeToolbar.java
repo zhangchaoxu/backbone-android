@@ -3,6 +3,7 @@ package com.idogfooding.backbone.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class FakeToolbar extends LinearLayout {
     ImageView iconRightImageView;
     View shadowView;
     View statusBar;
+    View toolbar;
 
     Drawable iconLeftDrawable;
     Drawable iconRightDrawable;
@@ -40,6 +42,9 @@ public class FakeToolbar extends LinearLayout {
     CharSequence titleLeft;
     CharSequence titleRight;
     boolean shadow;
+    int shadowColor;
+    int toolbarColor;
+    int statusBarColor;
     int layoutId;
 
     public FakeToolbar(Context context) {
@@ -67,6 +72,10 @@ public class FakeToolbar extends LinearLayout {
         iconLeftDrawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_left);
         iconRightDrawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_right);
         shadow = ta.getBoolean(R.styleable.FakeToolbar_fb_shadow, false);
+        // color
+        shadowColor = ta.getColor(R.styleable.FakeToolbar_fb_shadow_color, getResources().getColor(R.color.divider));
+        toolbarColor = ta.getColor(R.styleable.FakeToolbar_fb_toolbar_color, getResources().getColor(R.color.primary));
+        statusBarColor = ta.getColor(R.styleable.FakeToolbar_fb_status_bar_color, getResources().getColor(R.color.primary_dark));
         ta.recycle();
     }
 
@@ -75,8 +84,14 @@ public class FakeToolbar extends LinearLayout {
         titleTextView = (TextView) findViewById(R.id.toolbar_title);
         iconLeftImageView = (ImageView) findViewById(R.id.toolbar_left);
         iconRightImageView = (ImageView) findViewById(R.id.toolbar_right);
+        toolbar = findViewById(R.id.toolbar);
         shadowView = findViewById(R.id.toolbar_shadow);
         statusBar = findViewById(R.id.toolbar_status_bar);
+
+        // toolbar
+        if (toolbar != null) {
+            toolbar.setBackgroundColor(toolbarColor);
+        }
 
         // title
         if (titleTextView != null) {
@@ -111,6 +126,7 @@ public class FakeToolbar extends LinearLayout {
         // shadow
         if (null != shadowView) {
             shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
+            shadowView.setBackgroundColor(shadowColor);
         }
 
         // status bar
@@ -118,12 +134,15 @@ public class FakeToolbar extends LinearLayout {
             ViewGroup.LayoutParams params = statusBar.getLayoutParams();
             params.height = StatusBarUtils.getStatusBarHeight(getContext());
             statusBar.setLayoutParams(params);
+            statusBar.setBackgroundColor(statusBarColor);
         }
     }
 
     public FakeToolbar setTitle(CharSequence string) {
-        titleTextView.setVisibility(View.VISIBLE);
-        titleTextView.setText(string);
+        if (null != titleTextView && !TextUtils.isEmpty(string)) {
+            titleTextView.setVisibility(View.VISIBLE);
+            titleTextView.setText(string);
+        }
         return this;
     }
 

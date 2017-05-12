@@ -9,6 +9,11 @@ import android.content.Context;
  */
 public class StatusBarUtils {
 
+    /**
+     * get height of status bar
+     *
+     * see {http://www.jianshu.com/p/a44c119d6ef7}
+     */
     public static int getStatusBarHeight(Context context) {
         int statusBarHeight = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");

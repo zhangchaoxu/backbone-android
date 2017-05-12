@@ -9,6 +9,7 @@
     <item name="rv_list" type="id">false</item>
     <item name="pager" type="id">false</item>
     <item name="banner" type="id">false</item>
+    <item name="fake_toolbar" type="id">false</item>
     <item name="toolbar" type="id">false</item>
     <item name="toolbar_status_bar" type="id">false</item>
     <item name="toolbar_left" type="id">false</item>
