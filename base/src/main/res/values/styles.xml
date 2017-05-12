@@ -8,8 +8,8 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:fitsSystemWindows">true</item>
         <item name="android:clipToPadding">true</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="RootView.Full">
@@ -19,17 +19,16 @@
     <style name="Layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-    </style>
-
-    <style name="Layout.V">
         <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:clipToPadding">true</item>
     </style>
 
     <style name="Layout.H">
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="Layout.V.WRAPH">
+    <style name="Layout.WRAPH">
         <item name="android:layout_height">wrap_content</item>
     </style>
 
@@ -41,7 +40,6 @@
         <item name="android:id">@id/toolbar</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
-        <item name="android:layout_marginTop">@dimen/status_bar_height</item>
         <item name="android:background">@color/primary</item>
     </style>
 

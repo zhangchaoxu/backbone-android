@@ -10,6 +10,7 @@
     <item name="pager" type="id">false</item>
     <item name="banner" type="id">false</item>
     <item name="toolbar" type="id">false</item>
+    <item name="toolbar_status_bar" type="id">false</item>
     <item name="toolbar_left" type="id">false</item>
     <item name="toolbar_right" type="id">false</item>
     <item name="toolbar_title" type="id">false</item>

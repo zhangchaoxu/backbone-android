@@ -29,8 +29,8 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:textColor="@color/primary_text"
-            tools:text="sdsdsdsdsd"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:text="sdsdsdsdsd"/>
 
         <ImageView
             android:id="@id/toolbar_right"

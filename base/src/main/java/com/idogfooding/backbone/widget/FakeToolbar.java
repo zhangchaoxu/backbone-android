@@ -15,7 +15,8 @@ import com.idogfooding.backbone.utils.StrKit;
 
 /**
  * FakeToolbar
- * 伪造的仿ios toolbar, 标题居中，有layout构建
+ * Toolbar of Android is so hard to use, especially in fragment
+ * fake ios style toolbar
  *
  * @author Charles
  */
@@ -54,7 +55,7 @@ public class FakeToolbar extends LinearLayout {
         init();
     }
 
-    private void getAttr(AttributeSet attrs,int defStyleAttr) {
+    private void getAttr(AttributeSet attrs, int defStyleAttr) {
         TypedArray ta = mContext.obtainStyledAttributes(attrs, R.styleable.FakeToolbar, defStyleAttr, 0);
         layoutId = ta.getResourceId(R.styleable.FakeToolbar_fb_layout, R.layout.fake_toolbar);
         title = ta.getString(R.styleable.FakeToolbar_fb_title);

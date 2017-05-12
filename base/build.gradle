@@ -69,6 +69,8 @@ dependencies {
     // compile 'com.jude:easyrecyclerview:4.4.0'
     // FloatingActionButton https://github.com/Clans/FloatingActionButton
     compile 'com.github.clans:fab:1.6.4'
+    // statusbar https://github.com/laobie/StatusBarUtil
+    compile 'com.jaeger.statusbarutil:library:1.4.0'
 
     // okhttp3 https://github.com/square/okhttp
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
