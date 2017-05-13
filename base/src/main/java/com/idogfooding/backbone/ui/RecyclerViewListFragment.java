@@ -69,10 +69,11 @@ public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, 
     protected void cfgRecyclerView() {
         // cfg RecyclerView
         mRecyclerView.setLayoutManager(getLayoutManager());
-        RecyclerView.ItemDecoration itemDecoration = getItemDecoration();
-        if (itemDecoration != null) {
-            mRecyclerView.addItemDecoration(itemDecoration);
-        }
+        cfgItemDecoration();
+    }
+
+    protected void cfgItemDecoration() {
+
     }
 
     protected void cfgSwipeRefresh() {
@@ -123,6 +124,7 @@ public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, 
 
     @Override
     public void onRefresh() {
+        pageNumber = 1;
         mAdapter.setEnableLoadMore(false);
         loadData(true, false);
     }
@@ -203,10 +205,6 @@ public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, 
         fields.put("pageNumber", pageNumber);
         fields.put("pageSize", pageSize);
         return fields;
-    }
-
-    protected RecyclerView.ItemDecoration getItemDecoration() {
-        return null;
     }
 
 }
