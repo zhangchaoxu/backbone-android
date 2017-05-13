@@ -1,4 +1,4 @@
-package com.idogfooding.backbone.ui;
+package com.idogfooding.backbone.ui.recyclerview;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.network.BasePagedResult;
+import com.idogfooding.backbone.ui.BaseFragment;
 import com.idogfooding.backbone.utils.ToastUtils;
 
 import java.util.HashMap;
@@ -21,11 +22,11 @@ import java.util.Map;
 import io.reactivex.observers.DisposableObserver;
 
 /**
- * RecyclerViewListFragment
+ * RecyclerViewFragment
  *
  * @author Charles
  */
-public abstract class RecyclerViewListFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>>
+public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>>
         extends BaseFragment
         implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
