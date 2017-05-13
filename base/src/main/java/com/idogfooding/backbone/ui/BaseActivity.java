@@ -22,6 +22,7 @@ import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.statusbar.StatusBarFontHelper;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
+import com.idogfooding.backbone.widget.FakeToolbar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -62,6 +63,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     private boolean mConfigured;
     private int mRootLayoutId;
 
+    protected FakeToolbar fakeToolbar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         onConfigureActivity();
@@ -75,7 +78,15 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void onSetupActivity(Bundle savedInstanceState) {
+        fakeToolbar = ButterKnife.findById(this, R.id.fake_toolbar);
+    }
 
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        if (fakeToolbar != null) {
+            fakeToolbar.setTitle(title);
+        }
     }
 
     /**
@@ -320,7 +331,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             }
         }
     }
-
 
     /**
      * Denied permission without ask never again

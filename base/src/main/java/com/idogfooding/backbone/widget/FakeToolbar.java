@@ -44,6 +44,7 @@ public class FakeToolbar extends LinearLayout {
     boolean shadow;
     int shadowColor;
     int toolbarColor;
+    int titleColor;
     int statusBarColor;
     int layoutId;
 
@@ -76,6 +77,7 @@ public class FakeToolbar extends LinearLayout {
         shadowColor = ta.getColor(R.styleable.FakeToolbar_fb_shadow_color, getResources().getColor(R.color.divider));
         toolbarColor = ta.getColor(R.styleable.FakeToolbar_fb_toolbar_color, getResources().getColor(R.color.primary));
         statusBarColor = ta.getColor(R.styleable.FakeToolbar_fb_status_bar_color, getResources().getColor(R.color.primary_dark));
+        titleColor = ta.getColor(R.styleable.FakeToolbar_fb_title_color, getResources().getColor(R.color.text));
         ta.recycle();
     }
 
@@ -100,6 +102,7 @@ public class FakeToolbar extends LinearLayout {
             } else {
                 titleTextView.setVisibility(View.VISIBLE);
                 titleTextView.setText(title);
+                titleTextView.setTextColor(titleColor);
             }
         }
 
