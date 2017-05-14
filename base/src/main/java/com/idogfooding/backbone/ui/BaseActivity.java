@@ -18,6 +18,7 @@ import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.R2;
 import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.statusbar.StatusBarFontHelper;
 import com.idogfooding.backbone.ui.component.UIComponent;
@@ -38,6 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Optional;
 import io.reactivex.subjects.BehaviorSubject;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -87,6 +90,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         if (fakeToolbar != null) {
             fakeToolbar.setTitle(title);
         }
+    }
+
+    @Optional
+    @OnClick(R2.id.toolbar_left)
+    void onToolbarLeftClick() {
+        onBackPressed();
     }
 
     /**
