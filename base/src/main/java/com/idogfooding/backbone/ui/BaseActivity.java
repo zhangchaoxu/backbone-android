@@ -104,8 +104,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onIntentReceived(Intent intent) {
         if (null == intent)
             return;
-
-        Logger.d("onIntentReceived, data = " + intent.toString());
     }
 
     @Override
