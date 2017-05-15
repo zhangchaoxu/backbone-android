@@ -6,7 +6,7 @@ import java.io.Serializable;
  * HttpResult
  * generic T may be List<Object> Object or Empty
  *
- * @author Charles Zhang
+ * @author Charles
  */
 public class HttpResult<T> implements Serializable {
 
