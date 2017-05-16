@@ -23,6 +23,8 @@
 
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
     <string name="login">登录</string>
     <string name="login_request">请先登录</string>
     <string name="logout">退出登录</string>
