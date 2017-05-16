@@ -94,8 +94,14 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Optional
     @OnClick(R2.id.toolbar_left)
-    void onToolbarLeftClick() {
+    protected void onToolbarLeftClick() {
         onBackPressed();
+    }
+
+    @Optional
+    @OnClick(R2.id.toolbar_right)
+    protected void onToolbarRightClick() {
+
     }
 
     /**
