@@ -11,6 +11,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.network.ApiException;
 import com.idogfooding.backbone.network.BasePagedResult;
 import com.idogfooding.backbone.ui.BaseFragment;
 import com.idogfooding.backbone.utils.ToastUtils;
@@ -186,6 +187,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
 
     /**
      * on list load error
+     *
      * @param e
      */
     protected void onLoadError(Throwable e) {
@@ -195,7 +197,16 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
             mAdapter.setEmptyView(R.layout.view_error);
         }
         mAdapter.loadMoreFail();
-        ToastUtils.show(e.getMessage());
+        if (e instanceof ApiException) {
+            onLoadApiException((ApiException) e);
+        } else {
+            ToastUtils.show(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    protected void onLoadApiException(ApiException e) {
+        ToastUtils.show(e.getCode() + ":" + e.getMessage());
     }
 
     protected void onLoadFinish() {
