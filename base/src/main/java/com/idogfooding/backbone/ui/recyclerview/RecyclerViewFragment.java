@@ -14,6 +14,7 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.network.BasePagedResult;
 import com.idogfooding.backbone.ui.BaseFragment;
 import com.idogfooding.backbone.utils.ToastUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -183,9 +184,13 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         onLoadCache(refresh, loadMore, pagedResult.getList());
     }
 
+    /**
+     * on list load error
+     * @param e
+     */
     protected void onLoadError(Throwable e) {
         mSwipeRefreshLayout.setRefreshing(false);
-        // recyclerView.showError();
+        Logger.e("size=" + mAdapter.getData().size());
         if (mAdapter.getData().isEmpty()) {
             mAdapter.setEmptyView(R.layout.view_error);
         }
