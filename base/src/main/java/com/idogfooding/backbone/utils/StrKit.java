@@ -3,6 +3,7 @@ package com.idogfooding.backbone.utils;
 
 import android.text.TextUtils;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,6 +60,10 @@ public class StrKit {
         }
     }
 
+    public static String getUUID() {
+        String uuid = UUID.randomUUID().toString();
+        return uuid.substring(0, 8) + uuid.substring(9, 13) + uuid.substring(14, 18) + uuid.substring(19, 23) + uuid.substring(24);
+    }
 
 
 }
