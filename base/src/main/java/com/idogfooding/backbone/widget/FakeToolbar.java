@@ -149,4 +149,18 @@ public class FakeToolbar extends LinearLayout {
         return this;
     }
 
+    public FakeToolbar setOnLeftClickListener(OnClickListener listener) {
+        if (null != iconLeftImageView) {
+            iconRightImageView.setOnClickListener(listener);
+        }
+        return this;
+    }
+
+    public FakeToolbar setOnRightClickListener(OnClickListener listener) {
+        if (null != iconRightImageView) {
+            iconRightImageView.setOnClickListener(listener);
+        }
+        return this;
+    }
+
 }

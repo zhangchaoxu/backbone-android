@@ -18,14 +18,12 @@ import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
-import com.idogfooding.backbone.R2;
 import com.idogfooding.backbone.permission.PermissionRequest;
 import com.idogfooding.backbone.statusbar.StatusBarFontHelper;
 import com.idogfooding.backbone.ui.component.UIComponent;
 import com.idogfooding.backbone.utils.SettingsUtils;
 import com.idogfooding.backbone.widget.FakeToolbar;
 import com.idogfooding.backbone.widget.ViewPager;
-import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -39,8 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
 import io.reactivex.subjects.BehaviorSubject;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -82,6 +78,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected void onSetupActivity(Bundle savedInstanceState) {
         fakeToolbar = ButterKnife.findById(this, R.id.fake_toolbar);
+        if (null != fakeToolbar) {
+            fakeToolbar.setOnLeftClickListener(v -> onToolbarLeftClick());
+            fakeToolbar.setOnRightClickListener(v -> onToolbarRightClick());
+        }
     }
 
     @Override
@@ -92,17 +92,11 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
     }
 
-    @Optional
-    @OnClick(R2.id.toolbar_left)
     protected void onToolbarLeftClick() {
         onBackPressed();
     }
 
-    @Optional
-    @OnClick(R2.id.toolbar_right)
-    protected void onToolbarRightClick() {
-
-    }
+    protected void onToolbarRightClick() {}
 
     /**
      * called when onCreate and fragment has Arguments
