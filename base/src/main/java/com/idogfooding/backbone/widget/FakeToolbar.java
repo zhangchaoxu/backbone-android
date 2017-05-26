@@ -151,7 +151,7 @@ public class FakeToolbar extends LinearLayout {
 
     public FakeToolbar setOnLeftClickListener(OnClickListener listener) {
         if (null != iconLeftImageView) {
-            iconRightImageView.setOnClickListener(listener);
+            iconLeftImageView.setOnClickListener(listener);
         }
         return this;
     }
