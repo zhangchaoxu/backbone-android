@@ -160,12 +160,14 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
 
     protected void onLoadNext(BasePagedResult<T> pagedResult, boolean refresh, boolean loadMore) {
         List<T> list = pagedResult.getList();
+
+        if (refresh) {
+            mAdapter.setNewData(list);
+        } else {
+            mAdapter.addData(list);
+        }
+
         if (list.size() > 0) {
-            if (refresh) {
-                mAdapter.setNewData(list);
-            } else {
-                mAdapter.addData(list);
-            }
             if (pagedResult.hasNextPage()) {
                 pageNumber++;
                 mAdapter.loadMoreComplete();
