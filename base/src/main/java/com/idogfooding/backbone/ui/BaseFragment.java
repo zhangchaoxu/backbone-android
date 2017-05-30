@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.utils.Fragments;
+import com.idogfooding.backbone.widget.FakeToolbar;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +40,8 @@ public abstract class BaseFragment extends RxFragment {
     private boolean isFirstResume = true;
     private boolean isFirstInvisible = true;
     private boolean isFirstVisible = true;
+
+    protected FakeToolbar fakeToolbar;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -83,7 +87,12 @@ public abstract class BaseFragment extends RxFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initFakeToolbar(view);
         onSetupFragment(view, savedInstanceState);
+    }
+
+    protected void initFakeToolbar(View view) {
+        fakeToolbar = ButterKnife.findById(view, R.id.fake_toolbar);
     }
 
     @Override
