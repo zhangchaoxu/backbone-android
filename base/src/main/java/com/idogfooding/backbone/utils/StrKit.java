@@ -4,7 +4,6 @@ package com.idogfooding.backbone.utils;
 import android.text.TextUtils;
 
 import java.util.UUID;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -40,13 +39,17 @@ public class StrKit {
      */
     public static boolean isChinaMobilePhoneNumber(CharSequence source) {
         String regExp = "^(1[3-8])\\d{9}$";
-        Pattern p = Pattern.compile(regExp);
-        Matcher m = p.matcher(source);
-        return m.matches();
+        return Pattern.compile(regExp).matcher(source).matches();
+    }
+
+    public static boolean isUrl(CharSequence source) {
+        String regExp = "^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$";
+        return Pattern.compile(regExp).matcher(source).matches();
     }
 
     /**
      * match length
+     *
      * @param source
      * @param minLength
      * @param maxLength
