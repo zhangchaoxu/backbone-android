@@ -69,19 +69,26 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         onConfigureActivity();
         mConfigured = true;
         super.onCreate(savedInstanceState);
+
         setActivityView(getLayoutId());
+
         ButterKnife.bind(this);
         onIntentReceived(getIntent());
 
+        initFakeToolbar();
         onSetupActivity(savedInstanceState);
     }
 
-    protected void onSetupActivity(Bundle savedInstanceState) {
+    protected void initFakeToolbar() {
         fakeToolbar = ButterKnife.findById(this, R.id.fake_toolbar);
         if (null != fakeToolbar) {
             fakeToolbar.setOnLeftClickListener(v -> onToolbarLeftClick());
             fakeToolbar.setOnRightClickListener(v -> onToolbarRightClick());
         }
+    }
+
+    protected void onSetupActivity(Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -261,7 +268,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
     }
 
-    protected abstract int getLayoutId();
+    protected int getLayoutId() {
+        return R.layout.common_pager;
+    }
 
     //##########  Protected helper methods ##########
 

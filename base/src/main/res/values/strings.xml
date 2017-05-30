@@ -3,6 +3,7 @@
     <string name="settings">设置</string>
     <string name="more">更多</string>
     <string name="dev">敬请期待</string>
+    <string name="scanner">扫一扫</string>
     <string name="empty"></string>
 
     <string name="msg_loading">请稍候&#8230;</string>

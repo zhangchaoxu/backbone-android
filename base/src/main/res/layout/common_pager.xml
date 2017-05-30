@@ -6,8 +6,7 @@
     <!-- toolbar -->
     <com.idogfooding.backbone.widget.FakeToolbar
         style="@style/Toolbar"
-        app:fb_icon_left="@mipmap/ic_back"
-        app:fb_shadow="true"/>
+        app:fb_icon_left="@mipmap/ic_back"/>
 
     <com.idogfooding.backbone.widget.ViewPager
         android:id="@id/pager"
