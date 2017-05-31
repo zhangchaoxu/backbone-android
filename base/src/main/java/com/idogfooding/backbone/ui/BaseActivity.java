@@ -91,6 +91,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     }
 
+
+    @Override
+    public void setTitle(int titleId) {
+        setTitle(getText(titleId));
+    }
+
     @Override
     public void setTitle(CharSequence title) {
         super.setTitle(title);

@@ -9,7 +9,7 @@
         app:fb_icon_left="@mipmap/ic_back"/>
 
     <FrameLayout
-        android:id="@android:id/content"
+        android:id="@id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/window_background"/>
