@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -455,6 +458,11 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Target(ElementType.METHOD)
     @Retention(SOURCE)
     public @interface BeforeConfigActivity {
+    }
+
+    @ColorInt
+    protected int color(@ColorRes int res) {
+        return ContextCompat.getColor(this, res);
     }
 
 }

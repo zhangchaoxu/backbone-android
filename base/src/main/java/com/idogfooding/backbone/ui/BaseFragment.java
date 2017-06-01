@@ -2,8 +2,11 @@ package com.idogfooding.backbone.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -259,4 +262,8 @@ public abstract class BaseFragment extends RxFragment {
         }
     }
 
+    @ColorInt
+    protected int color(@ColorRes int res) {
+        return ContextCompat.getColor(getContext(), res);
+    }
 }
