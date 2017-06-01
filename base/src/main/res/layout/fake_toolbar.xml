@@ -37,12 +37,22 @@
             tools:text="sdsdsdsdsd"/>
 
         <ImageView
+            android:id="@+id/toolbar_right2"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/toolbar_right"
+            android:visibility="gone"
+            tools:background="@mipmap/ic_more"/>
+
+        <ImageView
             android:id="@id/toolbar_right"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            tools:background="@mipmap/ic_more"/>
     </RelativeLayout>
 
     <View

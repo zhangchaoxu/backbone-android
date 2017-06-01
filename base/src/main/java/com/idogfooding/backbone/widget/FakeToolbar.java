@@ -3,6 +3,7 @@ package com.idogfooding.backbone.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -32,12 +33,14 @@ public class FakeToolbar extends LinearLayout {
     TextView titleTextView;
     ImageView iconLeftImageView;
     ImageView iconRightImageView;
+    ImageView iconRight2ImageView;
     View shadowView;
     View statusBar;
     View toolbar;
 
     Drawable iconLeftDrawable;
     Drawable iconRightDrawable;
+    Drawable iconRight2Drawable;
     CharSequence title;
     CharSequence titleLeft;
     CharSequence titleRight;
@@ -72,6 +75,7 @@ public class FakeToolbar extends LinearLayout {
         titleRight = ta.getString(R.styleable.FakeToolbar_fb_title_right);
         iconLeftDrawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_left);
         iconRightDrawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_right);
+        iconRight2Drawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_right2);
         shadow = ta.getBoolean(R.styleable.FakeToolbar_fb_shadow, false);
         // color
         shadowColor = ta.getColor(R.styleable.FakeToolbar_fb_shadow_color, getResources().getColor(R.color.divider));
@@ -86,6 +90,7 @@ public class FakeToolbar extends LinearLayout {
         titleTextView = (TextView) findViewById(R.id.toolbar_title);
         iconLeftImageView = (ImageView) findViewById(R.id.toolbar_left);
         iconRightImageView = (ImageView) findViewById(R.id.toolbar_right);
+        iconRight2ImageView = (ImageView) findViewById(R.id.toolbar_right2);
         toolbar = findViewById(R.id.toolbar);
         shadowView = findViewById(R.id.toolbar_shadow);
         statusBar = findViewById(R.id.toolbar_status_bar);
@@ -126,6 +131,15 @@ public class FakeToolbar extends LinearLayout {
             }
         }
 
+        if (null != iconRight2ImageView) {
+            if (null == iconRight2Drawable) {
+                iconRight2ImageView.setVisibility(View.GONE);
+            } else {
+                iconRight2ImageView.setVisibility(View.VISIBLE);
+                iconRight2ImageView.setImageDrawable(iconRight2Drawable);
+            }
+        }
+
         // shadow
         if (null != shadowView) {
             shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
@@ -150,15 +164,30 @@ public class FakeToolbar extends LinearLayout {
     }
 
     public FakeToolbar setOnLeftClickListener(OnClickListener listener) {
-        if (null != iconLeftImageView) {
+        if (null != iconLeftImageView && iconLeftImageView.getVisibility() == VISIBLE) {
             iconLeftImageView.setOnClickListener(listener);
         }
         return this;
     }
 
     public FakeToolbar setOnRightClickListener(OnClickListener listener) {
-        if (null != iconRightImageView) {
+        if (null != iconRightImageView && iconRightImageView.getVisibility() == VISIBLE) {
             iconRightImageView.setOnClickListener(listener);
+        }
+        return this;
+    }
+
+    public FakeToolbar setOnRight2ClickListener(OnClickListener listener) {
+        if (null != iconRight2ImageView && iconRight2ImageView.getVisibility() == VISIBLE) {
+            iconRight2ImageView.setOnClickListener(listener);
+        }
+        return this;
+    }
+
+    public FakeToolbar setVisible(@IdRes int id, int visibility) {
+        View view = findViewById(id);
+        if (view != null) {
+            view.setVisibility(visibility);
         }
         return this;
     }
