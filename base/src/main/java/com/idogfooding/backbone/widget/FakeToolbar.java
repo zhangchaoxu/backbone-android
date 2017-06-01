@@ -97,12 +97,12 @@ public class FakeToolbar extends LinearLayout {
 
         // title
         if (titleTextView != null) {
+            titleTextView.setTextColor(titleColor);
             if (StrKit.isEmpty(title)) {
                 titleTextView.setVisibility(View.GONE);
             } else {
                 titleTextView.setVisibility(View.VISIBLE);
                 titleTextView.setText(title);
-                titleTextView.setTextColor(titleColor);
             }
         }
 
