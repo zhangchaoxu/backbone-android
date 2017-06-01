@@ -13,6 +13,7 @@
     <string name="msg_data_error">数据错误</string>
     <string name="msg_data_format_error">数据格式错误</string>
     <string name="msg_param_error">参数错误</string>
+    <string name="copy_to_clipboard_success">已经复制到粘贴板</string>
 
     <string name="phone">手机号</string>
     <string name="msg_phone_format_error">手机号格式不正确</string>
