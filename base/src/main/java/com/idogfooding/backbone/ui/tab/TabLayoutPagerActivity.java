@@ -59,6 +59,13 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
         });
     }
 
+    public void setCurrentTab(int currentTab) {
+        if (tabLayout != null && currentTab > -1 && currentTab < adapter.getCount()) {
+            tabLayout.setCurrentTab(currentTab);
+            updateCurrentItem(currentTab);
+        }
+    }
+
     /**
      * is pager scrollable
      *
@@ -79,7 +86,7 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
 
     protected abstract TabFragmentPagerAdapter createAdapter();
 
-    protected void updateCurrentItem(final int newPosition) {
+    public void updateCurrentItem(final int newPosition) {
         if (newPosition > -1 && newPosition < adapter.getCount()) {
             pager.setItem(newPosition);
             setCurrentItem(newPosition);
