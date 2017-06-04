@@ -27,16 +27,13 @@
 
         <TextView
             android:id="@id/toolbar_title"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/toolbar_right"
-            android:layout_toRightOf="@id/toolbar_left"
             android:ellipsize="end"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:maxLines="1"
-            android:maxLength="15"
             android:textColor="@color/text"
             android:textSize="16sp"
             tools:text="sdsdsdsdssddddddsssssssssssssssssssdddd"/>
@@ -57,6 +54,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
+            tools:visibility="gone"
             tools:background="@mipmap/ic_more"/>
     </RelativeLayout>
 
