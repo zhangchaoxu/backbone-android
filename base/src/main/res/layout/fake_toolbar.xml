@@ -31,10 +31,15 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/toolbar_right"
+            android:layout_toRightOf="@id/toolbar_left"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
+            android:maxLength="15"
             android:textColor="@color/text"
             android:textSize="16sp"
-            tools:text="sdsdsdsdsd"/>
+            tools:text="sdsdsdsdssddddddsssssssssssssssssssdddd"/>
 
         <ImageView
             android:id="@+id/toolbar_right2"
