@@ -23,28 +23,26 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginRight="20dp"
             tools:background="@mipmap/ic_back"/>
 
         <TextView
             android:id="@id/toolbar_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="center_horizontal"
             android:maxLines="1"
             android:textColor="@color/text"
-            android:textSize="16sp"
-            tools:text="sdsdsdsdssddddddsssssssssssssssssssdddd"/>
+            android:textSize="@dimen/text_size_medium"
+            tools:text="sd"/>
 
         <ImageView
             android:id="@id/toolbar_right"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             tools:background="@mipmap/ic_more"
             tools:visibility="gone"/>

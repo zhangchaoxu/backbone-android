@@ -112,7 +112,7 @@ public class FakeToolbar extends LinearLayout {
         // left icon
         if (iconLeftImageView != null) {
             if (null == iconLeftDrawable) {
-                iconLeftImageView.setVisibility(View.GONE);
+                iconLeftImageView.setVisibility(View.INVISIBLE);
             } else {
                 iconLeftImageView.setVisibility(View.VISIBLE);
                 iconLeftImageView.setImageDrawable(iconLeftDrawable);
@@ -122,7 +122,7 @@ public class FakeToolbar extends LinearLayout {
         // right icon
         if (null != iconRightImageView) {
             if (null == iconRightDrawable) {
-                iconRightImageView.setVisibility(View.GONE);
+                iconRightImageView.setVisibility(View.INVISIBLE);
             } else {
                 iconRightImageView.setVisibility(View.VISIBLE);
                 iconRightImageView.setImageDrawable(iconRightDrawable);
