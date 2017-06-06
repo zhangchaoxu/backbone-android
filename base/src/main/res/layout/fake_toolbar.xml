@@ -9,28 +9,30 @@
 
     <include layout="@layout/view_status_bar"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:background="@color/primary"
-        android:minHeight="@dimen/toolbar_height">
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/toolbar_height"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@id/toolbar_left"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             tools:background="@mipmap/ic_back"/>
 
         <TextView
             android:id="@id/toolbar_title"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="center_horizontal"
             android:maxLines="1"
@@ -39,24 +41,14 @@
             tools:text="sdsdsdsdssddddddsssssssssssssssssssdddd"/>
 
         <ImageView
-            android:id="@+id/toolbar_right2"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/toolbar_right"
-            android:visibility="gone"
-            tools:background="@mipmap/ic_more"/>
-
-        <ImageView
             android:id="@id/toolbar_right"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            tools:visibility="gone"
-            tools:background="@mipmap/ic_more"/>
-    </RelativeLayout>
+            tools:background="@mipmap/ic_more"
+            tools:visibility="gone"/>
+    </LinearLayout>
 
     <View
         android:id="@id/toolbar_shadow"

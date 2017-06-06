@@ -33,7 +33,6 @@ public class FakeToolbar extends LinearLayout {
     TextView titleTextView;
     ImageView iconLeftImageView;
     ImageView iconRightImageView;
-    ImageView iconRight2ImageView;
     View shadowView;
     View statusBar;
     View toolbar;
@@ -90,7 +89,6 @@ public class FakeToolbar extends LinearLayout {
         titleTextView = (TextView) findViewById(R.id.toolbar_title);
         iconLeftImageView = (ImageView) findViewById(R.id.toolbar_left);
         iconRightImageView = (ImageView) findViewById(R.id.toolbar_right);
-        iconRight2ImageView = (ImageView) findViewById(R.id.toolbar_right2);
         toolbar = findViewById(R.id.toolbar);
         shadowView = findViewById(R.id.toolbar_shadow);
         statusBar = findViewById(R.id.toolbar_status_bar);
@@ -131,15 +129,6 @@ public class FakeToolbar extends LinearLayout {
             }
         }
 
-        if (null != iconRight2ImageView) {
-            if (null == iconRight2Drawable) {
-                iconRight2ImageView.setVisibility(View.GONE);
-            } else {
-                iconRight2ImageView.setVisibility(View.VISIBLE);
-                iconRight2ImageView.setImageDrawable(iconRight2Drawable);
-            }
-        }
-
         // shadow
         if (null != shadowView) {
             shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
@@ -177,17 +166,18 @@ public class FakeToolbar extends LinearLayout {
         return this;
     }
 
-    public FakeToolbar setOnRight2ClickListener(OnClickListener listener) {
-        if (null != iconRight2ImageView && iconRight2ImageView.getVisibility() == VISIBLE) {
-            iconRight2ImageView.setOnClickListener(listener);
-        }
-        return this;
-    }
-
     public FakeToolbar setVisible(@IdRes int id, int visibility) {
         View view = findViewById(id);
         if (view != null) {
             view.setVisibility(visibility);
+        }
+        return this;
+    }
+
+    public FakeToolbar setOnViewClickListener(@IdRes int id, OnClickListener listener) {
+        View view = findViewById(id);
+        if (view != null) {
+            view.setOnClickListener(listener);
         }
         return this;
     }
