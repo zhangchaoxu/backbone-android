@@ -87,6 +87,7 @@ public class FakeToolbar extends LinearLayout {
     private void setup() {
         LayoutInflater.from(mContext).inflate(layoutId, this, true);
         titleTextView = (TextView) findViewById(R.id.toolbar_title);
+        titleRightTextView = (TextView) findViewById(R.id.toolbar_title_right);
         iconLeftImageView = (ImageView) findViewById(R.id.toolbar_left);
         iconRightImageView = (ImageView) findViewById(R.id.toolbar_right);
         toolbar = findViewById(R.id.toolbar);
@@ -129,6 +130,16 @@ public class FakeToolbar extends LinearLayout {
             }
         }
 
+        // right title
+        if (null != titleRightTextView) {
+            if (StrKit.isEmpty(titleRight)) {
+                titleRightTextView.setVisibility(View.GONE);
+            } else {
+                titleRightTextView.setVisibility(View.VISIBLE);
+                titleRightTextView.setText(titleRight);
+            }
+        }
+
         // shadow
         if (null != shadowView) {
             shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
@@ -162,6 +173,9 @@ public class FakeToolbar extends LinearLayout {
     public FakeToolbar setOnRightClickListener(OnClickListener listener) {
         if (null != iconRightImageView && iconRightImageView.getVisibility() == VISIBLE) {
             iconRightImageView.setOnClickListener(listener);
+        }
+        if (null != titleRightTextView && titleRightTextView.getVisibility() == VISIBLE) {
+            titleRightTextView.setOnClickListener(listener);
         }
         return this;
     }

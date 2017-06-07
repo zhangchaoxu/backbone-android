@@ -45,6 +45,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             tools:background="@mipmap/ic_more"
+            tools:visibility="invisible"/>
+
+        <TextView
+            android:id="@id/toolbar_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:textColor="@color/text"
+            android:textSize="@dimen/text_size_micro"
+            tools:text="ssdsdd"
             tools:visibility="gone"/>
     </LinearLayout>
 

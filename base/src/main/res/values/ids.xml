@@ -16,6 +16,8 @@
     <item name="toolbar_left" type="id">false</item>
     <item name="toolbar_right" type="id">false</item>
     <item name="toolbar_title" type="id">false</item>
+    <item name="toolbar_title_right" type="id">false</item>
+    <item name="toolbar_title_left" type="id">false</item>
     <item name="toolbar_subtitle" type="id">false</item>
     <item name="toolbar_shadow" type="id">false</item>
     <item name="view_loading" type="id">false</item>
