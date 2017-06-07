@@ -23,14 +23,14 @@ public class BrowserUtils {
     public static boolean isVideoUrl(String uri) {
         return StrKit.notEmpty(uri) && (uri.toLowerCase().endsWith(".mp4")
                 || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi")
-                || uri.toLowerCase().startsWith(".avi"));
+                || uri.toLowerCase().startsWith(".rmvb"));
+    }
+
+    public static boolean isImgUrl(String uri) {
+        return StrKit.notEmpty(uri) && (uri.toLowerCase().endsWith(".jpg")
+                || uri.toLowerCase().startsWith(".png")
+                || uri.toLowerCase().startsWith(".jpeg")
+                || uri.toLowerCase().startsWith(".gif")
+                || uri.toLowerCase().startsWith(".bmp"));
     }
 }
