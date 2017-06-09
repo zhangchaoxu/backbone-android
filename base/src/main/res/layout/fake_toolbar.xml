@@ -18,13 +18,34 @@
         android:minHeight="@dimen/toolbar_height"
         android:orientation="horizontal">
 
-        <ImageView
+        <LinearLayout
             android:id="@id/toolbar_left"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            tools:background="@mipmap/ic_back"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_toolbar_left"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                tools:background="@mipmap/ic_back"/>
+
+            <TextView
+                android:id="@+id/tv_toolbar_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_size_micro"
+                android:visibility="gone"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@id/toolbar_title"
@@ -38,28 +59,37 @@
             android:textSize="@dimen/text_size_medium"
             tools:text="sd"/>
 
-        <ImageView
+        <LinearLayout
             android:id="@id/toolbar_right"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            tools:background="@mipmap/ic_more"
-            tools:visibility="invisible"/>
-
-        <TextView
-            android:id="@id/toolbar_title_right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:ellipsize="end"
-            android:gravity="center_horizontal"
-            android:maxLines="1"
-            android:textColor="@color/text"
-            android:textSize="@dimen/text_size_micro"
-            tools:text="ssdsdd"
-            tools:visibility="gone"/>
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_toolbar_right"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                tools:background="@mipmap/ic_more"
+                tools:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_toolbar_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:textColor="@color/text"
+                android:textSize="@dimen/text_size_micro"
+                tools:text="ssdsdd"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <View

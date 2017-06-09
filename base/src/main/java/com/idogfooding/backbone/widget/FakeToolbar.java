@@ -36,10 +36,11 @@ public class FakeToolbar extends LinearLayout {
     View shadowView;
     View statusBar;
     View toolbar;
+    View toolbarLeft;
+    View toolbarRight;
 
     Drawable iconLeftDrawable;
     Drawable iconRightDrawable;
-    Drawable iconRight2Drawable;
     CharSequence title;
     CharSequence titleLeft;
     CharSequence titleRight;
@@ -74,7 +75,6 @@ public class FakeToolbar extends LinearLayout {
         titleRight = ta.getString(R.styleable.FakeToolbar_fb_title_right);
         iconLeftDrawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_left);
         iconRightDrawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_right);
-        iconRight2Drawable = ta.getDrawable(R.styleable.FakeToolbar_fb_icon_right2);
         shadow = ta.getBoolean(R.styleable.FakeToolbar_fb_shadow, false);
         // color
         shadowColor = ta.getColor(R.styleable.FakeToolbar_fb_shadow_color, getResources().getColor(R.color.divider));
@@ -87,10 +87,13 @@ public class FakeToolbar extends LinearLayout {
     private void setup() {
         LayoutInflater.from(mContext).inflate(layoutId, this, true);
         titleTextView = (TextView) findViewById(R.id.toolbar_title);
-        titleRightTextView = (TextView) findViewById(R.id.toolbar_title_right);
-        iconLeftImageView = (ImageView) findViewById(R.id.toolbar_left);
-        iconRightImageView = (ImageView) findViewById(R.id.toolbar_right);
+        titleRightTextView = (TextView) findViewById(R.id.tv_toolbar_right);
+        titleLeftTextView = (TextView) findViewById(R.id.tv_toolbar_left);
+        iconLeftImageView = (ImageView) findViewById(R.id.iv_toolbar_left);
+        iconRightImageView = (ImageView) findViewById(R.id.iv_toolbar_right);
         toolbar = findViewById(R.id.toolbar);
+        toolbarRight = findViewById(R.id.toolbar_right);
+        toolbarLeft = findViewById(R.id.toolbar_left);
         shadowView = findViewById(R.id.toolbar_shadow);
         statusBar = findViewById(R.id.toolbar_status_bar);
 
@@ -140,6 +143,16 @@ public class FakeToolbar extends LinearLayout {
             }
         }
 
+        // left title
+        if (null != titleLeftTextView) {
+            if (StrKit.isEmpty(titleLeft)) {
+                titleLeftTextView.setVisibility(View.GONE);
+            } else {
+                titleRightTextView.setVisibility(View.VISIBLE);
+                titleLeftTextView.setText(titleLeft);
+            }
+        }
+
         // shadow
         if (null != shadowView) {
             shadowView.setVisibility(shadow ? View.VISIBLE : View.GONE);
@@ -163,19 +176,32 @@ public class FakeToolbar extends LinearLayout {
         return this;
     }
 
+    public FakeToolbar setTitleLeft(CharSequence string) {
+        if (null != titleLeftTextView && !TextUtils.isEmpty(string)) {
+            titleLeftTextView.setVisibility(View.VISIBLE);
+            titleLeftTextView.setText(string);
+        }
+        return this;
+    }
+
+    public FakeToolbar setTitleRight(CharSequence string) {
+        if (null != titleRightTextView && !TextUtils.isEmpty(string)) {
+            titleRightTextView.setVisibility(View.VISIBLE);
+            titleRightTextView.setText(string);
+        }
+        return this;
+    }
+
     public FakeToolbar setOnLeftClickListener(OnClickListener listener) {
-        if (null != iconLeftImageView && iconLeftImageView.getVisibility() == VISIBLE) {
-            iconLeftImageView.setOnClickListener(listener);
+        if (null != toolbarLeft) {
+            toolbarLeft.setOnClickListener(listener);
         }
         return this;
     }
 
     public FakeToolbar setOnRightClickListener(OnClickListener listener) {
-        if (null != iconRightImageView && iconRightImageView.getVisibility() == VISIBLE) {
-            iconRightImageView.setOnClickListener(listener);
-        }
-        if (null != titleRightTextView && titleRightTextView.getVisibility() == VISIBLE) {
-            titleRightTextView.setOnClickListener(listener);
+        if (null != toolbarRight) {
+            toolbarRight.setOnClickListener(listener);
         }
         return this;
     }

@@ -12,7 +12,6 @@
         <attr name="fb_shadow_color" format="color|reference"/>
         <attr name="fb_icon_left" format="reference"/>
         <attr name="fb_icon_right" format="reference"/>
-        <attr name="fb_icon_right2" format="reference"/>
         <attr name="fb_layout" format="integer|reference"/>
         <attr name="fb_shadow" format="boolean"/>
     </declare-styleable>
