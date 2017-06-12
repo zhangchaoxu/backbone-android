@@ -40,7 +40,7 @@ public class ApiException extends RuntimeException {
     }
 
     public boolean isUnauthorized() {
-        return code == 401;
+        return code == ApiErrorCode.UNAUTHORIZED;
     }
 
 }

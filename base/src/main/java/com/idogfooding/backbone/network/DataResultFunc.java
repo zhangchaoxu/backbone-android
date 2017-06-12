@@ -17,7 +17,7 @@ public class DataResultFunc<T> implements Function<Optional<T>, T> {
         if (optional.isPresent()) {
             return optional.get();
         } else {
-            throw new ApiException(201, "数据为空");
+            throw new ApiException(ApiErrorCode.DATA_EMPTY, "数据为空");
         }
     }
 }
