@@ -33,4 +33,8 @@ public class BrowserUtils {
                 || uri.toLowerCase().startsWith(".gif")
                 || uri.toLowerCase().startsWith(".bmp"));
     }
+
+    public static boolean isApk(String uri) {
+        return StrKit.notEmpty(uri) && (uri.toLowerCase().endsWith(".apk"));
+    }
 }
