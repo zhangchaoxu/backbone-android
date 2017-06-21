@@ -111,16 +111,6 @@ dependencies {
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
-    // image
-    // photo picker https://github.com/donglua/PhotoPicker
-    compile 'me.iwf.photopicker:PhotoPicker:0.9.9@aar'
-    //photo crop https://github.com/Yalantis/uCrop
-    compile 'com.github.yalantis:ucrop:2.2.1'
-    // photo compress https://github.com/nanchen2251/CompressHelper
-    compile('com.github.nanchen2251:CompressHelper:1.0.5') {
-        exclude(group: 'com.android.support', module: 'appcompat-v7')
-        exclude(group: 'io.reactivex', module: 'rxandroid')
-    }
     testCompile 'junit:junit:4.12'
 }
 
