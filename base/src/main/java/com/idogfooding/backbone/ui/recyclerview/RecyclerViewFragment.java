@@ -1,6 +1,7 @@
 package com.idogfooding.backbone.ui.recyclerview;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
     protected RecyclerView mRecyclerView;
     protected A mAdapter;
     protected SwipeRefreshLayout mSwipeRefreshLayout;
+    protected FloatingActionButton mTopButton;
 
     // page param
     protected int pageNumber = 1;
@@ -46,6 +48,9 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
 
     @Override
     protected void onSetupFragment(View view, Bundle savedInstanceState) {
+        mTopButton = (FloatingActionButton) view.findViewById(R.id.fab_top);
+        cfgTopButton();
+
         // init RecyclerVie
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
         cfgRecyclerView();
@@ -67,6 +72,13 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
     }
 
     protected abstract void createAdapter();
+
+    protected void cfgTopButton() {
+        if (null == mTopButton)
+            return;
+
+        mTopButton.setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
+    }
 
     protected void cfgRecyclerView() {
         // cfg RecyclerView
@@ -188,8 +200,6 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
 
     /**
      * on list load error
-     *
-     * @param e
      */
     protected void onLoadError(Throwable e) {
         mSwipeRefreshLayout.setRefreshing(false);
