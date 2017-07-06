@@ -22,6 +22,7 @@
         android:layout_height="48dp"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
+        android:visibility="gone"
         app:backgroundTint="@color/accent"
         android:src="@mipmap/ic_top"/>
 
