@@ -25,7 +25,14 @@
 -keep class * implements com.chenenyu.router.RouteInterceptor {*;}
 
 # BaseRecyclerViewAdapterHelper https://github.com/CymChad/BaseRecyclerViewAdapterHelper
--keep class com.chad.library.adapter.** {*;}
+-keep class com.chad.library.adapter.** {
+*;
+}
+-keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
+-keep public class * extends com.chad.library.adapter.base.BaseViewHolder
+-keepclassmembers public class * extends com.chad.library.adapter.base.BaseViewHolder {
+     <init>(android.view.View);
+}
 
 # retrofit https://github.com/square/retrofit
 -dontwarn okio.**
