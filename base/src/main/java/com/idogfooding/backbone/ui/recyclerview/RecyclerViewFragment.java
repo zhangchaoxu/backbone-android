@@ -77,7 +77,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         if (null == mTopButton)
             return;
 
-        mTopButton.setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
+        mTopButton.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
     }
 
     protected void cfgRecyclerView() {
