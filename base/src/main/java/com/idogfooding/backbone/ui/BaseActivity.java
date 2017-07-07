@@ -74,7 +74,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setActivityView(getLayoutId());
-        AndroidBug5497Workaround.assistActivity(this);
 
         ButterKnife.bind(this);
         onIntentReceived(getIntent());
