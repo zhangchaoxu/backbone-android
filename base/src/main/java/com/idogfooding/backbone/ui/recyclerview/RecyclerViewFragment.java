@@ -201,17 +201,17 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
     /**
      * on list load error
      */
-    protected void onLoadError(Throwable e) {
+    protected void onLoadError(Throwable throwable) {
         mSwipeRefreshLayout.setRefreshing(false);
         if (mAdapter.getData().isEmpty()) {
             mAdapter.setEmptyView(R.layout.view_error);
         }
         mAdapter.loadMoreFail();
-        if (e instanceof ApiException) {
-            onLoadApiException((ApiException) e);
+        if (throwable instanceof ApiException) {
+            onLoadApiException((ApiException) throwable);
         } else {
-            ToastUtils.show(e.getMessage());
-            e.printStackTrace();
+            ToastUtils.show(getString(R.string.msg_data_error) + ":" + throwable.getMessage());
+            throwable.printStackTrace();
         }
     }
 
