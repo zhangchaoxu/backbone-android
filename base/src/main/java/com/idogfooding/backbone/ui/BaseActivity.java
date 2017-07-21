@@ -1,7 +1,10 @@
 package com.idogfooding.backbone.ui;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -80,6 +83,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
         initFakeToolbar();
         onSetupActivity(savedInstanceState);
+        // register receiver
+        mExistAppBroadcastReceiver = new ExistAppBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter("com.idogfooding.backbone.ui.BaseActivity");
+        registerReceiver(mExistAppBroadcastReceiver, intentFilter);
     }
 
     protected void initFakeToolbar() {
@@ -112,7 +119,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         onBackPressed();
     }
 
-    protected void onToolbarRightClick() {}
+    protected void onToolbarRightClick() {
+    }
 
     /**
      * called when onCreate and fragment has Arguments
@@ -160,6 +168,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             mLoadingDialog.dismiss();
         }
         super.onDestroy();
+        // unregister receiver
+        if (mExistAppBroadcastReceiver != null) {
+            unregisterReceiver(mExistAppBroadcastReceiver);
+        }
     }
 
     /**
@@ -463,6 +475,22 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @ColorInt
     protected int color(@ColorRes int res) {
         return ContextCompat.getColor(this, res);
+    }
+
+    ExistAppBroadcastReceiver mExistAppBroadcastReceiver;
+
+    /**
+     * ExistAppBroadcastReceiver
+     */
+    public class ExistAppBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean closeAll = intent.getBooleanExtra("closeAll", false);
+            if (closeAll) {
+                finish();
+            }
+        }
     }
 
 }
