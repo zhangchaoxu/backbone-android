@@ -54,8 +54,8 @@ dependencies {
 
     // view
     // ViewBinding https://github.com/JakeWharton/butterknife
-    compile 'com.jakewharton:butterknife:8.6.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
     // glide https://github.com/bumptech/glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
@@ -64,21 +64,21 @@ dependencies {
     // circleimageview https://github.com/hdodenhof/CircleImageView
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.24'
     // FloatingActionButton https://github.com/Clans/FloatingActionButton
     // compile 'com.github.clans:fab:1.6.4'
     // statusbar https://github.com/laobie/StatusBarUtil
     compile 'com.jaeger.statusbarutil:library:1.4.0'
     // okhttp3 https://github.com/square/okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
     // retrofit2 https://github.com/square/retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     // rxjava https://github.com/ReactiveX/RxJava
-    compile "io.reactivex.rxjava2:rxjava:2.1.0"
+    compile "io.reactivex.rxjava2:rxjava:2.1.1"
     // rxandroid https://github.com/ReactiveX/rxandroid
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     // rxlifecycle

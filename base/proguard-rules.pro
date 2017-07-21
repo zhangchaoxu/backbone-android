@@ -20,10 +20,6 @@
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.** {*;}
 
-# Router https://github.com/chenenyu/Router
--keep class com.chenenyu.router.** {*;}
--keep class * implements com.chenenyu.router.RouteInterceptor {*;}
-
 # BaseRecyclerViewAdapterHelper https://github.com/CymChad/BaseRecyclerViewAdapterHelper
 -keep class com.chad.library.adapter.** {
 *;
