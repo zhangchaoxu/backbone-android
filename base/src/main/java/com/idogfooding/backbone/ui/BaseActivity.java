@@ -493,4 +493,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
     }
 
+    protected void cloaseAllActiviy() {
+        Intent intent = new Intent("com.idogfooding.backbone.ui.BaseActivity");
+        intent.putExtra("closeAll", true);
+        sendBroadcast(intent);
+    }
+
 }
