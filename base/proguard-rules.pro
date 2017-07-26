@@ -57,7 +57,14 @@
 -keep interface android.support.design.** { *; }
 -keep public class android.support.design.R$* { *; }
 
-#okhttp
+# okhttp
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
+
+# eventbus http://greenrobot.org/eventbus/documentation/proguard
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
