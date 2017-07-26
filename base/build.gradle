@@ -98,7 +98,7 @@ dependencies {
     // TabLayout https://github.com/H07000223/FlycoTabLayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     // update https://github.com/czy1121/update
-    compile 'com.github.czy1121:update:1.1.1'
+    compile 'com.github.zhangchaoxu:update:1.1.2'
 
     // logger https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:1.15'

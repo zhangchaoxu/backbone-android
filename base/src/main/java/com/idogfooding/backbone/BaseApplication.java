@@ -34,10 +34,7 @@ public class BaseApplication extends Application {
         // http://stackoverflow.com/questions/34833627/error-you-must-not-call-settag-on-a-view-glide-is-targeting-when-use-glide/35096552
         ViewTarget.setTagId(R.id.glide_tag);
 
-        // init bugly
-        // CrashReport.initCrashReport(getApplicationContext());
-
-        // init stetho
+        // init Stetho
         if (isDebug()) {
             Stetho.initializeWithDefaults(this);
         }
@@ -71,24 +68,6 @@ public class BaseApplication extends Application {
 
     protected boolean isDebug() {
         return true;
-    }
-
-    /**
-     * clear glide cache
-     */
-    public boolean clearGlideCache() {
-        try {
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                new Thread(() -> Glide.get(_context).clearDiskCache());
-            } else {
-                Glide.get(_context).clearDiskCache();
-            }
-            Glide.get(this).clearMemory();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     @Override

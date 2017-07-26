@@ -2,6 +2,8 @@ package com.idogfooding.backbone.update;
 
 import android.content.Context;
 
+import com.idogfooding.backbone.utils.ToastUtils;
+
 import ezy.boost.update.IUpdateParser;
 import ezy.boost.update.UpdateManager;
 
@@ -16,6 +18,12 @@ public class UpdateManagerUtils {
         UpdateManager.setDebuggable(true);
         UpdateManager.setWifiOnly(false);
 
-        UpdateManager.create(context).setUrl(checkUrl).setManual(manual).setNotifyId(999).setParser(parser).check();
+        UpdateManager.create(context)
+                .setOnFailureListener(updateError -> ToastUtils.show(updateError.getMessage()))
+                .setUrl(checkUrl)
+                .setManual(manual)
+                .setNotifyId(999)
+                .setParser(parser)
+                .check();
     }
 }
