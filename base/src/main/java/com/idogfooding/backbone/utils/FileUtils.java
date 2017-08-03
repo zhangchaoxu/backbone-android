@@ -1,5 +1,9 @@
 package com.idogfooding.backbone.utils;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
@@ -42,5 +46,28 @@ public class FileUtils {
         BigDecimal result4 = new BigDecimal(teraBytes);
 
         return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
+    }
+
+    public static String getNameFromUrl(String url) {
+        return url.substring(url.lastIndexOf("/") + 1);
+    }
+
+    public static boolean existInAssets(Context context, String filename) {
+        return existInAssets(context, "", filename);
+    }
+
+    public static boolean existInAssets(Context context, String path, String filename) {
+        AssetManager am = context.getAssets();
+        try {
+            String[] names = am.list(path);
+            for (String name : names) {
+                if (name.equals(filename.trim())) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
