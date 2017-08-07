@@ -18,7 +18,8 @@
 
 # bugly https://bugly.qq.com/docs/user-guide/instruction-manual-android/
 -dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.** {*;}
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}
 
 # BaseRecyclerViewAdapterHelper https://github.com/CymChad/BaseRecyclerViewAdapterHelper
 -keep class com.chad.library.adapter.** {
