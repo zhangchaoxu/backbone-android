@@ -52,6 +52,10 @@ public class FileUtils {
         return url.substring(url.lastIndexOf("/") + 1);
     }
 
+    public static String getFileExtension(String url) {
+        return url.substring(url.lastIndexOf(".") + 1);
+    }
+
     public static boolean existInAssets(Context context, String filename) {
         return existInAssets(context, "", filename);
     }
