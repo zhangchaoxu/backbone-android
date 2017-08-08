@@ -1,6 +1,5 @@
 package com.idogfooding.backbone.ui;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,22 +24,21 @@ import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
-import com.idogfooding.backbone.permission.PermissionRequest;
+import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.statusbar.StatusBarFontHelper;
 import com.idogfooding.backbone.ui.component.UIComponent;
-import com.idogfooding.backbone.utils.SettingsUtils;
 import com.idogfooding.backbone.widget.FakeToolbar;
 import com.idogfooding.backbone.widget.ViewPager;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -294,113 +293,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     //##########  Protected helper methods ##########
-
-    //##########  PERMISSION REQUEST ##########
-    protected List<PermissionRequest> permissionRequests = new ArrayList<>();
-
-    /**
-     * call requestForPermission in start
-     * <p>
-     * Request Permission
-     */
-    protected void requestForPermission() {
-        initPermissionRequests();
-
-        for (PermissionRequest permissionRequest : permissionRequests) {
-            new RxPermissions(this)
-                    .requestEach(permissionRequest.getName())
-                    .subscribe(permission -> {
-                        permissionRequest.setRequested(true);
-                        if (permission.granted) {
-                            permissionRequest.setGranted(true);
-                        } else if (permission.shouldShowRequestPermissionRationale) {
-                            permissionRequest.setDenied(true);
-                        } else {
-                            permissionRequest.setNeverAskAgain(true);
-                        }
-                        checkPermissionRequestResult();
-                    });
-        }
-    }
-
-    protected void initPermissionRequests() {
-        permissionRequests.clear();
-        permissionRequests.add(new PermissionRequest(Manifest.permission.WRITE_EXTERNAL_STORAGE));
-        permissionRequests.add(new PermissionRequest(Manifest.permission.READ_PHONE_STATE));
-        /* permissionRequests.add(new PermissionRequest(Manifest.permission.ACCESS_COARSE_LOCATION));
-        permissionRequests.add(new PermissionRequest(Manifest.permission.ACCESS_FINE_LOCATION));
-        permissionRequests.add(new PermissionRequest(Manifest.permission.CAMERA));
-        permissionRequests.add(new PermissionRequest(Manifest.permission.CALL_PHONE));*/
-    }
-
-    protected void afterGranted() {
-        // do after granted all request permission
-    }
-
-    protected void checkPermissionRequestResult() {
-        boolean requestAll = true;
-        boolean grantedAll = true;
-        boolean showDeniedForPermission = false;
-        boolean showNeverAskForPermission = false;
-        for (PermissionRequest permissionRequest : permissionRequests) {
-            if (permissionRequest.isRequested()) {
-                if (!permissionRequest.isGranted()) {
-                    grantedAll = false;
-                    if (permissionRequest.isDenied()) {
-                        showDeniedForPermission = true;
-                    } else if (permissionRequest.isNeverAskAgain()) {
-                        showNeverAskForPermission = true;
-                    }
-                }
-            } else {
-                requestAll = false;
-                break;
-            }
-        }
-
-        if (requestAll) {
-            if (grantedAll) {
-                afterGranted();
-            } else if (showNeverAskForPermission) {
-                showNeverAskForPermission();
-            } else if (showDeniedForPermission) {
-                showDeniedForPermission();
-            }
-        }
-    }
-
-    /**
-     * Denied permission without ask never again
-     */
-    protected void showDeniedForPermission() {
-        new MaterialDialog.Builder(this)
-                .title("请允许获取设备信息")
-                .content("我们需要获取设备信息,为您进行设备识别;\n否则您将无法正常使用" + getString(R.string.app_name))
-                .positiveText(android.R.string.ok)
-                .negativeText(android.R.string.no)
-                .onPositive((dialog, which) -> requestForPermission())
-                .onNegative((dialog, which) -> finish())
-                .show();
-    }
-
-    /**
-     * Denied permission with ask never again,Need to go to the settings
-     */
-    protected void showNeverAskForPermission() {
-        new MaterialDialog.Builder(this)
-                .title("请允许获取设备信息")
-                .content("我们需要获取设备信息,为您进行设备识别;\n否则您将无法正常使用" + getString(R.string.app_name)
-                        + "\n\n设置路径: 系统设置->" + getString(R.string.app_name) + "->权限")
-                .positiveText(R.string.settings)
-                .negativeText(android.R.string.cancel)
-                .onPositive((dialog, which) -> {
-                    SettingsUtils.openApplicationSettings(this);
-                    finish();
-                })
-                .onNegative((dialog, which) -> finish())
-                .show();
-    }
-
     /**
      * replace fragment
      *
@@ -493,10 +385,63 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
     }
 
-    protected void cloaseAllActiviy() {
+    protected void closeAllActivity() {
         Intent intent = new Intent("com.idogfooding.backbone.ui.BaseActivity");
         intent.putExtra("closeAll", true);
         sendBroadcast(intent);
     }
 
+    // permission
+    protected void askForPermissions(String... permissions) {
+        askForPermissions(RequestCode.PERMISSION_MULTI, permissions);
+    }
+
+    protected void askForPermissions(int code, String... permissions) {
+        if (null == permissionListener) {
+            initPermissionListener();
+        }
+        AndPermission.with(this)
+                .requestCode(code)
+                .permission(permissions)
+                .callback(permissionListener)
+                .rationale((requestCode, rationale) -> AndPermission.rationaleDialog(BaseActivity.this, rationale).show())
+                .start();
+    }
+
+    private PermissionListener permissionListener;
+
+    private void initPermissionListener() {
+        permissionListener = new PermissionListener() {
+            @Override
+            public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+                if (AndPermission.hasPermission(BaseActivity.this, grantPermissions)) {
+                    afterPermissionGranted(requestCode);
+                } else {
+                    AndPermission.defaultSettingDialog(BaseActivity.this, requestCode).show();
+                }
+            }
+
+            @Override
+            public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+                if (AndPermission.hasPermission(BaseActivity.this, deniedPermissions)) {
+                    afterPermissionGranted(requestCode);
+                } else if (AndPermission.hasAlwaysDeniedPermission(BaseActivity.this, deniedPermissions)) {
+                    AndPermission.defaultSettingDialog(BaseActivity.this, RequestCode.PERMISSION_SETTINGS).show();
+                }
+            }
+        };
+    }
+
+    protected void afterPermissionGranted(int requestCode) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RequestCode.PERMISSION_SETTINGS) {
+            askForPermissions();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }
