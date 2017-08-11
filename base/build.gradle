@@ -5,7 +5,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.0.8"
+version = "0.0.9"
 
 android {
     compileSdkVersion 25
@@ -24,7 +24,7 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 8
+        versionCode 9
         versionName version
 
         multiDexEnabled true
