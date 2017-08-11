@@ -51,7 +51,7 @@ dependencies {
     // multidex
     compile 'com.android.support:multidex:1.0.1'
     // guava
-    compile 'com.google.guava:guava:22.0-android'
+    compile 'com.google.guava:guava:23.0-android'
 
     // view
     // ViewBinding https://github.com/JakeWharton/butterknife
