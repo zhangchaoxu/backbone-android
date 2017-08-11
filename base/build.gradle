@@ -50,7 +50,7 @@ dependencies {
     compile "com.android.support:percent:${support_version}"
     // multidex
     compile 'com.android.support:multidex:1.0.1'
-    // guava
+    // guava https://github.com/google/guava
     compile 'com.google.guava:guava:23.0-android'
 
     // view
