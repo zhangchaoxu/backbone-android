@@ -39,7 +39,7 @@ android {
 }
 
 def support_version = "25.3.1"
-def butterknife_version = "8.8.0"
+def butterknife_version = "8.8.1"
 
 dependencies {
     // support
