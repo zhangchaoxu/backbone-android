@@ -5,7 +5,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.0.9"
+version = "0.1.0"
 
 android {
     compileSdkVersion 25
@@ -24,7 +24,7 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 9
+        versionCode 10
         versionName version
 
         multiDexEnabled true
@@ -95,7 +95,7 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.1.0'
 
     // dialogs https://github.com/afollestad/material-dialogs
-    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.7'
     // TabLayout https://github.com/H07000223/FlycoTabLayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     // update https://github.com/czy1121/update

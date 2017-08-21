@@ -13,7 +13,7 @@ TODO
 
 ```gradle
 dependencies {
-    compile 'com.idogfooding.backbone:base:1.0.0@aar'
+    compile 'com.idogfooding.backbone:base:latest.release'
 }
 ```
 
