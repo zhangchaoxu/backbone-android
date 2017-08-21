@@ -22,16 +22,12 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
         maven { url "https://jitpack.io" }
-        maven { url "https://dl.bintray.com/zhangchaoxu/maven" }
         mavenCentral()
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
 }
