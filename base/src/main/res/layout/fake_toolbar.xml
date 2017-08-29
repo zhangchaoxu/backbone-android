@@ -85,7 +85,7 @@
                 android:maxLines="1"
                 android:textColor="@color/text"
                 android:textSize="@dimen/text_size_micro"
-                tools:text="ssdsdd"
+                tools:text="ssdsddsssssdsdsd"
                 tools:visibility="visible"/>
 
         </LinearLayout>

@@ -184,10 +184,26 @@ public class FakeToolbar extends LinearLayout {
         return this;
     }
 
+    public FakeToolbar setIconLeft(int resId) {
+        if (null != iconLeftImageView) {
+            iconLeftImageView.setVisibility(View.VISIBLE);
+            iconLeftImageView.setImageDrawable(getResources().getDrawable(resId));
+        }
+        return this;
+    }
+
     public FakeToolbar setTitleRight(CharSequence string) {
         if (null != titleRightTextView && !TextUtils.isEmpty(string)) {
             titleRightTextView.setVisibility(View.VISIBLE);
             titleRightTextView.setText(string);
+        }
+        return this;
+    }
+
+    public FakeToolbar setIconRight(int resId) {
+        if (null != iconRightImageView) {
+            iconRightImageView.setVisibility(View.VISIBLE);
+            iconRightImageView.setImageDrawable(getResources().getDrawable(resId));
         }
         return this;
     }
