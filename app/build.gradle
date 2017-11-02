@@ -1,19 +1,69 @@
+apply from: '../cfg.gradle'
 apply plugin: 'com.android.application'
+apply plugin: 'com.chenenyu.router'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
-    defaultConfig {
-        applicationId "com.idogfooding.backbone"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g" //specify the heap size for the dex process
+        preDexLibraries = false //delete the already pre-dexed libraries
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+
+    defaultConfig {
+        applicationId app.packageName
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode app.versionCode
+        versionName app.versionName
+
+        multiDexEnabled true
+
+        manifestPlaceholders = [
+                PACKAGE_NAME: app.packageName
+        ]
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
+        }
+    }
+
+    // sign the application
+    // see {http://stackoverflow.com/questions/18328730/how-to-create-a-release-signed-apk-file-using-gradle}
+    signingConfigs {
+        release {
+            storeFile file(app.releaseStoreFile)
+            storePassword app.releaseStorePassword
+            keyAlias app.releaseKeyAlias
+            keyPassword app.releaseKeyPassword
+        }
+        debug {
+            storeFile file(app.debugStoreFile)
+            storePassword app.debugStorePassword
+            keyAlias app.debugKeyAlias
+            keyPassword app.debugKeyPassword
+        }
+    }
+
     buildTypes {
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            debuggable false
             minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,9 +71,15 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    testCompile 'junit:junit:4.12'
+    // butterKnife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:' + versions.butterKnife
+
+    // compile project(':base')
+    compile 'com.idogfooding.backbone:base:' + versions.backbone
+    // photo https://github.com/zhangchaoxu/photo-picky
+    compile('com.idogfooding.picky:library:' + versions.photoPicky) {
+        exclude(group: 'com.android.support')
+        exclude(group: 'io.reactivex')
+        exclude(group: 'com.github.bumptech.glide')
+    }
 }

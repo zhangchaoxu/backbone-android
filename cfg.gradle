@@ -1,0 +1,76 @@
+ext.versions = [
+        minSdk                       : 16,
+        compileSdk                   : 27,
+        supportLib                   : '27.0.0',
+        multidex                     : '1.0.2',
+        guava                        : '23.0-android',
+        buildTools                   : '27.0.0',
+        gradlePlugin                 : '3.0.0',
+        aptPlugin                    : '1.8',
+        // https://github.com/chenenyu/Router
+        routerPlugin                 : '1.2.6',
+
+        // https://github.com/zhangchaoxu/backbone-android
+        backbone                     : "0.1.3",
+        // photoPicky https://github.com/zhangchaoxu/photo-picky
+        photoPicky                   : "0.0.7",
+        // https://github.com/zhangchaoxu/bone-android
+        TBS                          : "v3.5.0.1004_r8@aar",
+        MiPush                       : "v3.4.0_r5@aar",
+        ShareSDK                     : "v3.0.0_r10@aar",
+        // https://github.com/JakeWharton/butterknife
+        butterKnife                  : '9.0.0-SNAPSHOT',
+        // https://github.com/Raizlabs/DBFlow
+        dbflow                       : "4.1.2",
+        // hawk https://github.com/orhanobut/hawk
+        hawk                         : "2.0.1",
+        // bugly https://bugly.qq.com/docs/user-guide/instruction-manual-android
+        bugly                        : "1.3.1",
+        // scanner https://github.com/dm77/barcodescanner
+        zxing                        : "1.9.8",
+
+
+        // okhttp3 https://github.com/square/okhttp
+        okhttp3                      : "3.9.0",
+        // retrofit2 https://github.com/square/retrofit
+        retrofit2                    : "2.3.0",
+        // rxjava2 https://github.com/ReactiveX/RxJava
+        rxjava2                      : "2.1.6",
+        // rxjava2 https://github.com/ReactiveX/RxJava
+        rxandroid                    : "2.0.1",
+        // https://github.com/bumptech/glide
+        glide                        : "3.8.0",
+        // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+        BaseRecyclerViewAdapterHelper: "2.9.33",
+        // dialogs https://github.com/afollestad/material-dialogs
+        materialDialogs              : "0.9.5.0",
+        // permission https://github.com/yanzhenjie/AndPermission
+        AndPermission                : "1.1.2",
+        // event https://github.com/greenrobot/EventBus
+        eventbus                     : "3.0.0",
+        // json https://github.com/google/gson
+        gson                         : "2.8.0",
+        // stetho https://github.com/facebook/stetho
+        stetho                       : "1.5.0",
+]
+
+// https://github.com/zhangchaoxu/backbone-android
+ext.base = [
+        versionCode: 14,
+        versionName: "0.1.4",
+]
+
+ext.app = [
+        releaseStoreFile    : "../key.jks",
+        releaseStorePassword: "",
+        releaseKeyAlias     : "release.key",
+        releaseKeyPassword  : "",
+        debugStoreFile      : "../key.jks",
+        debugStorePassword  : "",
+        debugKeyAlias       : "release.key",
+        debugKeyPassword    : "",
+
+        packageName         : "com.idogfooding.demo",
+        versionCode         : 1,
+        versionName         : "0.0.1",
+]
