@@ -8,8 +8,6 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.ui.BaseActivity;
 import com.idogfooding.backbone.widget.ViewPager;
 
-import butterknife.ButterKnife;
-
 /**
  * TabLayoutPagerActivity
  *
@@ -30,8 +28,8 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
     protected void onSetupActivity(Bundle savedInstanceState) {
         super.onSetupActivity(savedInstanceState);
 
-        tabLayout = ButterKnife.findById(this, R.id.tab_layout);
-        pager = ButterKnife.findById(this, R.id.pager);
+        tabLayout = findViewById(R.id.tab_layout);
+        pager = findViewById(R.id.pager);
 
         adapter = createAdapter();
 

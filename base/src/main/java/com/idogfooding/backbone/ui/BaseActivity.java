@@ -89,7 +89,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void initFakeToolbar() {
-        fakeToolbar = ButterKnife.findById(this, R.id.fake_toolbar);
+        fakeToolbar = findViewById(R.id.fake_toolbar);
         if (null != fakeToolbar) {
             fakeToolbar.setOnLeftClickListener(v -> onToolbarLeftClick());
             fakeToolbar.setOnRightClickListener(v -> onToolbarRightClick());

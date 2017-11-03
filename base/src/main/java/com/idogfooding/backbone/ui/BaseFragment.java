@@ -95,7 +95,7 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     protected void initFakeToolbar(View view) {
-        fakeToolbar = ButterKnife.findById(view, R.id.fake_toolbar);
+        fakeToolbar = view.findViewById(R.id.fake_toolbar);
     }
 
     @Override

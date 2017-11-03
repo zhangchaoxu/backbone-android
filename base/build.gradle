@@ -5,6 +5,8 @@ apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
+version = base.versionName
+
 android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
@@ -23,7 +25,7 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.compileSdk
         versionCode base.versionCode
-        versionName base.versionName
+        versionName version
 
         multiDexEnabled true
     }
