@@ -23,7 +23,8 @@ android {
 
     defaultConfig {
         minSdkVersion versions.minSdk
-        targetSdkVersion versions.compileSdk
+        targetSdkVersion versions.targetSdk
+
         versionCode base.versionCode
         versionName version
 
@@ -99,7 +100,7 @@ dependencies {
     compile 'com.github.zhangchaoxu:update:1.1.2'
 
     // logger https://github.com/orhanobut/logger
-    compile 'com.orhanobut:logger:1.15'
+    compile 'com.orhanobut:logger:' + versions.logger
 
     // debug
     // stetho https://github.com/facebook/stetho

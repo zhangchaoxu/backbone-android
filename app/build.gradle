@@ -1,6 +1,5 @@
 apply from: '../cfg.gradle'
 apply plugin: 'com.android.application'
-apply plugin: 'com.chenenyu.router'
 
 android {
     compileSdkVersion versions.compileSdk
