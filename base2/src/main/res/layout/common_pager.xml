@@ -4,19 +4,7 @@
               style="@style/RootView">
 
     <!-- toolbar -->
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-        android:id="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:centerType="textView"
-        app:leftDrawable="@drawable/comm_titlebar_back_normal"
-        app:leftDrawablePadding="0dp"
-        app:leftText="返回"
-        app:leftType="textView" />
-
-    <ViewStub
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <include layout="@layout/toolbar"/>
 
     <com.idogfooding.backbone.widget.ViewPager
         android:id="@id/pager"

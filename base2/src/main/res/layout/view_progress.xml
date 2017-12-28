@@ -10,6 +10,7 @@
         android:layout_height="30dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:indeterminateDrawable="@drawable/progressbar"
         android:indeterminate="false"/>
 
     <TextView

@@ -16,7 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.widget.CommonTitleBar;
@@ -51,7 +50,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutId());
-        Router.injectParams(this);
         ButterKnife.bind(this);
         onSetupActivity(savedInstanceState);
 

@@ -59,8 +59,6 @@ dependencies {
     // compile 'com.wuhenzhizao:titlebar:' + versions.titlebar
     // utils
     compile 'com.blankj:utilcode:' + versions.utilcode
-    // router
-    implementation 'com.chenenyu.router:router:' + versions.router
 
     // core lib
     // network
@@ -79,9 +77,5 @@ dependencies {
     // logger https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:' + versions.logger
 
-    // debug and test
-    // stetho https://github.com/facebook/stetho
-    compile 'com.facebook.stetho:stetho:' + versions.stetho
-    compile 'com.facebook.stetho:stetho-okhttp3:' + versions.stetho
     testCompile 'junit:junit:4.12'
 }
