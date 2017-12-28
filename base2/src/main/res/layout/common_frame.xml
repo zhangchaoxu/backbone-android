@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/RootView">
+
+    <!-- toolbar -->
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:centerType="textView"
+        app:leftDrawable="@drawable/comm_titlebar_back_normal"
+        app:leftDrawablePadding="0dp"
+        app:leftText="返回"
+        app:leftType="textView" />
+
+    <FrameLayout
+        android:id="@id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/window_background"/>
+
+</LinearLayout>

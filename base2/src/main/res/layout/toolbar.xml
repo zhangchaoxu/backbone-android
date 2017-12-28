@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.idogfooding.backbone.widget.CommonTitleBar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:centerType="textView"
+    app:centerTextColor="@color/white"
+    app:centerSubTextColor="@color/white"
+    style="@style/Toolbar"/>

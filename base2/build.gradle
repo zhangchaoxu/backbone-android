@@ -1,0 +1,87 @@
+apply from: '../cfg.gradle'
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+
+version = base2.versionName
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g" //specify the heap size for the dex process
+        preDexLibraries = false //delete the already predexed libraries
+    }
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+
+        versionCode base.versionCode
+        versionName version
+
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // support
+    compile 'com.android.support:appcompat-v7:' + versions.supportLib
+    compile 'com.android.support:recyclerview-v7:' + versions.supportLib
+    compile 'com.android.support:cardview-v7:' + versions.supportLib
+    compile 'com.android.support:design:' + versions.supportLib
+    compile 'com.android.support:percent:' + versions.supportLib
+    // multidex
+    compile 'com.android.support:multidex:' + versions.multidex
+    // guava
+    compile 'com.google.guava:guava:' + versions.guava
+
+    // core widget
+    // recyclerview
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:' + versions.BaseRecyclerViewAdapterHelper
+    // dialogs
+    compile 'com.afollestad.material-dialogs:core:' + versions.materialDialogs
+    // TabLayout
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:' + versions.FlycoTabLayout
+    // titlebar
+    // compile 'com.wuhenzhizao:titlebar:' + versions.titlebar
+    // utils
+    compile 'com.blankj:utilcode:' + versions.utilcode
+    // router
+    implementation 'com.chenenyu.router:router:' + versions.router
+
+    // core lib
+    // network
+    compile 'com.lzy.net:okgo:' + versions.okgo
+    // ViewBinding
+    compile 'com.jakewharton:butterknife:' + versions.butterKnife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:' + versions.butterKnife
+
+    // glide
+    compile 'com.github.bumptech.glide:glide:' + versions.glide
+    annotationProcessor 'com.github.bumptech.glide:compiler:' + versions.glide
+    // permission
+    compile 'com.yanzhenjie:permission:' + versions.AndPermission
+    // json
+    compile 'com.google.code.gson:gson:' + versions.gson
+    // logger https://github.com/orhanobut/logger
+    compile 'com.orhanobut:logger:' + versions.logger
+
+    // debug and test
+    // stetho https://github.com/facebook/stetho
+    compile 'com.facebook.stetho:stetho:' + versions.stetho
+    compile 'com.facebook.stetho:stetho-okhttp3:' + versions.stetho
+    testCompile 'junit:junit:4.12'
+}
