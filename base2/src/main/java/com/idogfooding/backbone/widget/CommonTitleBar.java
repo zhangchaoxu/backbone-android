@@ -1,6 +1,5 @@
 package com.idogfooding.backbone.widget;
 
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -30,6 +29,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.utils.StatusBarUtils;
+import com.idogfooding.backbone.utils.ViewUtils;
 
 /**
  * 通用标题栏

@@ -24,6 +24,8 @@
 
     <item name="btn_submit" type="id">false</item>
     <item name="rv_photos" type="id">false</item>
+    <item name="iv_photo" type="id">false</item>
+    <item name="iv_crop_photo" type="id">false</item>
     <item name="et_remark" type="id">false</item>
 
     <item name="id1" type="id">false</item>

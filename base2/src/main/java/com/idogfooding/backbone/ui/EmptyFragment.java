@@ -16,7 +16,7 @@ import android.widget.TextView;
  */
 public class EmptyFragment extends BaseFragment {
 
-    String msg;
+    String msg = "msg";
     TextView tvMsg;
 
     public static EmptyFragment newInstance() {
