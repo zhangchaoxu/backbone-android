@@ -79,10 +79,15 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
         } else if (exception instanceof StorageException) {
             response.setException(new IllegalStateException("存储读取异常,请检查存储是否存在并有权限"));
         } else if (exception instanceof ApiException) {
+            onApiError(response, (ApiException) exception);
         }
     }
 
-    protected void onErrorResult() {
+    protected void onSysError(Response<T> response, Throwable exception) {
+
+    }
+
+    protected void onApiError(Response<T> response, ApiException exception) {
 
     }
 

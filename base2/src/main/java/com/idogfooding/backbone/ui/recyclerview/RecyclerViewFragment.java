@@ -5,7 +5,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -29,14 +28,18 @@ import java.util.List;
 public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>> extends BaseFragment
         implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
-    protected RecyclerView mRecyclerView;
-    protected A mAdapter;
+    // refresh and RecyclerView
     protected SwipeRefreshLayout mSwipeRefreshLayout;
     protected FloatingActionButton mTopButton;
+    protected RecyclerView mRecyclerView;
+    protected A mAdapter;
 
     // page param
     protected int pageNumber = 1;
     protected static int pageSize = 10;
+    protected boolean loadMore = true;
+    protected boolean refreshable = true;
+
 
     @Override
     protected int getLayoutId() {
@@ -45,6 +48,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
 
     @Override
     protected void onSetupFragment(View view, Bundle savedInstanceState) {
+        onConfigureRecyclerView();
         mTopButton = view.findViewById(R.id.fab_top);
         cfgTopButton();
 
@@ -64,6 +68,14 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         initHeaderAndFooterView();
     }
 
+    /**
+     * 配置RecyclerView
+     * 比如设置refreshable和loadMore
+     */
+    protected void onConfigureRecyclerView() {
+
+    }
+
     protected boolean initHeaderAndFooterView() {
         return false;
     }
@@ -74,7 +86,16 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         if (null == mTopButton)
             return;
 
-        mTopButton.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
+        mTopButton.setOnClickListener(v -> smoothScrollToPosition(0));
+    }
+
+    /**
+     * 平滑移动到指定位置
+     *
+     * @param position
+     */
+    protected void smoothScrollToPosition(int position) {
+        mRecyclerView.smoothScrollToPosition(position);
     }
 
     protected void cfgRecyclerView() {
@@ -83,21 +104,47 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         cfgItemDecoration();
     }
 
+    /**
+     * 配置分割修饰,支持divider和space
+     * divider支持高度和颜色自定义,多用于LinearLayout
+     * space支持间隔和颜色自定义,多用于GridLayout
+     */
     protected void cfgItemDecoration() {
+        mRecyclerView.addItemDecoration(new DividerDecoration());
+    }
 
+    /**
+     * 获得布局，支持LinearLayout和GridLayout
+     * @return LayoutManager
+     */
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(getContext());
+    }
+
+    /**
+     * 获得Grid布局
+     *
+     * @param orientation 布局方向
+     * @param spanCount grid条数
+     * @return LayoutManager
+     */
+    protected RecyclerView.LayoutManager getGridLayoutManager(@RecyclerView.Orientation int orientation, int spanCount) {
+        GridLayoutManager manager = new GridLayoutManager(getContext(), spanCount);
+        manager.setOrientation(orientation);
+        return manager;
     }
 
     protected void cfgSwipeRefresh() {
         // cfg SwipeRefreshLayout
-        mSwipeRefreshLayout.setEnabled(isRefreshable());
-        if (isRefreshable()) {
+        mSwipeRefreshLayout.setEnabled(refreshable);
+        if (refreshable) {
             mSwipeRefreshLayout.setOnRefreshListener(this);
             mSwipeRefreshLayout.setColorSchemeResources(R.color.swipe_refresh_start, R.color.swipe_refresh_process, R.color.swipe_refresh_end);
         }
     }
 
     protected void cfgAdapter() {
-        if (isLoadMore()) {
+        if (loadMore) {
             mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         } else {
             mAdapter.bindToRecyclerView(mRecyclerView);
@@ -105,26 +152,16 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         mAdapter.openLoadAnimation(getLoadAnimation());
     }
 
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(getContext());
-    }
-
-    protected RecyclerView.LayoutManager getGridLayoutManager(int spanCount) {
-        GridLayoutManager manager = new GridLayoutManager(getContext(), spanCount);
-        manager.setOrientation(OrientationHelper.VERTICAL);
-        return manager;
-    }
-
     protected int getLoadAnimation() {
         return BaseQuickAdapter.ALPHAIN;
     }
 
-    protected boolean isRefreshable() {
-        return true;
+    protected void setRefreshable(boolean refreshable) {
+        this.refreshable = refreshable;
     }
 
-    protected boolean isLoadMore() {
-        return true;
+    public void setLoadMore(boolean loadMore) {
+        this.loadMore = loadMore;
     }
 
     @Override
@@ -146,28 +183,8 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         }
     }
 
-    // load data
-    /*protected DisposableObserver getDisposableObserver(boolean refresh, boolean loadMore) {
-        return new DisposableObserver<PageResult<T>>() {
-            @Override
-            public void onNext(PageResult<T> pagedResult) {
-                onLoadNext(pagedResult, refresh, loadMore);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                onLoadError(e);
-            }
-
-            @Override
-            public void onComplete() {
-                onLoadFinish();
-            }
-        };
-    }*/
-
     protected void onLoadNext(List<T> list, boolean refresh) {
-        this.onLoadNext(new PageResult<T>(list), refresh, false);
+        this.onLoadNext(new PageResult<>(list), refresh, false);
     }
 
     protected void onLoadNext(PageResult<T> pagedResult, boolean refresh, boolean loadMore) {
@@ -193,8 +210,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
             mAdapter.loadMoreEnd();
         }
 
-        mSwipeRefreshLayout.setEnabled(isRefreshable());
-
+        mSwipeRefreshLayout.setEnabled(refreshable);
         // cache
         onLoadCache(refresh, loadMore, pagedResult.getList());
     }

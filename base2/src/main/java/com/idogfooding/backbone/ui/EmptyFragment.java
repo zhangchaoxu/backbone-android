@@ -2,12 +2,11 @@ package com.idogfooding.backbone.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.orhanobut.logger.Logger;
 
 /**
  * EmptyFragment
@@ -47,7 +46,7 @@ public class EmptyFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         tvMsg.setText(msg);
         tvMsg.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-        Logger.d(msg);
+        Log.d("Empty", msg);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class EmptyFragment extends BaseFragment {
      */
     @Override
     public void onFirstVisible() {
-        Logger.d(msg + "onFirstUserVisible");
+        Log.d("Empty", msg + "onFirstUserVisible");
     }
 
     /**
@@ -67,7 +66,7 @@ public class EmptyFragment extends BaseFragment {
      */
     @Override
     public void onVisible() {
-        Logger.d(msg + "onUserVisible");
+        Log.d("Empty", msg + "onUserVisible");
     }
 
     /**
@@ -75,8 +74,7 @@ public class EmptyFragment extends BaseFragment {
      */
     @Override
     public void onFirstInvisible() {
-        Logger.d(msg + "onFirstUserInvisible");
-
+        Log.d("Empty", msg + "onFirstUserInvisible");
     }
 
     /**
@@ -84,7 +82,7 @@ public class EmptyFragment extends BaseFragment {
      */
     @Override
     public void onInvisible() {
-        Logger.d(msg + "onUserInvisible");
+        Log.d("Empty", msg + "onUserInvisible");
     }
 
 }

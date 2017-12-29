@@ -45,28 +45,23 @@ dependencies {
     compile 'com.android.support:percent:' + versions.supportLib
     // multidex
     compile 'com.android.support:multidex:' + versions.multidex
-    // guava
-    compile 'com.google.guava:guava:' + versions.guava
 
     // core widget
-    // recyclerview
+    // ViewBinding
+    compile 'com.jakewharton:butterknife:' + versions.butterKnife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:' + versions.butterKnife
+    // RecyclerView
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:' + versions.BaseRecyclerViewAdapterHelper
     // dialogs
     compile 'com.afollestad.material-dialogs:core:' + versions.materialDialogs
     // TabLayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:' + versions.FlycoTabLayout
-    // titlebar
-    // compile 'com.wuhenzhizao:titlebar:' + versions.titlebar
-    // utils
-    compile 'com.blankj:utilcode:' + versions.utilcode
 
     // core lib
     // network
     compile 'com.lzy.net:okgo:' + versions.okgo
-    // ViewBinding
-    compile 'com.jakewharton:butterknife:' + versions.butterKnife
-    annotationProcessor 'com.jakewharton:butterknife-compiler:' + versions.butterKnife
-
+    // utils
+    compile 'com.blankj:utilcode:' + versions.utilcode
     // glide
     compile 'com.github.bumptech.glide:glide:' + versions.glide
     annotationProcessor 'com.github.bumptech.glide:compiler:' + versions.glide
@@ -74,10 +69,6 @@ dependencies {
     compile 'com.yanzhenjie:permission:' + versions.AndPermission
     // json
     compile 'com.google.code.gson:gson:' + versions.gson
-    // logger https://github.com/orhanobut/logger
-    compile 'com.orhanobut:logger:' + versions.logger
-
-    testCompile 'junit:junit:4.12'
 }
 
-apply from: './lib-release.gradle'
+// apply from: './lib-release.gradle'

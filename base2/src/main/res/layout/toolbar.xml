@@ -2,7 +2,7 @@
 <com.idogfooding.backbone.widget.CommonTitleBar
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Toolbar"
     app:centerType="textView"
     app:centerTextColor="@color/white"
-    app:centerSubTextColor="@color/white"
-    style="@style/Toolbar"/>
+    app:centerSubTextColor="@color/white"/>
