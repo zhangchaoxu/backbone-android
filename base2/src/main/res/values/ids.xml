@@ -21,6 +21,7 @@
     <item name="toolbar_subtitle" type="id">false</item>
     <item name="toolbar_shadow" type="id">false</item>
     <item name="view_loading" type="id">false</item>
+    <item name="photo_url" type="id">false</item>
 
     <item name="btn_submit" type="id">false</item>
     <item name="rv_photos" type="id">false</item>

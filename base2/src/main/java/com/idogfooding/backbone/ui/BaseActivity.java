@@ -204,6 +204,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     // permission
+    String[] permissions;
     protected void askForPermissions(String... permissions) {
         askForPermissions(RequestCode.PERMISSION_MULTI, permissions);
     }
@@ -212,6 +213,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (null == permissionListener) {
             initPermissionListener();
         }
+        this.permissions = permissions;
         AndPermission.with(this)
                 .requestCode(code)
                 .permission(permissions)
@@ -251,7 +253,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RequestCode.PERMISSION_SETTINGS) {
-            askForPermissions();
+            askForPermissions(permissions);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

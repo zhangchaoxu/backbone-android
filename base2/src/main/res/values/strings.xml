@@ -7,6 +7,7 @@
     <string name="close">关闭</string>
     <string name="empty"></string>
     <string name="search">搜索</string>
+    <string name="about">关于</string>
 
     <string name="msg_loading">请稍候&#8230;</string>
     <string name="msg_network_unavailable">网络不可用，请检查网络后重试</string>

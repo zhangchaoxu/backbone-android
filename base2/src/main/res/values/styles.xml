@@ -38,9 +38,15 @@
         <item name="android:id">@id/toolbar</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="fillStatusBar">true</item>
         <item name="titleBarColor">@color/primary</item>
         <item name="titleBarHeight">@dimen/toolbar_height</item>
         <item name="statusBarColor">@color/primary_dark</item>
+        <item name="centerTextColor">@color/white</item>
+        <item name="centerSubTextColor">@color/white</item>
+        <item name="rightTextColor">@color/white</item>
+        <item name="leftTextColor">@color/white</item>
+        <item name="centerType">textView</item>
     </style>
 
 </resources>
