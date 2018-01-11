@@ -349,22 +349,16 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             tvLeft.setPadding(PADDING_12, 0, PADDING_12, 0);
 
             rlMain.addView(tvLeft, leftInnerParams);
-
         } else if (leftType == TYPE_LEFT_IMAGEBUTTON) {
             // 初始化左边ImageButton
             btnLeft = new ImageButton(context);
             btnLeft.setId(ViewUtils.generateViewId());
             btnLeft.setBackgroundColor(Color.TRANSPARENT);
             btnLeft.setImageResource(leftImageResource);
-            ViewGroup.LayoutParams layoutParams =  btnLeft.getLayoutParams();
-            layoutParams.height = 20;
-            layoutParams.width = 20;
-            btnLeft.setLayoutParams(layoutParams);
             btnLeft.setPadding(PADDING_12, 0, PADDING_12, 0);
             btnLeft.setOnClickListener(this);
 
             rlMain.addView(btnLeft, leftInnerParams);
-
         } else if (leftType == TYPE_LEFT_CUSTOM_VIEW) {
             // 初始化自定义View
             viewCustomLeft = LayoutInflater.from(context).inflate(leftCustomViewRes, rlMain, false);

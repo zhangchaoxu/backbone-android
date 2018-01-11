@@ -15,4 +15,14 @@ public class BaseEntity implements Serializable {
         return GsonUtils.toJson(this);
     }
 
+    private boolean checked; // 是否选中
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
 }

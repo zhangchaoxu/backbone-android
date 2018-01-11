@@ -28,7 +28,7 @@ import java.util.List;
 public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>> extends BaseFragment
         implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
-    // refresh and RecyclerView
+    // Refresh and RecyclerView
     protected SwipeRefreshLayout mSwipeRefreshLayout;
     protected FloatingActionButton mTopButton;
     protected RecyclerView mRecyclerView;
@@ -39,7 +39,6 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
     protected static int pageSize = 10;
     protected boolean loadMore = true;
     protected boolean refreshable = true;
-
 
     @Override
     protected int getLayoutId() {
@@ -101,7 +100,16 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
     protected void cfgRecyclerView() {
         // cfg RecyclerView
         mRecyclerView.setLayoutManager(getLayoutManager());
+        clearItemChangeAnimations();
         cfgItemDecoration();
+    }
+
+    /**
+     * fix notifyItemChanged闪烁问题
+     * see {https://www.jianshu.com/p/654dac931667}
+     */
+    protected void clearItemChangeAnimations() {
+        mRecyclerView.getItemAnimator().setChangeDuration(0);
     }
 
     /**
