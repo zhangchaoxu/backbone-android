@@ -707,6 +707,30 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
     }
 
     /**
+     * 设置左边按钮文字题
+     *
+     * @param text
+     */
+    public void setLeftText(String text) {
+        if (tvLeft != null) {
+            leftText = text;
+            tvLeft.setText(text);
+        }
+    }
+
+    /**
+     * 设置右边按钮文字题
+     *
+     * @param text
+     */
+    public void setRightText(String text) {
+        if (tvRight != null) {
+            rightText = text;
+            tvRight.setText(text);
+        }
+    }
+
+    /**
      * 设置中间子标题
      *
      * @param text
