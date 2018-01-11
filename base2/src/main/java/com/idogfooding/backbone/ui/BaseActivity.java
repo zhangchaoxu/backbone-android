@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewStub;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
@@ -34,19 +37,14 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected final String TAG = getClass().getSimpleName();
-
-    public String getSimpleName() {
-        return TAG;
-    }
-
-    private boolean mConfigured;
-    CommonTitleBar toolbar;
+    // toolbar stub
+    protected boolean showToolbar = false; // 是否显示toolbar
+    protected ViewStub vsToolbar;
+    protected CommonTitleBar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         onConfigureActivity();
-        mConfigured = true;
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutId());
@@ -65,16 +63,38 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
     protected void onSetupActivity(Bundle savedInstanceState) {
-        initToolbar();
+        // init toolbar
+        if (showToolbar) {
+            vsToolbar = findViewById(R.id.vs_toolbar);
+            inflateToolbar();
+            initToolbar();
+        }
     }
 
-    /**
-     * init toolbar
-     */
-    protected void initToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        if (null == toolbar)
+    //##########  toolbar ##########
+    protected void inflateToolbar() {
+        this.inflateToolbar(R.layout.toolbar_back);
+    }
+
+    protected void inflateToolbar(@LayoutRes int layoutResource) {
+        vsToolbar = findViewById(R.id.vs_toolbar);
+        if (vsToolbar == null)
             return;
+
+        vsToolbar.setLayoutResource(layoutResource);
+        vsToolbar.inflate();
+        toolbar = findViewById(R.id.toolbar);
+    }
+
+    protected void initToolbar() {
+        if (toolbar == null)
+            return;
+
+        toolbar.setListener((v, action, extra) -> {
+            if (action == CommonTitleBar.ACTION_LEFT_TEXT || action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -84,6 +104,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
 
         toolbar.setCenterText(title.toString());
+    }
+
+    protected void setSubTitle(@StringRes int titleId) {
+        setSubTitle(getText(titleId));
     }
 
     public void setSubTitle(CharSequence title) {
@@ -112,7 +136,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         return R.layout.common_pager;
     }
 
-    //##########  Protected helper methods ##########
+    //##########  fragment ##########
+
     /**
      * replace fragment
      *
@@ -203,8 +228,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         sendBroadcast(intent);
     }
 
-    // permission
+    //##########  permission ##########
     String[] permissions;
+
     protected void askForPermissions(String... permissions) {
         askForPermissions(RequestCode.PERMISSION_MULTI, permissions);
     }

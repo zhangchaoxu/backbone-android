@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 
+import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.widget.CommonTitleBar;
 
 import butterknife.ButterKnife;
@@ -25,23 +29,22 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends Fragment {
 
-    protected final String TAG = getClass().getSimpleName();
-
-    public String getSimpleName() {
-        return TAG;
-    }
-
     private Unbinder unbinder;
 
+    // fragment状态
     private boolean isPrepared;
     private boolean isFirstResume = true;
     private boolean isFirstInvisible = true;
     private boolean isFirstVisible = true;
 
-    CommonTitleBar toolbar;
+    // toolbar stub
+    protected boolean showToolbar = false; // 是否显示toolbar
+    protected ViewStub vsToolbar;
+    protected CommonTitleBar toolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        onConfigureFragment();
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
@@ -50,7 +53,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = getLayoutView(inflater, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -68,11 +71,77 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //initFakeToolbar(view);
         onSetupFragment(view, savedInstanceState);
     }
 
-    protected abstract void onSetupFragment(View view, Bundle savedInstanceState);
+    /**
+     * onSetupFragment
+     * @param view
+     * @param savedInstanceState
+     */
+    protected void onSetupFragment(View view, Bundle savedInstanceState) {
+        // init toolbar
+        if (showToolbar) {
+            vsToolbar = view.findViewById(R.id.vs_toolbar);
+            inflateToolbar(view);
+            initToolbar();
+        }
+    }
+
+    //##########  toolbar ##########
+    protected void inflateToolbar(View view) {
+        this.inflateToolbar(view, R.layout.toolbar_back);
+    }
+
+    /**
+     * inflate toolbar
+     */
+    protected void inflateToolbar(View view, @LayoutRes int layoutResource) {
+        vsToolbar = view.findViewById(R.id.vs_toolbar);
+        if (vsToolbar == null)
+            return;
+
+        vsToolbar.setLayoutResource(layoutResource);
+        vsToolbar.inflate();
+        toolbar = view.findViewById(R.id.toolbar);
+    }
+
+    protected void initToolbar() {
+        if (toolbar == null)
+            return;
+
+        toolbar.setListener((v, action, extra) -> {
+            if (action == CommonTitleBar.ACTION_LEFT_TEXT || action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                getActivity().onBackPressed();
+            }
+        });
+    }
+
+    protected void setTitle(@StringRes int titleId) {
+        setTitle(getText(titleId));
+    }
+
+    protected void setTitle(CharSequence title) {
+        if (null == toolbar)
+            return;
+
+        toolbar.setCenterText(title.toString());
+    }
+
+    protected void setSubTitle(@StringRes int titleId) {
+        setSubTitle(getText(titleId));
+    }
+
+    protected void setSubTitle(CharSequence title) {
+        if (null == toolbar)
+            return;
+
+        toolbar.setCenterSubText(title.toString());
+    }
+
+    protected void onConfigureFragment() {
+        // cfg fragment, like set showToolbar
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -93,10 +162,6 @@ public abstract class BaseFragment extends Fragment {
             }
         }
     }
-
-    /*protected void initFakeToolbar(View view) {
-        fakeToolbar = view.findViewById(R.id.fake_toolbar);
-    }*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
