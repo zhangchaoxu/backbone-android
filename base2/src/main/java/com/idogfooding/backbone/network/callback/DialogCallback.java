@@ -21,9 +21,15 @@ public abstract class DialogCallback<T> extends JsonCallback<T> {
         dialog.setMessage("请求网络中...");
     }
 
-    public DialogCallback(Context context) {
+    public DialogCallback() {
         super();
-        initDialog(context);
+    }
+
+    public DialogCallback(Context context, boolean showDialog) {
+        super();
+        if (showDialog) {
+            initDialog(context);
+        }
     }
 
     @Override

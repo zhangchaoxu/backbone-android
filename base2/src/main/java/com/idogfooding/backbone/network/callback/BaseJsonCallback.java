@@ -1,7 +1,6 @@
 package com.idogfooding.backbone.network.callback;
 
-import android.text.TextUtils;
-
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.idogfooding.backbone.network.ApiException;
@@ -61,6 +60,10 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
         }
     }
 
+    /**
+     * 网络请求发生错误,包括系统错误、接口返回错误等
+     * @param response
+     */
     @Override
     public void onError(Response<T> response) {
         Throwable exception = response.getException();
@@ -68,27 +71,44 @@ public abstract class BaseJsonCallback<T> extends AbsCallback<T> {
         if (null != exception)
             exception.printStackTrace();
 
-        if (null == exception || TextUtils.isEmpty(exception.getMessage())) {
+        if (null == exception) {
             response.setException(new IllegalStateException("网络请求发生未知错误"));
+            onSysError(response);
         } else if (exception instanceof UnknownHostException || exception instanceof ConnectException) {
             response.setException(new IllegalStateException("网络连接失败,请检查网络链接!"));
+            onSysError(response);
         } else if (exception instanceof SocketTimeoutException) {
             response.setException(new IllegalStateException("网络请求超时"));
+            onSysError(response);
         } else if (exception instanceof HttpException) {
             response.setException(new IllegalStateException("服务器返回异常:" + exception.getMessage()));
+            onSysError(response);
         } else if (exception instanceof StorageException) {
             response.setException(new IllegalStateException("存储读取异常,请检查存储是否存在并有权限"));
+            onSysError(response);
         } else if (exception instanceof ApiException) {
             onApiError(response, (ApiException) exception);
+        } else {
+            response.setException(new IllegalStateException("网络请求未知错误"));
+            onSysError(response);
         }
     }
 
-    protected void onSysError(Response<T> response, Throwable exception) {
-
+    /**
+     * 除服务器返回错误以外的系统错误
+     * @param response
+     */
+    protected void onSysError(Response<T> response) {
+        ToastUtils.showShort(response.getException().getMessage());
     }
 
+    /**
+     * 服务器返回错误
+     * @param response
+     * @param exception
+     */
     protected void onApiError(Response<T> response, ApiException exception) {
-
+        ToastUtils.showShort(exception.getMessage());
     }
 
 }
