@@ -15,7 +15,7 @@ public class BaseEntity implements Serializable {
         return GsonUtils.toJson(this);
     }
 
-    private boolean checked; // 是否选中
+    private transient boolean checked; // 是否选中
 
     public boolean isChecked() {
         return checked;
