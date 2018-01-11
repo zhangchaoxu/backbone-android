@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             style="@style/Layout">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/Layout">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@id/srl_container"
+    <ViewStub
+        android:id="@+id/vs_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@id/rv_list"
+    <FrameLayout
+        style="@style/Layout"
+        android:layout_weight="1">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@id/srl_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_top"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="20dp"
-        android:visibility="gone"
-        app:backgroundTint="@color/accent"
-        android:src="@mipmap/ic_top"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-</FrameLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_top"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="20dp"
+            android:src="@mipmap/ic_top"
+            android:visibility="gone"
+            app:backgroundTint="@color/accent"/>
+
+    </FrameLayout>
+
+</LinearLayout>

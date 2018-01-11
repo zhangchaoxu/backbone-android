@@ -1,12 +1,14 @@
 package com.idogfooding.backbone.ui.recyclerview;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewStub;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,6 +17,7 @@ import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.network.ApiException;
 import com.idogfooding.backbone.network.PageResult;
 import com.idogfooding.backbone.ui.BaseFragment;
+import com.idogfooding.backbone.widget.CommonTitleBar;
 
 import java.util.List;
 
@@ -37,8 +40,13 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
     // page param
     protected int pageNumber = 1;
     protected static int pageSize = 10;
-    protected boolean loadMore = true;
-    protected boolean refreshable = true;
+    protected boolean loadMore = true; // 是否自动加载下一页
+    protected boolean refreshable = true; // 是否可刷新
+    protected boolean showToolbar = false; // 是否显示toolbar
+
+    // toolbar stub
+    protected ViewStub vsToolbar;
+    protected CommonTitleBar toolbar;
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +73,43 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         mRecyclerView.setAdapter(mAdapter);
 
         initHeaderAndFooterView();
+
+        // init toolbar
+        if (showToolbar) {
+            vsToolbar = view.findViewById(R.id.vs_toolbar);
+            inflateToolbar(view);
+            cfgToolbar();
+        }
+    }
+
+    protected void inflateToolbar(View view) {
+        this.inflateToolbar(view, R.layout.toolbar_back);
+    }
+
+    /**
+     * inflate toolbar
+     */
+    protected void inflateToolbar(View view, @LayoutRes int layoutResource) {
+        vsToolbar.setLayoutResource(layoutResource);
+        vsToolbar.inflate();
+        toolbar = view.findViewById(R.id.toolbar);
+    }
+
+    protected void cfgToolbar() {
+        if (toolbar == null)
+            return;
+
+        toolbar.setListener((v, action, extra) -> {
+            if (action == CommonTitleBar.ACTION_LEFT_TEXT || action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                finishActivity();
+            } else if (action == CommonTitleBar.ACTION_CENTER_TEXT) {
+                smoothScrollToPosition(0);
+            }
+        });
+    }
+
+    protected void setTitle() {
+
     }
 
     /**
