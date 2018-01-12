@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.Window;
 
+import com.idogfooding.backbone.R;
 import com.lzy.okgo.request.base.Request;
 
 /**
@@ -18,7 +19,7 @@ public abstract class DialogCallback<T> extends JsonCallback<T> {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("请求网络中...");
+        dialog.setMessage(context.getString(R.string.loading));
     }
 
     public DialogCallback() {
