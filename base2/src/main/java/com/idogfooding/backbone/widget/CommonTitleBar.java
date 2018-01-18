@@ -357,7 +357,6 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             btnLeft.setImageResource(leftImageResource);
             btnLeft.setPadding(PADDING_12, 0, PADDING_12, 0);
             btnLeft.setOnClickListener(this);
-
             rlMain.addView(btnLeft, leftInnerParams);
         } else if (leftType == TYPE_LEFT_CUSTOM_VIEW) {
             // 初始化自定义View
@@ -365,6 +364,7 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             if (viewCustomLeft.getId() == View.NO_ID) {
                 viewCustomLeft.setId(ViewUtils.generateViewId());
             }
+            viewCustomLeft.setOnClickListener(this);
             rlMain.addView(viewCustomLeft, leftInnerParams);
         }
     }
@@ -409,6 +409,7 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             if (viewCustomRight.getId() == View.NO_ID) {
                 viewCustomRight.setId(ViewUtils.generateViewId());
             }
+            viewCustomRight.setOnClickListener(this);
             rlMain.addView(viewCustomRight, rightInnerParams);
         }
     }
@@ -663,10 +664,14 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             listener.onClicked(v, ACTION_LEFT_TEXT, null);
         } else if (v.equals(btnLeft)) {
             listener.onClicked(v, ACTION_LEFT_BUTTON, null);
+        } else if (v.equals(viewCustomLeft)) {
+            listener.onClicked(v, ACTION_LEFT_CUSTOM_VIEW, null);
         } else if (v.equals(tvRight)) {
             listener.onClicked(v, ACTION_RIGHT_TEXT, null);
         } else if (v.equals(btnRight)) {
             listener.onClicked(v, ACTION_RIGHT_BUTTON, null);
+        } else if (v.equals(viewCustomRight)) {
+            listener.onClicked(v, ACTION_RIGHT_CUSTOM_VIEW, null);
         } else if (v.equals(etSearchHint) || v.equals(ivSearch)) {
             listener.onClicked(v, ACTION_SEARCH, null);
         } else if (v.equals(ivVoice)) {
@@ -977,32 +982,30 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
 
     /**
      * 设置点击事件监听
-     *
-     * @param listener
      */
 
     public void setListener(OnTitleBarListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * 设置双击监听
+     */
     public void setDoubleClickListener(OnTitleBarDoubleClickListener doubleClickListener) {
         this.doubleClickListener = doubleClickListener;
     }
 
-    /**
-     * 设置双击监听
-     */
-
-
     public static final int ACTION_LEFT_TEXT = 1;        // 左边TextView被点击
     public static final int ACTION_LEFT_BUTTON = 2;      // 左边ImageBtn被点击
-    public static final int ACTION_RIGHT_TEXT = 3;       // 右边TextView被点击
-    public static final int ACTION_RIGHT_BUTTON = 4;     // 右边ImageBtn被点击
-    public static final int ACTION_SEARCH = 5;           // 搜索框被点击,搜索框不可输入的状态下会被触发
-    public static final int ACTION_SEARCH_SUBMIT = 6;    // 搜索框输入状态下,键盘提交触发
-    public static final int ACTION_SEARCH_VOICE = 7;     // 语音按钮被点击
-    public static final int ACTION_SEARCH_DELETE = 8;    // 搜索删除按钮被点击
-    public static final int ACTION_CENTER_TEXT = 9;     // 中间文字点击
+    public static final int ACTION_LEFT_CUSTOM_VIEW = 3;      // 左边自定义view被点击
+    public static final int ACTION_RIGHT_TEXT = 4;       // 右边TextView被点击
+    public static final int ACTION_RIGHT_BUTTON = 5;     // 右边ImageBtn被点击
+    public static final int ACTION_RIGHT_CUSTOM_VIEW = 6;     // 右边自定义view被点击
+    public static final int ACTION_SEARCH = 7;           // 搜索框被点击,搜索框不可输入的状态下会被触发
+    public static final int ACTION_SEARCH_SUBMIT = 8;    // 搜索框输入状态下,键盘提交触发
+    public static final int ACTION_SEARCH_VOICE = 9;     // 语音按钮被点击
+    public static final int ACTION_SEARCH_DELETE = 10;    // 搜索删除按钮被点击
+    public static final int ACTION_CENTER_TEXT = 11;     // 中间文字点击
 
     /**
      * 点击事件

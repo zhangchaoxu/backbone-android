@@ -110,7 +110,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
 
         toolbar.setListener((v, action, extra) -> {
-            if (action == CommonTitleBar.ACTION_LEFT_TEXT || action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+            if (action == CommonTitleBar.ACTION_LEFT_TEXT
+                    || action == CommonTitleBar.ACTION_LEFT_BUTTON
+                    || action == CommonTitleBar.ACTION_LEFT_CUSTOM_VIEW) {
                 onBackPressed();
             }
         });
