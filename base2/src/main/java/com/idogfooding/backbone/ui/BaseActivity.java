@@ -47,20 +47,32 @@ public abstract class BaseActivity extends AppCompatActivity {
         onConfigureActivity();
         super.onCreate(savedInstanceState);
 
+        // set view
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         onSetupActivity(savedInstanceState);
 
-        // register receiver
+        // 注册广播,用于关闭所有activity
         mExistAppBroadcastReceiver = new ExistAppBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter("com.idogfooding.backbone.ui.BaseActivity");
         registerReceiver(mExistAppBroadcastReceiver, intentFilter);
     }
 
     /**
+     * 配置Activity
+     */
+    protected void onConfigureActivity() {
+    }
+
+    /**
+     * 设置layout
+     */
+    protected int getLayoutId() {
+        return R.layout.common_pager;
+    }
+
+    /**
      * 启动activity
-     *
-     * @param savedInstanceState
      */
     protected void onSetupActivity(Bundle savedInstanceState) {
         // init toolbar
@@ -71,9 +83,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 设置Toolbar layout
+     */
+    protected int getToolbarLayoutId() {
+        return R.layout.toolbar_back;
+    }
+
     //##########  toolbar ##########
     protected void inflateToolbar() {
-        this.inflateToolbar(R.layout.toolbar_back);
+        this.inflateToolbar(getToolbarLayoutId());
     }
 
     protected void inflateToolbar(@LayoutRes int layoutResource) {
@@ -127,13 +146,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mExistAppBroadcastReceiver != null) {
             unregisterReceiver(mExistAppBroadcastReceiver);
         }
-    }
-
-    protected void onConfigureActivity() {
-    }
-
-    protected int getLayoutId() {
-        return R.layout.common_pager;
     }
 
     //##########  fragment ##########
