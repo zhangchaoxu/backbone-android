@@ -89,8 +89,15 @@ public abstract class BaseFragment extends Fragment {
     }
 
     //##########  toolbar ##########
+    /**
+     * 设置Toolbar layout
+     */
+    protected int getToolbarLayoutId() {
+        return R.layout.toolbar_back;
+    }
+
     protected void inflateToolbar(View view) {
-        this.inflateToolbar(view, R.layout.toolbar_back);
+        this.inflateToolbar(view, getToolbarLayoutId());
     }
 
     /**
