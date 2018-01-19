@@ -15,6 +15,7 @@ public class ViewUtils {
 
     /**
      * 生成view id
+     *
      * @return 生产的viewid
      */
     public static int generateViewId() {
@@ -42,6 +43,35 @@ public class ViewUtils {
         try {
             Object object = (-1 == key) ? view.getTag() : view.getTag(key);
             return null == object ? defaultValue : (T) object;
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
+    public static int getTagValue(View view, int defaultValue) {
+        return getTagValue(view, -1, defaultValue);
+    }
+
+    /**
+     * 获取view tag的值
+     *
+     * @param view
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static int getTagValue(View view, @IdRes int key, int defaultValue) {
+        try {
+            Object object = (-1 == key) ? view.getTag() : view.getTag(key);
+            if (null == object) {
+                return defaultValue;
+            } else {
+                if (object instanceof String) {
+                    return NumberUtils.parseToInt((String) object, defaultValue);
+                } else {
+                    return (int) object;
+                }
+            }
         } catch (Exception e) {
             return defaultValue;
         }

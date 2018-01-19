@@ -14,7 +14,7 @@ public abstract class DialogCallback<T> extends JsonCallback<T> {
 
     private ProgressDialog dialog;
 
-    private void initDialog(Context context) {
+    protected void initDialog(Context context) {
         dialog = new ProgressDialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCanceledOnTouchOutside(false);
