@@ -28,7 +28,6 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.idogfooding.backbone.R;
-import com.idogfooding.backbone.utils.StatusBarUtils;
 import com.idogfooding.backbone.utils.ViewUtils;
 
 /**
@@ -255,7 +254,7 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
         // 构建标题栏填充视图
         boolean supportStatusBarLightMode = false;
         try {
-            supportStatusBarLightMode = StatusBarUtils.supportStatusBarLightMode(getContext());
+            supportStatusBarLightMode = true; //StatusBarUtils.supportStatusBarLightMode(getContext());
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
