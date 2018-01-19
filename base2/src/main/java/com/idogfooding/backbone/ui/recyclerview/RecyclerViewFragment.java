@@ -125,6 +125,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
 
     /**
      * 获得布局，支持LinearLayout和GridLayout
+     *
      * @return LayoutManager
      */
     protected RecyclerView.LayoutManager getLayoutManager() {
@@ -135,7 +136,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
      * 获得Grid布局
      *
      * @param orientation 布局方向
-     * @param spanCount grid条数
+     * @param spanCount   grid条数
      * @return LayoutManager
      */
     protected RecyclerView.LayoutManager getGridLayoutManager(@RecyclerView.Orientation int orientation, int spanCount) {
@@ -207,11 +208,11 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
         }
 
         if (list.size() > 0) {
-            if (pagedResult.isLastPage()) {
-                mAdapter.loadMoreEnd();
-            } else {
+            if (pagedResult.hasNextPage()) {
                 pageNumber++;
                 mAdapter.loadMoreComplete();
+            } else {
+                mAdapter.loadMoreEnd();
             }
         } else {
             if (refresh) {
