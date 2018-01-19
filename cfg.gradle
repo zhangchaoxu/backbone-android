@@ -2,7 +2,7 @@ ext.versions = [
         minSdk                       : 16,
         compileSdk                   : 27,
         targetSdk                    : 27,
-        buildTools                   : '27.0.2',
+        buildTools                   : '27.0.3',
         supportLib                   : '27.0.2',
         gradlePlugin                 : '3.0.1',
         aptPlugin                    : '1.8',
@@ -15,7 +15,7 @@ ext.versions = [
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
         BaseRecyclerViewAdapterHelper: "2.9.34",
         // utils https://github.com/Blankj/AndroidUtilCode
-        utilcode                     : "1.9.12",
+        utilcode                     : "1.12.0",
         // TabLayout https://github.com/H07000223/FlycoTabLayout
         FlycoTabLayout               : "2.1.2@aar",
         // okgo https://github.com/jeasonlzy/okhttp-OkGo
