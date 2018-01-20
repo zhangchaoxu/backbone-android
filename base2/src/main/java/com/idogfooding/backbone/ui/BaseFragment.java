@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.widget.TopBar;
@@ -39,7 +37,8 @@ public abstract class BaseFragment extends Fragment {
 
     // toolbar stub
     protected boolean showToolbar = false; // 是否显示toolbar
-    protected ViewStub vsToolbar;
+    // 放弃viewstub填充,是因为viewstub加载自定义控件无法wrap_content
+    // wrap_content会变成和父控件一致
     protected TopBar toolbar;
 
     @Override
@@ -82,46 +81,18 @@ public abstract class BaseFragment extends Fragment {
     protected void onSetupFragment(View view, Bundle savedInstanceState) {
         // init toolbar
         if (showToolbar) {
-            vsToolbar = view.findViewById(R.id.vs_toolbar);
-            inflateToolbar(view);
+            toolbar = view.findViewById(R.id.toolbar);
             initToolbar();
         }
     }
 
     //##########  toolbar ##########
-    /**
-     * 设置Toolbar layout
-     */
-    protected int getToolbarLayoutId() {
-        return R.layout.toolbar;
-    }
-
-    protected void inflateToolbar(View view) {
-        this.inflateToolbar(view, getToolbarLayoutId());
-    }
-
-    /**
-     * inflate toolbar
-     */
-    protected void inflateToolbar(View view, @LayoutRes int layoutResource) {
-        // 先找一下有没有toolbar
-        toolbar = view.findViewById(R.id.toolbar);
-        if (toolbar == null) {
-            // 没有toolbar的话,再找一下有没有vs_toolbar
-            vsToolbar = view.findViewById(R.id.vs_toolbar);
-            if (vsToolbar != null) {
-                vsToolbar.setLayoutResource(layoutResource);
-                vsToolbar.inflate();
-                toolbar = view.findViewById(R.id.toolbar);
-            }
-        }
-    }
-
     protected void initToolbar() {
         if (toolbar == null)
             return;
 
         // 左侧按钮默认关闭
+        toolbar.setVisibility(View.VISIBLE);
         toolbar.setOnLeftTextClickListener(v -> {
             if (getActivity() != null) {
                 getActivity().onBackPressed();

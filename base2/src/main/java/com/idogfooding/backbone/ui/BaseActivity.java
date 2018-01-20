@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -16,7 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ViewStub;
+import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
@@ -39,7 +38,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // toolbar stub
     protected boolean showToolbar = true; // 是否显示toolbar
-    protected ViewStub vsToolbar;
     protected TopBar toolbar;
 
     @Override
@@ -77,42 +75,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onSetupActivity(Bundle savedInstanceState) {
         // init toolbar
         if (showToolbar) {
-            inflateToolbar();
             initToolbar();
         }
     }
-
-    /**
-     * 设置Toolbar layout
-     */
-    protected int getToolbarLayoutId() {
-        return R.layout.toolbar_back;
-    }
-
     //##########  toolbar ##########
-    protected void inflateToolbar() {
-        this.inflateToolbar(getToolbarLayoutId());
-    }
-
-    protected void inflateToolbar(@LayoutRes int layoutResource) {
-        // 先找一下有没有toolbar
-        toolbar = findViewById(R.id.toolbar);
-        if (toolbar == null) {
-            // 没有toolbar的话,再找一下有没有vs_toolbar
-           vsToolbar = findViewById(R.id.vs_toolbar);
-            if (vsToolbar != null) {
-                vsToolbar.setLayoutResource(layoutResource);
-                vsToolbar.inflate();
-                toolbar = findViewById(R.id.toolbar);
-            }
-        }
-    }
-
     protected void initToolbar() {
+        toolbar = findViewById(R.id.toolbar);
         if (toolbar == null)
             return;
 
         // 左侧按钮默认关闭
+        toolbar.setVisibility(View.VISIBLE);
         toolbar.setOnLeftTextClickListener(v -> onBackPressed());
     }
 

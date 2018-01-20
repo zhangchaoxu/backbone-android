@@ -3,7 +3,9 @@
               style="@style/RootView">
 
     <!-- toolbar -->
-    <include layout="@layout/viewstub_toolbar"/>
+    <include
+        layout="@layout/toolbar"
+        android:visibility="gone"/>
 
     <com.idogfooding.backbone.widget.ViewPager
         android:id="@id/pager"

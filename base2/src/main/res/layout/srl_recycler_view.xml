@@ -3,7 +3,9 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               style="@style/Layout">
 
-    <include layout="@layout/viewstub_toolbar"/>
+    <include
+        layout="@layout/toolbar"
+        android:visibility="gone"/>
 
     <FrameLayout
         style="@style/Layout"
