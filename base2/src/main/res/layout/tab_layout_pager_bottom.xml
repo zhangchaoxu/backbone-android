@@ -18,7 +18,7 @@
     <com.flyco.tablayout.CommonTabLayout
         android:id="@id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="@dimen/tab_bar_bottom"
         android:background="@color/gray0"
         tl:tl_iconHeight="24dp"
         tl:tl_iconWidth="24dp"
@@ -26,7 +26,7 @@
         tl:tl_indicator_height="0dp"
         tl:tl_textSelectColor="?attr/colorPrimary"
         tl:tl_textUnselectColor="@color/primary_text"
-        tl:tl_textsize="12sp"
+        tl:tl_textsize="@dimen/text_size_micro"
         tl:tl_underline_color="@color/gray4"
         tl:tl_underline_gravity="TOP"
         tl:tl_underline_height="1dp"/>

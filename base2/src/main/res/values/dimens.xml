@@ -3,6 +3,8 @@
 
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="status_bar_height">0dp</dimen>
+    <dimen name="tab_bar_bottom">54dp</dimen>
+    <dimen name="tab_bar_top">54dp</dimen>
 
     <!-- text size -->
     <dimen name="text_size_micro">12sp</dimen>

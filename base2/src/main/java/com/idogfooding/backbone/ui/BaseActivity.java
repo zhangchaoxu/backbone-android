@@ -21,7 +21,7 @@ import android.view.ViewStub;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
-import com.idogfooding.backbone.widget.CommonTitleBar;
+import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
@@ -38,9 +38,9 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
 
     // toolbar stub
-    protected boolean showToolbar = false; // 是否显示toolbar
+    protected boolean showToolbar = true; // 是否显示toolbar
     protected ViewStub vsToolbar;
-    protected CommonTitleBar toolbar;
+    protected TopBar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +77,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onSetupActivity(Bundle savedInstanceState) {
         // init toolbar
         if (showToolbar) {
-            vsToolbar = findViewById(R.id.vs_toolbar);
             inflateToolbar();
             initToolbar();
         }
@@ -96,26 +95,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void inflateToolbar(@LayoutRes int layoutResource) {
-        vsToolbar = findViewById(R.id.vs_toolbar);
-        if (vsToolbar == null)
-            return;
-
-        vsToolbar.setLayoutResource(layoutResource);
-        vsToolbar.inflate();
+        // 先找一下有没有toolbar
         toolbar = findViewById(R.id.toolbar);
+        if (toolbar == null) {
+            // 没有toolbar的话,再找一下有没有vs_toolbar
+           vsToolbar = findViewById(R.id.vs_toolbar);
+            if (vsToolbar != null) {
+                vsToolbar.setLayoutResource(layoutResource);
+                vsToolbar.inflate();
+                toolbar = findViewById(R.id.toolbar);
+            }
+        }
     }
 
     protected void initToolbar() {
         if (toolbar == null)
             return;
 
-        toolbar.setListener((v, action, extra) -> {
-            if (action == CommonTitleBar.ACTION_LEFT_TEXT
-                    || action == CommonTitleBar.ACTION_LEFT_BUTTON
-                    || action == CommonTitleBar.ACTION_LEFT_CUSTOM_VIEW) {
-                onBackPressed();
-            }
-        });
+        // 左侧按钮默认关闭
+        toolbar.setOnLeftTextClickListener(v -> onBackPressed());
     }
 
     @Override
@@ -124,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (null == toolbar)
             return;
 
-        toolbar.setCenterText(title.toString());
+        toolbar.setTitleMainText(title.toString());
     }
 
     protected void setSubTitle(@StringRes int titleId) {
@@ -135,7 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (null == toolbar)
             return;
 
-        toolbar.setCenterSubText(title.toString());
+        toolbar.setTitleSubText(title.toString());
     }
 
     @Override

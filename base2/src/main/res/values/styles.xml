@@ -34,19 +34,24 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!-- 默认深色背景,白色图标和字体 -->
     <style name="Toolbar">
         <item name="android:id">@id/toolbar</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="fillStatusBar">true</item>
-        <item name="titleBarColor">@color/primary</item>
-        <item name="titleBarHeight">@dimen/toolbar_height</item>
-        <item name="statusBarColor">@color/primary_dark</item>
-        <item name="centerTextColor">@color/white</item>
-        <item name="centerSubTextColor">@color/white</item>
-        <item name="rightTextColor">@color/white</item>
-        <item name="leftTextColor">@color/white</item>
-        <item name="centerType">textView</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+        <item name="android:background">@color/primary</item>
+        <item name="title_statusColor">@color/primary</item>
+        <item name="title_statusBarLightMode">false</item>
+    </style>
+
+    <style name="Toolbar.Light" parent="@style/Toolbar">
+        <item name="android:background">@color/white</item>
+        <item name="title_statusColor">@color/white</item>
+        <item name="title_leftTextColor">@color/black</item>
+        <item name="title_rightTextColor">@color/black</item>
+        <item name="title_titleMainTextColor">@color/black</item>
+        <item name="title_titleSubTextColor">@color/black</item>
+        <item name="title_statusBarLightMode">true</item>
     </style>
 
 </resources>

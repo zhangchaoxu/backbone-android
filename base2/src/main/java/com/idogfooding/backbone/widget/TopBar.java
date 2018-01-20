@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -54,6 +55,7 @@ public class TopBar extends ViewGroup {
     private TextView mTitleSub;//副标题
     private TextView mRightTv;//右边TextView
     private View mDividerView;//下方下划线
+    private View mCenterCustomeView;//中间自定义view
 
     /**
      * 是否增加状态栏高度
@@ -87,6 +89,9 @@ public class TopBar extends ViewGroup {
     private int mLeftTextDrawableHeight;
     private int mLeftDrawablePadding;
     private int mLeftTextBackgroundResource;
+
+    private boolean mMainCustom;
+    private int mMainCustomLayoutResource;
 
     private int mTitleMainTextSize;
     private int mTitleMainTextColor;
@@ -138,6 +143,12 @@ public class TopBar extends ViewGroup {
         setViewAttributes(context);
     }
 
+    /**
+     * 获取xml中的设置
+     *
+     * @param context
+     * @param attrs
+     */
     private void initAttributes(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TopBar);
         mImmersible = ta.getBoolean(R.styleable.TopBar_title_immersible, true);
@@ -164,6 +175,9 @@ public class TopBar extends ViewGroup {
         mLeftTextDrawableWidth = ta.getDimensionPixelSize(R.styleable.TopBar_title_leftTextDrawableWidth, -1);
         mLeftTextDrawableHeight = ta.getDimensionPixelSize(R.styleable.TopBar_title_leftTextDrawableHeight, -1);
         mLeftDrawablePadding = ta.getDimensionPixelSize(R.styleable.TopBar_title_leftTextDrawablePadding, dip2px(1));
+
+        mMainCustom = false;
+        mMainCustomLayoutResource = R.layout.view_no_more;
 
         mTitleMainText = ta.getString(R.styleable.TopBar_title_titleMainText);
         mTitleMainTextSize = ta.getDimensionPixelSize(R.styleable.TopBar_title_titleMainTextSize, dip2px(DEFAULT_MAIN_TEXT_SIZE));
@@ -230,12 +244,15 @@ public class TopBar extends ViewGroup {
         mCenterLayout.setOrientation(LinearLayout.VERTICAL);
         mTitleMain = new TextView(context);
         mTitleSub = new TextView(context);
+        mCenterCustomeView = LayoutInflater.from(context).inflate(mMainCustomLayoutResource, mCenterLayout, false);
         addView(mCenterLayout, params);//添加中间容器
 
-        //
-        mStatusView = new View(context);
+        // 底部分割线
         mDividerView = new View(context);
         addView(mDividerView, dividerParams);//添加下划线View
+
+        // 状态栏
+        mStatusView = new View(context);
         addView(mStatusView);//添加状态栏View
     }
 
@@ -259,10 +276,12 @@ public class TopBar extends ViewGroup {
         setCenterGravityLeft(mCenterGravityLeft);
         setStatusColor(mStatusColor);
         setStatusResource(mStatusResource);
+
         setDividerColor(mDividerColor);
         setDividerResource(mDividerResource);
         setDividerHeight(mDividerHeight);
         setDividerVisible(mDividerVisible);
+
         setLeftText(mLeftText);
         setLeftTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize);
         setLeftTextColor(mLeftTextColor);
@@ -271,13 +290,20 @@ public class TopBar extends ViewGroup {
         setLeftTextDrawable(mLeftDrawable);
         setLeftTextDrawableWidth(mLeftTextDrawableWidth);
         setLeftTextDrawableHeight(mLeftTextDrawableHeight);
-        setTitleMainText(mTitleMainText);
-        setTitleMainTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleMainTextSize);
-        setTitleMainTextColor(mTitleMainTextColor);
-        setTitleMainTextBackgroundColor(mTitleMainTextBackgroundColor);
-        setTitleMainTextBackgroundResource(mTitleMainTextBackgroundResource);
-        setTitleMainTextFakeBold(mTitleMainTextFakeBold);
-        setTitleMainTextMarquee(mTitleMainTextMarquee);
+
+        // 设置中间位置
+        if (mMainCustom) {
+            setCenterCustomeView();
+        } else {
+            setTitleMainText(mTitleMainText);
+            setTitleMainTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleMainTextSize);
+            setTitleMainTextColor(mTitleMainTextColor);
+            setTitleMainTextBackgroundColor(mTitleMainTextBackgroundColor);
+            setTitleMainTextBackgroundResource(mTitleMainTextBackgroundResource);
+            setTitleMainTextFakeBold(mTitleMainTextFakeBold);
+            setTitleMainTextMarquee(mTitleMainTextMarquee);
+        }
+
         setTitleSubText(mTitleSubText);
         setTitleSubTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleSubTextSize);
         setTitleSubTextColor(mTitleSubTextColor);
@@ -769,6 +795,13 @@ public class TopBar extends ViewGroup {
 
     public TopBar setTitleMainText(int id) {
         return setTitleMainText(getResources().getText(id));
+    }
+
+    public TopBar setCenterCustomeView() {
+        if (mCenterCustomeView != null && !hasChildView(mCenterLayout, mCenterCustomeView)) {
+            mCenterLayout.addView(mCenterCustomeView, 0);
+        }
+        return this;
     }
 
     public TopBar setTitleMainText(CharSequence charSequence) {
