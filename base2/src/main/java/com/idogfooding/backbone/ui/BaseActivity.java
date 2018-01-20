@@ -78,6 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             initToolbar();
         }
     }
+
     //##########  toolbar ##########
     protected void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
