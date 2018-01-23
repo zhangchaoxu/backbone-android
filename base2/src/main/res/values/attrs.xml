@@ -192,5 +192,9 @@
         <attr name="title_actionTextBackgroundColor" format="color"/>
         <!--添加TextView文字背景资源,默认-1-->
         <attr name="title_actionTextBackgroundResource" format="reference"/>
+        <!--中间部分是否包含左右,默认false-->
+        <attr name="title_centerIncludeLeft" format="boolean"/>
+        <attr name="title_centerIncludeRight" format="boolean"/>
+
     </declare-styleable>
 </resources>

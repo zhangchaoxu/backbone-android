@@ -70,6 +70,8 @@ public class TopBar extends ViewGroup {
     private int mCenterGravityLeftPadding;//中间部分左对齐是Layout左padding
     private boolean mStatusBarLightMode = false;//是否浅色状态栏(黑色文字及图标)
     private int mStatusBarModeType = StatusBarUtils.STATUS_BAR_TYPE_DEFAULT;//设置状态栏浅色或深色模式类型标记;>0则表示支持模式切换
+    private boolean mCenterIncludeLeft;
+    private boolean mCenterIncludeRight;
 
     private int mStatusColor;
     private int mStatusResource;
@@ -147,6 +149,8 @@ public class TopBar extends ViewGroup {
         mCenterGravityLeft = ta.getBoolean(R.styleable.TopBar_title_centerGravityLeft, false);
         mCenterGravityLeftPadding = ta.getDimensionPixelSize(R.styleable.TopBar_title_centerGravityLeftPadding, dip2px(DEFAULT_CENTER_GRAVITY_LEFT_PADDING));
         mStatusBarLightMode = ta.getBoolean(R.styleable.TopBar_title_statusBarLightMode, false);
+        mCenterIncludeLeft = ta.getBoolean(R.styleable.TopBar_title_centerIncludeLeft, false);
+        mCenterIncludeRight = ta.getBoolean(R.styleable.TopBar_title_centerIncludeRight, false);
 
         mStatusColor = ta.getColor(R.styleable.TopBar_title_statusColor, -1);
         mStatusResource = ta.getResourceId(R.styleable.TopBar_title_statusResource, -1);
@@ -438,10 +442,19 @@ public class TopBar extends ViewGroup {
             if (isMuchScreen) {
                 center = mScreenWidth - left - right;
             } else {
+                // 修改这里调整中间宽度
                 if (left > right) {
-                    center = mScreenWidth - 2 * left;
+                    if (mCenterIncludeLeft || mCenterIncludeRight) {
+                        center = mScreenWidth - left;
+                    } else {
+                        center = mScreenWidth - 2 * left;
+                    }
                 } else {
-                    center = mScreenWidth - 2 * right;
+                    if (mCenterIncludeLeft || mCenterIncludeRight) {
+                        center = mScreenWidth - right;
+                    } else {
+                        center = mScreenWidth - 2 * right;
+                    }
                 }
             }
             mCenterLayout.measure(MeasureSpec.makeMeasureSpec(center, MeasureSpec.EXACTLY), heightMeasureSpec);
