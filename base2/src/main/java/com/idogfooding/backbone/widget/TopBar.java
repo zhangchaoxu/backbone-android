@@ -232,7 +232,7 @@ public class TopBar extends ViewGroup {
         mTitleSub = new TextView(context);
         addView(mCenterLayout, params);//添加中间容器
 
-        //
+        // 状态栏和底部分割线
         mStatusView = new View(context);
         mDividerView = new View(context);
         addView(mDividerView, dividerParams);//添加下划线View
