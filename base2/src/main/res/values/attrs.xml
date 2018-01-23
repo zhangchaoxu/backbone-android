@@ -135,8 +135,6 @@
         <!--左边文字与drawable资源边距,默认1dp-->
         <attr name="title_leftTextDrawablePadding" format="dimension"/>
 
-        <attr name="title_mainCustom" format="boolean"/>
-        <attr name="title_mainCustomLayoutResource" format="reference"/>
         <!--主标题文字,支持CharSequence及String资源-->
         <attr name="title_titleMainText" format="string"/>
         <!--主标题文字大小,默认18dp-->
