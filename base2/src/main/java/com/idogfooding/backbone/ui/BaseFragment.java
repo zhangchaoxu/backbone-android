@@ -108,7 +108,7 @@ public abstract class BaseFragment extends Fragment {
         if (null == toolbar)
             return;
 
-        toolbar.setTitleMainText(title.toString());
+        toolbar.setTitleMainText(title);
     }
 
     protected void setSubTitle(@StringRes int titleId) {
@@ -119,7 +119,7 @@ public abstract class BaseFragment extends Fragment {
         if (null == toolbar)
             return;
 
-        toolbar.setTitleSubText(title.toString());
+        toolbar.setTitleSubText(title);
     }
 
     protected void onConfigureFragment() {

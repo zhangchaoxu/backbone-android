@@ -42,6 +42,10 @@
         <item name="android:background">@color/primary</item>
         <item name="title_statusColor">@color/primary</item>
         <item name="title_statusBarLightMode">false</item>
+        <item name="title_leftTextColor">@color/white</item>
+        <item name="title_rightTextColor">@color/white</item>
+        <item name="title_titleMainTextColor">@color/white</item>
+        <item name="title_titleSubTextColor">@color/white</item>
     </style>
 
     <style name="Toolbar.Light" parent="@style/Toolbar">
