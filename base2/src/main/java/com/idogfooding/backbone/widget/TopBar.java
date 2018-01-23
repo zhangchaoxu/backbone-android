@@ -767,6 +767,11 @@ public class TopBar extends ViewGroup {
         return this;
     }
 
+    public TopBar setLeftGone(boolean visible) {
+        mLeftLayout.setVisibility(visible ? View.VISIBLE : View.GONE);
+        return this;
+    }
+
     public TopBar setTitleMainText(int id) {
         return setTitleMainText(getResources().getText(id));
     }
@@ -1218,7 +1223,6 @@ public class TopBar extends ViewGroup {
     }
 
     public class ImageAction implements Action<Drawable> {
-
 
         private Drawable mDrawable;
         private OnClickListener onClickListener;
