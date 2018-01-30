@@ -1,6 +1,7 @@
 package com.idogfooding.backbone.ui.tab;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -101,5 +102,13 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
 
     protected void setCurrentItem(int position) {
         // Intentionally left blank
+    }
+
+    protected Fragment getCurrentFragment() {
+        if (tabLayout.getCurrentTab() >= 0 && tabLayout.getCurrentTab() <= adapter.getCount()) {
+            return adapter.getItem(tabLayout.getCurrentTab());
+        } else {
+            return null;
+        }
     }
 }
