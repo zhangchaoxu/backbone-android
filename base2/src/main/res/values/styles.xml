@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- RootView style -->
     <style name="RootView">
@@ -40,6 +39,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
         <item name="android:background">@color/primary</item>
+
+        <item name="title_rightTextDrawableWidth">@dimen/toolbar_action_width</item>
+        <item name="title_leftTextDrawableWidth">@dimen/toolbar_action_width</item>
+        <item name="title_rightTextDrawableHeight">@dimen/toolbar_action_height</item>
+        <item name="title_leftTextDrawableHeight">@dimen/toolbar_action_height</item>
         <item name="title_statusColor">@color/primary</item>
         <item name="title_statusBarLightMode">false</item>
         <item name="title_leftTextColor">@color/white</item>

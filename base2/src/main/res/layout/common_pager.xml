@@ -4,7 +4,7 @@
 
     <!-- toolbar -->
     <include
-        layout="@layout/toolbar"
+        layout="@layout/toolbar_back"
         android:visibility="gone"/>
 
     <com.idogfooding.backbone.widget.ViewPager
