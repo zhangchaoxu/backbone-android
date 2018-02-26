@@ -48,14 +48,14 @@ dependencies {
 
     // core widget
     // ViewBinding
-    api ('com.jakewharton:butterknife:' + versions.butterKnife) {
+    api('com.jakewharton:butterknife:' + versions.butterKnife) {
         exclude(group: 'com.android.support')
     }
     annotationProcessor 'com.jakewharton:butterknife-compiler:' + versions.butterKnife
     // RecyclerView
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:' + versions.BaseRecyclerViewAdapterHelper
     // dialogs
-    api ('com.afollestad.material-dialogs:core:' + versions.materialDialogs) {
+    api('com.afollestad.material-dialogs:core:' + versions.materialDialogs) {
         exclude(group: 'com.android.support')
     }
     // TabLayout
@@ -65,14 +65,14 @@ dependencies {
     // network
     api 'com.lzy.net:okgo:' + versions.okgo
     // utils
-    api 'com.blankj:utilcode:' + versions.utilcode
-    // glide
-    api ('com.github.bumptech.glide:glide:' + versions.glide) {
+    api('com.blankj:utilcode:' + versions.utilcode) {
         exclude(group: 'com.android.support')
     }
-    api 'com.github.bumptech.glide:compiler:' + versions.glide
+    // glide
+    api 'com.github.bumptech.glide:glide:' + versions.glide
+    annotationProcessor 'com.github.bumptech.glide:compiler:' + versions.glide
     // permission
-    api ('com.yanzhenjie:permission:' + versions.AndPermission) {
+    api('com.yanzhenjie:permission:' + versions.AndPermission) {
         exclude(group: 'com.android.support')
     }
     // json
