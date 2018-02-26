@@ -4,6 +4,7 @@ buildscript {
     apply from: './cfg.gradle'
 
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         jcenter()
         google()
         mavenCentral()
@@ -18,13 +19,14 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:' + versions.aptPlugin
         classpath 'com.jakewharton:butterknife-gradle-plugin:' + versions.butterKnife
         // for maven publish
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 
 allprojects {
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         jcenter()
         google()
         mavenCentral()
