@@ -13,7 +13,7 @@ ext.versions = [
         // permission https://github.com/yanzhenjie/AndPermission
         AndPermission                : "1.1.2",
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-        BaseRecyclerViewAdapterHelper: "2.9.34",
+        BaseRecyclerViewAdapterHelper: "2.9.35",
         // utils https://github.com/Blankj/AndroidUtilCode
         utilcode                     : "1.12.0",
         // TabLayout https://github.com/H07000223/FlycoTabLayout
@@ -24,8 +24,8 @@ ext.versions = [
         gson                         : "2.8.0",
         // titlebar https           ://github.com/wuhenzhizao/android-titlebar
         titlebar                     : "1.0.6",
-		// router https://github.com/chenenyu/Router
-        router      : '1.3.2',
+        // router https://github.com/chenenyu/Router
+        router                       : '1.4.0-beta1',
 
         // okhttp3 https://github.com/square/okhttp
         okhttp3                      : "3.9.1",
