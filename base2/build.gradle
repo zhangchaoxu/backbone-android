@@ -38,45 +38,45 @@ android {
 
 dependencies {
     // support
-    implementation 'com.android.support:appcompat-v7:' + versions.supportLib
-    implementation 'com.android.support:recyclerview-v7:' + versions.supportLib
-    implementation 'com.android.support:cardview-v7:' + versions.supportLib
-    implementation 'com.android.support:design:' + versions.supportLib
-    implementation 'com.android.support:percent:' + versions.supportLib
+    api 'com.android.support:appcompat-v7:' + versions.supportLib
+    api 'com.android.support:recyclerview-v7:' + versions.supportLib
+    api 'com.android.support:cardview-v7:' + versions.supportLib
+    api 'com.android.support:design:' + versions.supportLib
+    api 'com.android.support:percent:' + versions.supportLib
     // multidex
-    implementation 'com.android.support:multidex:' + versions.multidex
+    api 'com.android.support:multidex:' + versions.multidex
 
     // core widget
     // ViewBinding
-    implementation ('com.jakewharton:butterknife:' + versions.butterKnife) {
+    api ('com.jakewharton:butterknife:' + versions.butterKnife) {
         exclude(group: 'com.android.support')
     }
     annotationProcessor 'com.jakewharton:butterknife-compiler:' + versions.butterKnife
     // RecyclerView
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:' + versions.BaseRecyclerViewAdapterHelper
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:' + versions.BaseRecyclerViewAdapterHelper
     // dialogs
-    implementation ('com.afollestad.material-dialogs:core:' + versions.materialDialogs) {
+    api ('com.afollestad.material-dialogs:core:' + versions.materialDialogs) {
         exclude(group: 'com.android.support')
     }
     // TabLayout
-    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:' + versions.FlycoTabLayout
+    api 'com.flyco.tablayout:FlycoTabLayout_Lib:' + versions.FlycoTabLayout
 
     // core lib
     // network
-    implementation 'com.lzy.net:okgo:' + versions.okgo
+    api 'com.lzy.net:okgo:' + versions.okgo
     // utils
-    implementation 'com.blankj:utilcode:' + versions.utilcode
+    api 'com.blankj:utilcode:' + versions.utilcode
     // glide
-    implementation ('com.github.bumptech.glide:glide:' + versions.glide) {
+    api ('com.github.bumptech.glide:glide:' + versions.glide) {
         exclude(group: 'com.android.support')
     }
-    annotationProcessor 'com.github.bumptech.glide:compiler:' + versions.glide
+    api 'com.github.bumptech.glide:compiler:' + versions.glide
     // permission
-    implementation ('com.yanzhenjie:permission:' + versions.AndPermission) {
+    api ('com.yanzhenjie:permission:' + versions.AndPermission) {
         exclude(group: 'com.android.support')
     }
     // json
-    implementation 'com.google.code.gson:gson:' + versions.gson
+    api 'com.google.code.gson:gson:' + versions.gson
 }
 
 // apply from: './lib-release.gradle'
