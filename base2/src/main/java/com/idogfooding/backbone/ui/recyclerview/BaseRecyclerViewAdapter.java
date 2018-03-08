@@ -2,9 +2,13 @@ package com.idogfooding.backbone.ui.recyclerview;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.idogfooding.backbone.R;
 
 import java.util.List;
 
@@ -55,4 +59,24 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
             return getItem(checkedPosition);
         }
     }
+
+    // glide load
+    protected void loadImage(ImageView imageView, Object model, RequestOptions requestOptions) {
+        Glide.with(mContext).load(model)
+                .apply(requestOptions)
+                .into(imageView);
+    }
+
+    protected void loadImage(ImageView imageView, Object model, int placeholderResId, int errorResId) {
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(placeholderResId)
+                .error(errorResId);
+
+        this.loadImage(imageView, model, requestOptions);
+    }
+
+    protected void loadImage(ImageView imageView, Object model) {
+        this.loadImage(imageView, model, R.mipmap.ic_placeholder, R.mipmap.ic_error);
+    }
+
 }

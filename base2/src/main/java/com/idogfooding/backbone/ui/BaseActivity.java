@@ -16,8 +16,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.widget.TopBar;
@@ -269,5 +272,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    // glide load
+    protected void loadImage(ImageView imageView, Object model, RequestOptions requestOptions) {
+        Glide.with(this).load(model)
+                .apply(requestOptions)
+                .into(imageView);
+    }
+
+    protected void loadImage(ImageView imageView, Object model, int placeholderResId, int errorResId) {
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(placeholderResId)
+                .error(errorResId);
+
+        this.loadImage(imageView, model, requestOptions);
+    }
+
+    protected void loadImage(ImageView imageView, Object model) {
+        this.loadImage(imageView, model, R.mipmap.ic_placeholder, R.mipmap.ic_error);
     }
 }

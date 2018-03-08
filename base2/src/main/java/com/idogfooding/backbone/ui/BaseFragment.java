@@ -12,7 +12,10 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.ui.tab.TabLayoutPagerActivity;
 import com.idogfooding.backbone.widget.TopBar;
@@ -269,4 +272,24 @@ public abstract class BaseFragment extends Fragment {
 
         ((TabLayoutPagerActivity) getActivity()).setCurrentTab(index);
     }
+
+    // glide load
+    protected void loadImage(ImageView imageView, Object model, RequestOptions requestOptions) {
+        Glide.with(this).load(model)
+                .apply(requestOptions)
+                .into(imageView);
+    }
+
+    protected void loadImage(ImageView imageView, Object model, int placeholderResId, int errorResId) {
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(placeholderResId)
+                .error(errorResId);
+
+        this.loadImage(imageView, model, requestOptions);
+    }
+
+    protected void loadImage(ImageView imageView, Object model) {
+        this.loadImage(imageView, model, R.mipmap.ic_placeholder, R.mipmap.ic_error);
+    }
+
 }
