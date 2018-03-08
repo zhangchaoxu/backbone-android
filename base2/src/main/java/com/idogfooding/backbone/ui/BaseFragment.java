@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.ui.tab.TabLayoutPagerActivity;
 import com.idogfooding.backbone.widget.TopBar;
 
 import butterknife.ButterKnife;
@@ -75,6 +76,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * onSetupFragment
+     *
      * @param view
      * @param savedInstanceState
      */
@@ -254,5 +256,17 @@ public abstract class BaseFragment extends Fragment {
     @ColorInt
     protected int color(@ColorRes int res) {
         return ContextCompat.getColor(getContext(), res);
+    }
+
+    /**
+     * 跳转到TabLayoutPagerActivity中的某个tab
+     *
+     * @param index
+     */
+    protected void switchToTab(int index) {
+        if (getActivity() == null || !(getActivity() instanceof TabLayoutPagerActivity))
+            return;
+
+        ((TabLayoutPagerActivity) getActivity()).setCurrentTab(index);
     }
 }
