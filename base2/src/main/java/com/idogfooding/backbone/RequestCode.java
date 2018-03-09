@@ -33,21 +33,18 @@ public interface RequestCode {
 
     // 100-200 图片
     int PHOTO_PICKER = 100; // 图片选择
-    int PHOTO_PREVIEW = 101; // 图片查看
-    int PHOTO_MULT_PICKER = 102;
-    int PHOTO_MULT_PREVIEW = 103;
-    int PHOTO_CROP_PICKER = 104;
-    int PHOTO_CROP_PREVIEW = 105;
-    int PHOTO_PICKER1 = 111;
-    int PHOTO_PICKER2 = 112;
-    int PHOTO_PICKER3 = 113;
-    int PHOTO_PICKER4 = 114;
-    int PHOTO_PICKER5 = 115;
-    int PHOTO_PICKER6 = 116;
-    int PHOTO_PICKER7 = 117;
-    int PHOTO_PICKER8 = 118;
-    int PHOTO_PICKER9 = 119;
-    int PHOTO_PICKER10 = 120;
+    int PHOTO_PICKER1 = 101;
+    int PHOTO_PICKER2 = 102;
+    int PHOTO_PICKER3 = 103;
+    int PHOTO_PICKER4 = 104;
+    int PHOTO_PICKER5 = 105;
+    int PHOTO_PICKER6 = 106;
+    int PHOTO_PICKER7 = 107;
+    int PHOTO_PICKER8 = 108;
+    int PHOTO_PICKER9 = 109;
+    int PHOTO_PICKER10 = 110;
+
+    int PHOTO_PREVIEW = 120; // 图片查看
     int PHOTO_PREVIEW1 = 121;
     int PHOTO_PREVIEW2 = 122;
     int PHOTO_PREVIEW3 = 123;
@@ -58,6 +55,34 @@ public interface RequestCode {
     int PHOTO_PREVIEW8 = 128;
     int PHOTO_PREVIEW9 = 129;
     int PHOTO_PREVIEW10 = 130;
+
+    int PHOTO_MULT_PICKER = 140;
+    int PHOTO_MULT_PICKER1 = 141;
+    int PHOTO_MULT_PICKER2 = 142;
+    int PHOTO_MULT_PICKER3 = 143;
+    int PHOTO_MULT_PICKER4 = 144;
+    int PHOTO_MULT_PICKER5 = 145;
+    int PHOTO_MULT_PICKER6 = 146;
+    int PHOTO_MULT_PICKER7 = 147;
+    int PHOTO_MULT_PICKER8 = 148;
+    int PHOTO_MULT_PICKER9 = 149;
+    int PHOTO_MULT_PICKER10 = 150;
+
+    int PHOTO_MULT_PREVIEW = 160;
+    int PHOTO_MULT_PREVIEW1 = 161;
+    int PHOTO_MULT_PREVIEW2 = 162;
+    int PHOTO_MULT_PREVIEW3 = 163;
+    int PHOTO_MULT_PREVIEW4 = 164;
+    int PHOTO_MULT_PREVIEW5 = 165;
+    int PHOTO_MULT_PREVIEW6 = 166;
+    int PHOTO_MULT_PREVIEW7 = 167;
+    int PHOTO_MULT_PREVIEW8 = 168;
+    int PHOTO_MULT_PREVIEW9 = 169;
+    int PHOTO_MULT_PREVIEW10 = 170;
+
+    int PHOTO_CROP_PICKER = 180;
+    int PHOTO_CROP_PREVIEW = 181;
+
 
     // 200-300 位置
     int LOCATION_CHOOSE = 200; // 位置选择
