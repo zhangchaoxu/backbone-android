@@ -11,7 +11,7 @@ ext.versions = [
 
         // core for base2
         // permission https://github.com/yanzhenjie/AndPermission
-        AndPermission                : "1.1.2",
+        AndPermission                : "2.0.0-rc3",
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
         BaseRecyclerViewAdapterHelper: "2.9.35",
         // utils https://github.com/Blankj/AndroidUtilCode

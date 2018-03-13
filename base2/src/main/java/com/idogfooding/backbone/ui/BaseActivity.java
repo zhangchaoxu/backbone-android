@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,11 +23,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.idogfooding.backbone.R;
-import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.SettingService;
 
 import java.util.List;
 
@@ -217,64 +218,56 @@ public abstract class BaseActivity extends AppCompatActivity {
         sendBroadcast(intent);
     }
 
-    //##########  permission ##########
-    String[] permissions;
+    //##########  permissions 权限申请 ##########
 
+    /**
+     * ask for permission
+     * 申请获取权限
+     * @param permissions
+     */
     protected void askForPermissions(String... permissions) {
-        askForPermissions(RequestCode.PERMISSION_MULTI, permissions);
-    }
-
-    protected void askForPermissions(int code, String... permissions) {
-        if (null == permissionListener) {
-            initPermissionListener();
-        }
-        this.permissions = permissions;
         AndPermission.with(this)
-                .requestCode(code)
                 .permission(permissions)
-                .callback(permissionListener)
-                .rationale((requestCode, rationale) -> AndPermission.rationaleDialog(BaseActivity.this, rationale).show())
+                .rationale((context, permissions1, executor) -> {
+                    List<String> permissionNames = Permission.transformText(context, permissions1);
+                    String message = context.getString(R.string.message_permission_rationale, TextUtils.join("\n", permissionNames));
+                    new AlertDialog.Builder(this)
+                            .setCancelable(false)
+                            .setTitle(R.string.tips)
+                            .setMessage(message)
+                            .setPositiveButton(R.string.resume, (dialog, which) -> executor.execute())
+                            .setNegativeButton(R.string.cancel, (dialog, which) -> executor.cancel())
+                            .show();
+                })
+                .onGranted(permissions12 -> afterPermissionGranted())
+                .onDenied(permissions13 -> {
+                    // toast(R.string.failure);
+                    if (AndPermission.hasAlwaysDeniedPermission(this, permissions13)) {
+                        List<String> permissionNames = Permission.transformText(this, permissions13);
+                        String message = getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
+
+                        SettingService settingService = AndPermission.permissionSetting(this);
+                        new AlertDialog.Builder(this)
+                                .setCancelable(false)
+                                .setTitle(R.string.tips)
+                                .setMessage(message)
+                                .setPositiveButton(R.string.settings, (dialog, which) -> settingService.execute())
+                                .setNegativeButton(R.string.no, (dialog, which) -> settingService.cancel())
+                                .show();
+                    }
+                })
                 .start();
     }
 
-    private PermissionListener permissionListener;
-
-    private void initPermissionListener() {
-        permissionListener = new PermissionListener() {
-            @Override
-            public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
-                if (AndPermission.hasPermission(BaseActivity.this, grantPermissions)) {
-                    afterPermissionGranted(requestCode);
-                } else {
-                    AndPermission.defaultSettingDialog(BaseActivity.this, requestCode).show();
-                }
-            }
-
-            @Override
-            public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
-                if (AndPermission.hasPermission(BaseActivity.this, deniedPermissions)) {
-                    afterPermissionGranted(requestCode);
-                } else if (AndPermission.hasAlwaysDeniedPermission(BaseActivity.this, deniedPermissions)) {
-                    AndPermission.defaultSettingDialog(BaseActivity.this, RequestCode.PERMISSION_SETTINGS).show();
-                }
-            }
-        };
-    }
-
-    protected void afterPermissionGranted(int requestCode) {
+    /**
+     * after permission granted
+     * 成功获取到权限
+     */
+    protected void afterPermissionGranted() {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RequestCode.PERMISSION_SETTINGS) {
-            askForPermissions(permissions);
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    // glide load
+    //##########  image loader ##########
     protected void loadImage(ImageView imageView, Object model, RequestOptions requestOptions) {
         Glide.with(this).load(model)
                 .apply(requestOptions)
