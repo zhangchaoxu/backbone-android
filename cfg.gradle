@@ -15,15 +15,17 @@ ext.versions = [
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
         BaseRecyclerViewAdapterHelper: "2.9.35",
         // utils https://github.com/Blankj/AndroidUtilCode
-        utilcode                     : "1.12.6",
+        utilcode                     : "1.13.3",
         // TabLayout https://github.com/H07000223/FlycoTabLayout
         FlycoTabLayout               : "2.1.2@aar",
         // okgo https://github.com/jeasonlzy/okhttp-OkGo
         okgo                         : "3.0.4",
         // json https://github.com/google/gson
-        gson                         : "2.8.0",
+        gson                         : "2.8.2",
         // router https://github.com/chenenyu/Router
         router                       : '1.4.0-beta1',
+        // https://github.com/JakeWharton/butterknife
+        butterKnife                  : '9.0.0-SNAPSHOT',
 
         // okhttp3 https://github.com/square/okhttp
         okhttp3                      : "3.9.1",
@@ -31,7 +33,7 @@ ext.versions = [
         retrofit2                    : "2.3.0",
         // rxjava2 https://github.com/ReactiveX/RxJava
         rxjava2                      : "2.1.7",
-        // rxjava2 https://github.com/ReactiveX/RxJava
+        // rxjava2 https://github.com/ReactiveX/RxAndroid
         rxandroid                    : "2.0.1",
         // dialogs https://github.com/afollestad/material-dialogs
         materialDialogs              : "0.9.6.0",
@@ -43,8 +45,6 @@ ext.versions = [
         logger                       : "2.1.1",
         // glide https://github.com/bumptech/glide/
         glide                        : '4.1.1',
-        // https://github.com/JakeWharton/butterknife
-        butterKnife                  : '9.0.0-SNAPSHOT',
         // hawk https://github.com/orhanobut/hawk
         hawk                         : "2.0.1",
 ]
@@ -56,8 +56,8 @@ ext.base = [
 ]
 
 ext.base2 = [
-        versionCode: 203,
-        versionName: "2.0.3",
+        versionCode: 204,
+        versionName: "2.0.4",
 ]
 
 ext.app = [

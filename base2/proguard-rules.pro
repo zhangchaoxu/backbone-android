@@ -41,10 +41,7 @@
     **[] $VALUES;
     public *;
 }
-# nineoldandroids
--keep interface com.nineoldandroids.view.** { *; }
--dontwarn com.nineoldandroids.**
--keep class com.nineoldandroids.** { *; }
+
 # support-v7-appcompat
 -keep public class android.support.v7.widget.** { *; }
 -keep public class android.support.v7.internal.widget.** { *; }
@@ -52,6 +49,7 @@
 -keep public class * extends android.support.v4.view.ActionProvider {
     public <init>(android.content.Context);
 }
+
 # support-design
 -dontwarn android.support.design.**
 -keep class android.support.design.** { *; }
@@ -74,3 +72,6 @@
 -keep class com.blankj.utilcode.** { *; }
 -keepclassmembers class com.blankj.utilcode.** { *; }
 -dontwarn com.blankj.utilcode.**
+
+# permission
+-dontwarn com.yanzhenjie.permission.**
