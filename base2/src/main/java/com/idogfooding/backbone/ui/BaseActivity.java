@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -127,7 +128,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     //##########  fragment ##########
-
     /**
      * replace fragment
      *
@@ -219,44 +219,47 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     //##########  permissions 权限申请 ##########
-
     /**
      * ask for permission
      * 申请获取权限
      * @param permissions
      */
     protected void askForPermissions(String... permissions) {
-        AndPermission.with(this)
-                .permission(permissions)
-                .rationale((context, permissions1, executor) -> {
-                    List<String> permissionNames = Permission.transformText(context, permissions1);
-                    String message = context.getString(R.string.message_permission_rationale, TextUtils.join("\n", permissionNames));
-                    new AlertDialog.Builder(this)
-                            .setCancelable(false)
-                            .setTitle(R.string.tips)
-                            .setMessage(message)
-                            .setPositiveButton(R.string.resume, (dialog, which) -> executor.execute())
-                            .setNegativeButton(R.string.cancel, (dialog, which) -> executor.cancel())
-                            .show();
-                })
-                .onGranted(permissions12 -> afterPermissionGranted())
-                .onDenied(permissions13 -> {
-                    // toast(R.string.failure);
-                    if (AndPermission.hasAlwaysDeniedPermission(this, permissions13)) {
-                        List<String> permissionNames = Permission.transformText(this, permissions13);
-                        String message = getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
-
-                        SettingService settingService = AndPermission.permissionSetting(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            AndPermission.with(this)
+                    .permission(permissions)
+                    .rationale((context, permissions1, executor) -> {
+                        List<String> permissionNames = Permission.transformText(context, permissions1);
+                        String message = context.getString(R.string.message_permission_rationale, TextUtils.join("\n", permissionNames));
                         new AlertDialog.Builder(this)
                                 .setCancelable(false)
                                 .setTitle(R.string.tips)
                                 .setMessage(message)
-                                .setPositiveButton(R.string.settings, (dialog, which) -> settingService.execute())
-                                .setNegativeButton(R.string.no, (dialog, which) -> settingService.cancel())
+                                .setPositiveButton(R.string.resume, (dialog, which) -> executor.execute())
+                                .setNegativeButton(R.string.cancel, (dialog, which) -> executor.cancel())
                                 .show();
-                    }
-                })
-                .start();
+                    })
+                    .onGranted(permissions12 -> afterPermissionGranted())
+                    .onDenied(permissions13 -> {
+                        //if (AndPermission.hasAlwaysDeniedPermission(this, permissions13)) {
+                            List<String> permissionNames = Permission.transformText(this, permissions13);
+                            String message = getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
+
+                            SettingService settingService = AndPermission.permissionSetting(this);
+                            new AlertDialog.Builder(this)
+                                    .setCancelable(false)
+                                    .setTitle(R.string.tips)
+                                    .setMessage(message)
+                                    .setPositiveButton(R.string.settings, (dialog, which) -> settingService.execute())
+                                    .setNegativeButton(R.string.no, (dialog, which) -> settingService.cancel())
+                                    .show();
+                        //}
+                    })
+                    .start();
+        } else {
+            afterPermissionGranted();
+        }
+
     }
 
     /**
@@ -267,19 +270,27 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    //##########  image loader ##########
-    protected void loadImage(ImageView imageView, Object model, RequestOptions requestOptions) {
-        Glide.with(this).load(model)
-                .apply(requestOptions)
-                .into(imageView);
-    }
+    //##########  图片加载 Image Loader ##########
 
+    /**
+     * 用Glide加载图片
+     * @param imageView 图片view
+     * @param model 加载对象
+     * @param placeholderResId placeholader资源id
+     * @param errorResId error 资源id
+     */
     protected void loadImage(ImageView imageView, Object model, int placeholderResId, int errorResId) {
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(placeholderResId)
                 .error(errorResId);
 
         this.loadImage(imageView, model, requestOptions);
+    }
+
+    protected void loadImage(ImageView imageView, Object model, RequestOptions requestOptions) {
+        Glide.with(this).load(model)
+                .apply(requestOptions)
+                .into(imageView);
     }
 
     protected void loadImage(ImageView imageView, Object model) {
