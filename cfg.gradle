@@ -15,7 +15,7 @@ ext.versions = [
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
         BaseRecyclerViewAdapterHelper: "2.9.35",
         // utils https://github.com/Blankj/AndroidUtilCode
-        utilcode                     : "1.13.3",
+        utilcode                     : "1.13.4",
         // TabLayout https://github.com/H07000223/FlycoTabLayout
         FlycoTabLayout               : "2.1.2@aar",
         // okgo https://github.com/jeasonlzy/okhttp-OkGo

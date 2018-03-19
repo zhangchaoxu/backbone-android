@@ -18,9 +18,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.idogfooding.backbone.R;
@@ -128,6 +130,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     //##########  fragment ##########
+
     /**
      * replace fragment
      *
@@ -219,9 +222,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     //##########  permissions 权限申请 ##########
+
     /**
      * ask for permission
      * 申请获取权限
+     *
      * @param permissions
      */
     protected void askForPermissions(String... permissions) {
@@ -242,17 +247,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .onGranted(permissions12 -> afterPermissionGranted())
                     .onDenied(permissions13 -> {
                         //if (AndPermission.hasAlwaysDeniedPermission(this, permissions13)) {
-                            List<String> permissionNames = Permission.transformText(this, permissions13);
-                            String message = getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
+                        List<String> permissionNames = Permission.transformText(this, permissions13);
+                        String message = getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
 
-                            SettingService settingService = AndPermission.permissionSetting(this);
-                            new AlertDialog.Builder(this)
-                                    .setCancelable(false)
-                                    .setTitle(R.string.tips)
-                                    .setMessage(message)
-                                    .setPositiveButton(R.string.settings, (dialog, which) -> settingService.execute())
-                                    .setNegativeButton(R.string.no, (dialog, which) -> settingService.cancel())
-                                    .show();
+                        SettingService settingService = AndPermission.permissionSetting(this);
+                        new AlertDialog.Builder(this)
+                                .setCancelable(false)
+                                .setTitle(R.string.tips)
+                                .setMessage(message)
+                                .setPositiveButton(R.string.settings, (dialog, which) -> settingService.execute())
+                                .setNegativeButton(R.string.no, (dialog, which) -> settingService.cancel())
+                                .show();
                         //}
                     })
                     .start();
@@ -274,10 +279,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 用Glide加载图片
-     * @param imageView 图片view
-     * @param model 加载对象
+     *
+     * @param imageView        图片view
+     * @param model            加载对象
      * @param placeholderResId placeholader资源id
-     * @param errorResId error 资源id
+     * @param errorResId       error 资源id
      */
     protected void loadImage(ImageView imageView, Object model, int placeholderResId, int errorResId) {
         RequestOptions requestOptions = new RequestOptions()
@@ -295,5 +301,39 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void loadImage(ImageView imageView, Object model) {
         this.loadImage(imageView, model, R.mipmap.ic_placeholder, R.mipmap.ic_error);
+    }
+
+    // 键盘监听
+
+    /**
+     * 注册监听软键盘显示状态发生变化
+     */
+    protected void registerSoftInputChanged() {
+        KeyboardUtils.registerSoftInputChangedListener(this, height -> onSoftInputChanged(KeyboardUtils.isSoftInputVisible(this)));
+        // 点击空白区域,隐藏软键盘
+        KeyboardUtils.clickBlankArea2HideSoftInput();
+        // 修复内存泄露问题
+        KeyboardUtils.fixSoftInputLeaks(this);
+    }
+
+    /**
+     * 当软键盘显示状态发生变化
+     * 使用之前先调用registerKeyboardChanged
+     *
+     * @param visible
+     */
+    protected void onSoftInputChanged(boolean visible) {
+
+    }
+
+    /**
+     * 清除EditText上的焦点
+     * 再表单填写的时候,如果有图片选择等其它内容，跳转回来以后页面会滚动到聚焦的editext上
+     * 因此需要清除焦点
+     */
+    protected void clearEditTextFocus() {
+        View view = getCurrentFocus();
+        if (null != view && view instanceof EditText)
+            view.clearFocus();
     }
 }
