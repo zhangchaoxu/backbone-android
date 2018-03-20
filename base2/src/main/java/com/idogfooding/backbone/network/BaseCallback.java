@@ -158,9 +158,20 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
 
     @Override
     public void onSuccess(Response<T> response) {
-        if (response == null || response.body() == null) {
+        if (response == null) {
+            response = new Response<>();
+            response.setException(new IllegalStateException("网络请求返回数据失败"));
             onError(response);
+        } else if (response.body() == null) {
+            response.setException(new IllegalStateException("网络请求返回数据未空"));
+            onError(response);
+        } else {
+            onSuccessData(response, response.body());
         }
+    }
+
+    protected void onSuccessData(Response<T> response, T data) {
+
     }
 
     /**
