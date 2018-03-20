@@ -83,7 +83,6 @@ public interface RequestCode {
     int PHOTO_CROP_PICKER = 180;
     int PHOTO_CROP_PREVIEW = 181;
 
-
     // 200-300 位置
     int LOCATION_CHOOSE = 200; // 位置选择
     int CITY_CHOOSE = 201; // 城市选择

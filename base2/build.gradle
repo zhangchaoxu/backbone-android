@@ -81,4 +81,4 @@ dependencies {
     api 'com.google.code.gson:gson:' + versions.gson
 }
 
-// apply from: './lib-release.gradle'
+apply from: './lib-release.gradle'

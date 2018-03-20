@@ -7,7 +7,7 @@ ext.versions = [
         gradlePlugin                 : '3.0.1',
         aptPlugin                    : '1.8',
         multidex                     : '1.0.2',
-        guava                        : '23.5-android',
+        guava                        : '24.1-android',
 
         // core for base2
         // permission https://github.com/yanzhenjie/AndPermission
@@ -56,8 +56,8 @@ ext.base = [
 ]
 
 ext.base2 = [
-        versionCode: 204,
-        versionName: "2.0.4",
+        versionCode: 205,
+        versionName: "2.0.5",
 ]
 
 ext.app = [
