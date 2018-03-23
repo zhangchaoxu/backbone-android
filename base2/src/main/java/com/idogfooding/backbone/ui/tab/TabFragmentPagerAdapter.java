@@ -25,8 +25,17 @@ public class TabFragmentPagerAdapter extends FragmentPagerAdapter {
     public TabFragmentPagerAdapter(FragmentActivity activity) {
         super(activity.getSupportFragmentManager());
         this.activity = activity;
+        onConfigPagerAdapter(activity);
         initTabEntities();
         initFragments();
+    }
+
+    /**
+     * 配置pager adapter
+     * @param activity
+     */
+    protected void onConfigPagerAdapter(FragmentActivity activity) {
+
     }
 
     protected void initTabEntities() {

@@ -56,8 +56,8 @@ ext.base = [
 ]
 
 ext.base2 = [
-        versionCode: 205,
-        versionName: "2.0.5",
+        versionCode: 207,
+        versionName: "2.0.7",
 ]
 
 ext.app = [
