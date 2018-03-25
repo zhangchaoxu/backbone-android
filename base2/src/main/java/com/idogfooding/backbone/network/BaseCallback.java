@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
@@ -99,8 +100,6 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
         if (null == body)
             return null;
 
-        // Gson解析接口返回数据流
-        Gson gson = new Gson();
         JsonReader jsonReader = new JsonReader(body.charStream());
         // genType是Callback类,Callback必须带泛型,肯定是ParameterizedType
         Type genType = getClass().getGenericSuperclass();
@@ -125,10 +124,20 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
             return convertResultType(jsonReader, typeArgument, type);
         } else {
             // Callback泛型非HttpResult
-            T data = gson.fromJson(jsonReader, type);
+            // Gson解析接口返回数据流
+            T data = getGson().fromJson(jsonReader, type);
             response.close();
             return data;
         }
+    }
+
+    /**
+     * 自定义json builder
+     */
+    protected Gson getGson() {
+        return new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .create();
     }
 
     /**
