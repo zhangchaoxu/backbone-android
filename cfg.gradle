@@ -4,18 +4,18 @@ ext.versions = [
         targetSdk                    : 27,
         buildTools                   : '27.0.3',
         supportLib                   : '27.0.2',
-        gradlePlugin                 : '3.0.1',
+        gradlePlugin                 : '3.1.0',
         aptPlugin                    : '1.8',
         multidex                     : '1.0.2',
         guava                        : '24.1-android',
 
         // core for base2
         // permission https://github.com/yanzhenjie/AndPermission
-        AndPermission                : "2.0.0-rc3",
+        AndPermission                : "2.0.0-rc4",
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-        BaseRecyclerViewAdapterHelper: "2.9.35",
+        BaseRecyclerViewAdapterHelper: "2.9.36",
         // utils https://github.com/Blankj/AndroidUtilCode
-        utilcode                     : "1.13.4",
+        utilcode                     : "1.13.6",
         // TabLayout https://github.com/H07000223/FlycoTabLayout
         FlycoTabLayout               : "2.1.2@aar",
         // okgo https://github.com/jeasonlzy/okhttp-OkGo
@@ -56,8 +56,8 @@ ext.base = [
 ]
 
 ext.base2 = [
-        versionCode: 208,
-        versionName: "2.0.8",
+        versionCode: 209,
+        versionName: "2.0.9",
 ]
 
 ext.app = [
