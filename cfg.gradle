@@ -2,11 +2,11 @@ ext.versions = [
         minSdk                       : 16,
         compileSdk                   : 27,
         targetSdk                    : 27,
-        buildTools                   : '27.0.3',
-        supportLib                   : '27.0.2',
+        buildTools                   : '28.0.0-rc1',
+        supportLib                   : '28.0.0-alpha1',
         gradlePlugin                 : '3.1.0',
         aptPlugin                    : '1.8',
-        multidex                     : '1.0.2',
+        multidex                     : '1.0.3',
         guava                        : '24.1-android',
 
         // core for base2
@@ -26,6 +26,10 @@ ext.versions = [
         router                       : '1.4.0-beta1',
         // https://github.com/JakeWharton/butterknife
         butterKnife                  : '9.0.0-SNAPSHOT',
+        // dialogs https://github.com/afollestad/material-dialogs
+        materialDialogs              : "0.9.6.0",
+        // glide https://github.com/bumptech/glide/
+        glide                        : '4.1.1',
 
         // okhttp3 https://github.com/square/okhttp
         okhttp3                      : "3.9.1",
@@ -35,16 +39,12 @@ ext.versions = [
         rxjava2                      : "2.1.7",
         // rxjava2 https://github.com/ReactiveX/RxAndroid
         rxandroid                    : "2.0.1",
-        // dialogs https://github.com/afollestad/material-dialogs
-        materialDialogs              : "0.9.6.0",
         // event https://github.com/greenrobot/EventBus
         eventbus                     : "3.0.0",
         // stetho https://github.com/facebook/stetho
         stetho                       : "1.5.0",
         // stetho https://github.com/orhanobut/logger
         logger                       : "2.1.1",
-        // glide https://github.com/bumptech/glide/
-        glide                        : '4.1.1',
         // hawk https://github.com/orhanobut/hawk
         hawk                         : "2.0.1",
 ]
@@ -56,8 +56,8 @@ ext.base = [
 ]
 
 ext.base2 = [
-        versionCode: 209,
-        versionName: "2.0.9",
+        versionCode: 211,
+        versionName: "2.1.1",
 ]
 
 ext.app = [

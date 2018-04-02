@@ -73,13 +73,13 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
         notifyDataSetChanged();
     }
 
-    protected boolean hasPositionChecked(int position) {
+    public boolean hasPositionChecked(int position) {
         if (ObjectUtils.isEmpty(checkedPositions))
             return false;
         else return checkedPositions.contains(position);
     }
 
-    protected List<T> getCheckItems() {
+    public List<T> getCheckItems() {
         List<T> checkedItems = new ArrayList<>();
         if (ObjectUtils.isNotEmpty(checkedPositions)) {
             for (Integer pos : checkedPositions) {
