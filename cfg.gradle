@@ -3,7 +3,7 @@ ext.versions = [
         compileSdk                   : 27,
         targetSdk                    : 27,
         buildTools                   : '28.0.0-rc1',
-        supportLib                   : '28.0.0-alpha1',
+        supportLib                   : '27.1.0',
         gradlePlugin                 : '3.1.0',
         aptPlugin                    : '1.8',
         multidex                     : '1.0.3',
@@ -23,7 +23,7 @@ ext.versions = [
         // json https://github.com/google/gson
         gson                         : "2.8.2",
         // router https://github.com/chenenyu/Router
-        router                       : '1.4.0-beta1',
+        router                       : '1.4.0',
         // https://github.com/JakeWharton/butterknife
         butterKnife                  : '9.0.0-SNAPSHOT',
         // dialogs https://github.com/afollestad/material-dialogs
@@ -56,8 +56,8 @@ ext.base = [
 ]
 
 ext.base2 = [
-        versionCode: 211,
-        versionName: "2.1.1",
+        versionCode: 212,
+        versionName: "2.1.2",
 ]
 
 ext.app = [
