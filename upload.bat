@@ -1,1 +1,1 @@
-gradlew :base:bintrayUpload
+gradlew :base2:bintrayUpload
