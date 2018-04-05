@@ -1,7 +1,10 @@
 package com.idogfooding.backbone.ui.recyclerview;
 
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ObjectUtils;
@@ -35,36 +38,75 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
     }
 
     @Override
-    protected void convert(K helper, T item) {}
+    protected void convert(K helper, T item) {
+    }
 
     protected int getColor(int colorRes) {
         return mContext.getResources().getColor(colorRes);
     }
 
-    // single check mode 单选模式
-    private int checkedPosition = -1;
+    @ColorInt
+    protected int color(@ColorRes int res) {
+        return ContextCompat.getColor(mContext, res);
+    }
 
-    public void setCheckedPosition(int position) {
-        checkedPosition = position;
+    // 是否多选模式,默认单选模式
+    private boolean multiCheckMode = false;
+
+    public boolean isMultiCheckMode() {
+        return multiCheckMode;
+    }
+
+    public void setMultiCheckMode(boolean multiCheckMode) {
+        this.multiCheckMode = multiCheckMode;
+    }
+
+    // 选中的位置
+    private List<Integer> checkedPositions = new ArrayList<>();
+
+    /**
+     * 添加选中记录
+     *
+     * @param position
+     */
+    public void addCheckedPosition(Integer position) {
+        if (multiCheckMode) {
+            // 多选模式
+            if (!checkedPositions.contains(position)) {
+                checkedPositions.add(position);
+            }
+        } else {
+            // 单选模式
+            checkedPositions.clear();
+            checkedPositions.add(position);
+        }
         notifyDataSetChanged();
     }
 
-    public int getCheckedPosition() {
-        return checkedPosition;
-    }
-
-    public T getCheckedItem() {
-        if (checkedPosition < 0 || checkedPosition >= getItemCount()) {
-            return null;
+    /**
+     * 移除选中记录
+     *
+     * @param position
+     */
+    public void removeCheckedPosition(Integer position) {
+        if (multiCheckMode) {
+            // 多选模式
+            if (!checkedPositions.contains(position)) {
+                checkedPositions.remove(position);
+            }
         } else {
-            return getItem(checkedPosition);
+            // 单选模式
+            checkedPositions.clear();
         }
+        notifyDataSetChanged();
     }
 
-    // multi check mode 多选模式
-    private List<Integer> checkedPositions = new ArrayList<>();
-
-    public void setMultiCheckedPosition(Integer position) {
+    /**
+     * 设置选中点,切换选中状态
+     *
+     * @param position
+     */
+    public void changeCheckedStatus(Integer position) {
         if (checkedPositions.contains(position)) {
             checkedPositions.remove(position);
         } else {
@@ -73,13 +115,23 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
         notifyDataSetChanged();
     }
 
-    public boolean hasPositionChecked(int position) {
-        if (ObjectUtils.isEmpty(checkedPositions))
-            return false;
-        else return checkedPositions.contains(position);
+    public List<Integer> getCheckedPositions() {
+        return checkedPositions;
     }
 
-    public List<T> getCheckItems() {
+    public int getCheckedPosition() {
+        if (checkedPositions.isEmpty()) {
+            return -1;
+        } else {
+            return checkedPositions.get(0);
+        }
+    }
+
+    public T getCheckedItem() {
+        return getItem(getCheckedPosition());
+    }
+
+    public List<T> getCheckedItems() {
         List<T> checkedItems = new ArrayList<>();
         if (ObjectUtils.isNotEmpty(checkedPositions)) {
             for (Integer pos : checkedPositions) {
@@ -91,7 +143,21 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
         return checkedItems;
     }
 
+    /**
+     * 位置是否选中
+     * @param position
+     * @return
+     */
+    public boolean isPositionChecked(int position) {
+        if (ObjectUtils.isEmpty(checkedPositions))
+            return false;
+        else return checkedPositions.contains(position);
+    }
+
     // glide load
+    /**
+     * 按照指定的RequestOptions加载图片
+     */
     protected void loadImage(ImageView imageView, Object model, RequestOptions requestOptions) {
         Glide.with(mContext).load(model)
                 .apply(requestOptions)
