@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">backbone</string>
+
     <string name="settings">设置</string>
     <string name="more">更多</string>
     <string name="dev">敬请期待</string>
@@ -8,6 +9,7 @@
     <string name="empty"></string>
     <string name="search">搜索</string>
     <string name="about">关于</string>
+    <string name="tips">提示</string>
 
     <string name="msg_loading">请稍候&#8230;</string>
     <string name="msg_network_unavailable">网络不可用，请检查网络后重试</string>
@@ -46,7 +48,6 @@
     <string name="msg_list_no_more">没有更多了</string>
     <string name="msg_list_loading_more">更多加载中&#8230;</string>
 
-    <string name="tips">提示</string>
     <string name="permission_setting">权限设置</string>
     <string name="message_permission_always_failed">我们需要以下权限，请在设置中为我们开启：\n\n%1$s</string>
     <string name="message_permission_rationale">允许以下权限以便程序继续执行：\n\n%1$s</string>

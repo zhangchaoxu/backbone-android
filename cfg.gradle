@@ -13,9 +13,11 @@ ext.versions = [
         // permission https://github.com/yanzhenjie/AndPermission
         AndPermission                : "2.0.0-rc4",
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-        BaseRecyclerViewAdapterHelper: "2.9.36",
+        BaseRecyclerViewAdapterHelper: "2.9.37",
+        // recycler-view-divider https://github.com/Fondesa/RecyclerViewDivider
+        recyclerViewDivider          : "2.0.1",
         // utils https://github.com/Blankj/AndroidUtilCode
-        utilcode                     : "1.13.6",
+        utilcode                     : "1.13.7",
         // TabLayout https://github.com/H07000223/FlycoTabLayout
         FlycoTabLayout               : "2.1.2@aar",
         // okgo https://github.com/jeasonlzy/okhttp-OkGo
@@ -30,34 +32,11 @@ ext.versions = [
         materialDialogs              : "0.9.6.0",
         // glide https://github.com/bumptech/glide/
         glide                        : '4.1.1',
-
-        // okhttp3 https://github.com/square/okhttp
-        okhttp3                      : "3.9.1",
-        // retrofit2 https://github.com/square/retrofit
-        retrofit2                    : "2.3.0",
-        // rxjava2 https://github.com/ReactiveX/RxJava
-        rxjava2                      : "2.1.7",
-        // rxjava2 https://github.com/ReactiveX/RxAndroid
-        rxandroid                    : "2.0.1",
-        // event https://github.com/greenrobot/EventBus
-        eventbus                     : "3.0.0",
-        // stetho https://github.com/facebook/stetho
-        stetho                       : "1.5.0",
-        // stetho https://github.com/orhanobut/logger
-        logger                       : "2.1.1",
-        // hawk https://github.com/orhanobut/hawk
-        hawk                         : "2.0.1",
-]
-
-// https://github.com/zhangchaoxu/backbone-android
-ext.base = [
-        versionCode: 17,
-        versionName: "0.1.7",
 ]
 
 ext.base2 = [
-        versionCode: 212,
-        versionName: "2.1.2",
+        versionCode: 215,
+        versionName: "2.1.5",
 ]
 
 ext.app = [

@@ -16,11 +16,6 @@
 #   public *;
 #}
 
-# bugly https://bugly.qq.com/docs/user-guide/instruction-manual-android/
--dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.**{*;}
--keep class android.support.**{*;}
-
 # BaseRecyclerViewAdapterHelper https://github.com/CymChad/BaseRecyclerViewAdapterHelper
 -keep class com.chad.library.adapter.** {
 *;
@@ -30,10 +25,6 @@
 -keepclassmembers public class * extends com.chad.library.adapter.base.BaseViewHolder {
      <init>(android.view.View);
 }
-
-# retrofit https://github.com/square/retrofit
--dontwarn okio.**
--dontwarn javax.annotation.**
 
 # Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -55,18 +46,6 @@
 -keep class android.support.design.** { *; }
 -keep interface android.support.design.** { *; }
 -keep public class android.support.design.R$* { *; }
-
-# okhttp
--dontwarn okio.**
--dontwarn javax.annotation.Nullable
--dontwarn javax.annotation.ParametersAreNonnullByDefault
-
-# eventbus http://greenrobot.org/eventbus/documentation/proguard
--keepattributes *Annotation*
--keepclassmembers class ** {
-    @org.greenrobot.eventbus.Subscribe <methods>;
-}
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
 # utils
 -keep class com.blankj.utilcode.** { *; }

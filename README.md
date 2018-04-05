@@ -8,12 +8,12 @@ Android App开发过程中使用到的基础类库.
 ### app
 TODO demo app
  
-### base
+### base2
 TODO
 
 ```gradle
 dependencies {
-    compile 'com.idogfooding.backbone:base:latest.release'
+    compile 'com.idogfooding.backbone:base2:latest.release'
 }
 ```
 
@@ -21,5 +21,4 @@ dependencies {
 [AndPlug](https://github.com/ourbeehive/AndPlug)
 
 ## License
-
 [Apache 2.0](https://github.com/zhangchaoxu/backbone-android/blob/master/LICENSE)
