@@ -110,6 +110,9 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
         if (checkedPositions.contains(position)) {
             checkedPositions.remove(position);
         } else {
+            if (!isMultiCheckMode()) {
+                checkedPositions.clear();
+            }
             checkedPositions.add(position);
         }
         notifyDataSetChanged();
@@ -145,6 +148,7 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
 
     /**
      * 位置是否选中
+     *
      * @param position
      * @return
      */
@@ -155,6 +159,7 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
     }
 
     // glide load
+
     /**
      * 按照指定的RequestOptions加载图片
      */
