@@ -24,7 +24,7 @@ import java.net.UnknownHostException;
 import okhttp3.ResponseBody;
 
 /**
- * 基础Callback
+ * base network Callback
  * 支持显示加载中对话框,解析JSON,处理错误
  *
  * @author Charles
@@ -34,6 +34,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     protected Context context;
     protected Fragment fragment;
 
+    // loading progress
     private MaterialDialog progressView;
 
     /**
@@ -133,11 +134,14 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
 
     /**
      * 自定义json builder
+     * 比如根据实际的时间格式解析Date
      */
     protected Gson getGson() {
-        return new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                .create();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        // 如果返回是long格式,则如下注册type
+        // builder.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()));
+        return builder.create();
     }
 
     /**
@@ -153,7 +157,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     @SuppressWarnings("unchecked")
     protected T convertResultType(JsonReader jsonReader, Type typeArgument, Type type) throws Throwable {
         // Callback泛型是HttpResult,直接解析成HttpResult
-        HttpResult httpResult = new Gson().fromJson(jsonReader, Void.class == typeArgument ? HttpResult.class : type);
+        HttpResult httpResult = getGson().fromJson(jsonReader, Void.class == typeArgument ? HttpResult.class : type);
         if (null == httpResult) {
             throw new IllegalArgumentException("数据解析错误");
         } else {
