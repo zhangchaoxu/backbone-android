@@ -31,12 +31,12 @@ ext.versions = [
         // dialogs https://github.com/afollestad/material-dialogs
         materialDialogs              : "0.9.6.0",
         // glide https://github.com/bumptech/glide/
-        glide                        : '4.6.1',
+        glide                        : '4.1.1',
 ]
 
 ext.base2 = [
-        versionCode: 218,
-        versionName: "2.1.8",
+        versionCode: 217,
+        versionName: "2.1.7",
 ]
 
 ext.app = [
