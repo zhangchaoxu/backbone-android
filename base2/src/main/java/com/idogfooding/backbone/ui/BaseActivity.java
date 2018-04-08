@@ -343,7 +343,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RequestCode.USER_LOGIN && resultCode == Activity.RESULT_OK && null != data) {
             // 监听登录结果,登录成功则跳转到被拦截的页面
             RouteRequest routeRequest = data.getParcelableExtra("routeRequest");
