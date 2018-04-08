@@ -16,7 +16,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.chenenyu.router.IRouter;
+import com.chenenyu.router.RouteRequest;
+import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.ui.tab.TabLayoutPagerActivity;
 import com.idogfooding.backbone.widget.TopBar;
 
@@ -292,4 +296,23 @@ public abstract class BaseFragment extends Fragment {
         this.loadImage(imageView, model, R.mipmap.ic_placeholder, R.mipmap.ic_error);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RequestCode.USER_LOGIN && resultCode == Activity.RESULT_OK && null != data) {
+            // 监听登录结果,登录成功则跳转到被拦截的页面
+            RouteRequest routeRequest = data.getParcelableExtra("routeRequest");
+            if (null != routeRequest) {
+                IRouter iRouter = Router.build(routeRequest.getUri());
+                if (null != routeRequest.getExtras()) {
+                    iRouter.with(routeRequest.getExtras());
+                }
+                if (0 != routeRequest.getRequestCode()) {
+                    iRouter.requestCode(routeRequest.getRequestCode());
+                }
+                iRouter.go(this);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

@@ -35,8 +35,8 @@ ext.versions = [
 ]
 
 ext.base2 = [
-        versionCode: 217,
-        versionName: "2.1.7",
+        versionCode: 218,
+        versionName: "2.1.8",
 ]
 
 ext.app = [

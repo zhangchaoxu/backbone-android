@@ -1,5 +1,6 @@
 package com.idogfooding.backbone.ui;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +26,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.chenenyu.router.IRouter;
+import com.chenenyu.router.RouteRequest;
+import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
+import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.yanzhenjie.permission.AndPermission;
@@ -335,5 +340,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         View view = getCurrentFocus();
         if (null != view && view instanceof EditText)
             view.clearFocus();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RequestCode.USER_LOGIN && resultCode == Activity.RESULT_OK && null != data) {
+            // 监听登录结果,登录成功则跳转到被拦截的页面
+            RouteRequest routeRequest = data.getParcelableExtra("routeRequest");
+            if (null != routeRequest) {
+                IRouter iRouter = Router.build(routeRequest.getUri());
+                if (null != routeRequest.getExtras()) {
+                    iRouter.with(routeRequest.getExtras());
+                }
+                if (0 != routeRequest.getRequestCode()) {
+                    iRouter.requestCode(routeRequest.getRequestCode());
+                }
+                iRouter.go(this);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

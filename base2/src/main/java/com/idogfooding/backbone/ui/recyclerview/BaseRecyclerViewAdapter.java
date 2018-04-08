@@ -20,6 +20,7 @@ import java.util.List;
 /**
  * BaseRecyclerViewAdapter
  * 支持单选和多选模式
+ * see {https://www.jianshu.com/p/b343fcff51b0}
  *
  * @author Charles
  */
@@ -39,12 +40,12 @@ public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQu
 
     @Override
     protected void convert(K helper, T item) {
+        // 转变
     }
 
-    protected int getColor(int colorRes) {
-        return mContext.getResources().getColor(colorRes);
-    }
-
+    /**
+     * 获取颜色
+     */
     @ColorInt
     protected int color(@ColorRes int res) {
         return ContextCompat.getColor(mContext, res);

@@ -30,6 +30,8 @@ public interface RequestCode {
     int ENTITY_EDIT = 82; // 实体编辑
     int ENTITY_DEL = 83; // 实体删除
     int ENTITY_AUDIT = 84; // 实体审核
+    int ENTITY_LIST = 85; // 实体列表
+    int ENTITY_PAGE = 86; // 实体分页
 
     // 100-200 图片
     int PHOTO_PICKER = 100; // 图片选择
