@@ -131,7 +131,15 @@ public abstract class BaseFragment extends Fragment {
         toolbar.setTitleSubText(title);
     }
 
+    /**
+     * 配置fragment
+     */
     protected void onConfigureFragment() {
+        try {
+            Router.injectParams(this);
+        } catch (Exception e) {
+            // no inject router params
+        }
         // cfg fragment, like set showToolbar
     }
 
@@ -299,20 +307,32 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RequestCode.USER_LOGIN && resultCode == Activity.RESULT_OK && null != data) {
-            // 监听登录结果,登录成功则跳转到被拦截的页面
-            RouteRequest routeRequest = data.getParcelableExtra("routeRequest");
-            if (null != routeRequest) {
-                IRouter iRouter = Router.build(routeRequest.getUri());
-                if (null != routeRequest.getExtras()) {
-                    iRouter.with(routeRequest.getExtras());
-                }
-                if (0 != routeRequest.getRequestCode()) {
-                    iRouter.requestCode(routeRequest.getRequestCode());
-                }
-                iRouter.go(this);
-            }
+            handleUserLoginSuccess(data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    /**
+     * 监听登录结果,登录成功则跳转到被拦截的页面
+     *
+     * @param data
+     */
+    protected void handleUserLoginSuccess(Intent data) {
+        if (data == null)
+            return;
+        RouteRequest routeRequest = data.getParcelableExtra("routeRequest");
+        if (routeRequest == null)
+            return;
+
+        IRouter iRouter = Router.build(routeRequest.getUri());
+        if (null != routeRequest.getExtras()) {
+            iRouter.with(routeRequest.getExtras());
+        }
+        if (0 != routeRequest.getRequestCode()) {
+            iRouter.requestCode(routeRequest.getRequestCode());
+        }
+        iRouter.go(this);
+    }
+
 }

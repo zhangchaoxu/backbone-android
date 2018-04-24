@@ -3,13 +3,12 @@ ext.versions = [
         compileSdk                   : 27,
         targetSdk                    : 27,
         buildTools                   : '28.0.0-rc1',
-        supportLib                   : '27.1.0',
+        supportLib                   : '27.1.1',
         gradlePlugin                 : '3.1.1',
         aptPlugin                    : '1.8',
         multidex                     : '1.0.3',
         guava                        : '24.1-android',
 
-        // core for base2
         // permission https://github.com/yanzhenjie/AndPermission
         AndPermission                : "2.0.0-rc4",
         // recyclerview https://github.com/CymChad/BaseRecyclerViewAdapterHelper
@@ -17,7 +16,7 @@ ext.versions = [
         // recycler-view-divider https://github.com/Fondesa/RecyclerViewDivider
         recyclerViewDivider          : "2.0.1",
         // utils https://github.com/Blankj/AndroidUtilCode
-        utilcode                     : "1.13.10",
+        utilcode                     : "1.14.0",
         // TabLayout https://github.com/H07000223/FlycoTabLayout
         FlycoTabLayout               : "2.1.2@aar",
         // okgo https://github.com/jeasonlzy/okhttp-OkGo
@@ -31,12 +30,12 @@ ext.versions = [
         // dialogs https://github.com/afollestad/material-dialogs
         materialDialogs              : "0.9.6.0",
         // glide https://github.com/bumptech/glide/
-        glide                        : '4.6.1',
+        glide                        : '4.7.1',
 ]
 
 ext.base2 = [
-        versionCode: 221,
-        versionName: "2.2.1",
+        versionCode: 222,
+        versionName: "2.2.2",
 ]
 
 ext.app = [
