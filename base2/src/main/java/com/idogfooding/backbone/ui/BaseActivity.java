@@ -40,6 +40,8 @@ import com.yanzhenjie.permission.SettingService;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import me.bakumon.statuslayoutmanager.library.DefaultOnStatusChildClickListener;
+import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
 
 /**
  * BaseActivity
@@ -54,24 +56,24 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        onConfigureActivity();
+        onConfig(savedInstanceState);
         super.onCreate(savedInstanceState);
 
         // set view
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        onSetupActivity(savedInstanceState);
+        onSetup(savedInstanceState);
 
-        // 注册广播,用于关闭所有activity
+        // 动态注册广播,用于关闭所有activity
         mExistAppBroadcastReceiver = new ExistAppBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter("com.idogfooding.backbone.ui.BaseActivity");
         registerReceiver(mExistAppBroadcastReceiver, intentFilter);
     }
 
     /**
-     * 配置Activity
+     * onConfigureActivity
      */
-    protected void onConfigureActivity() {
+    protected void onConfig(Bundle savedInstanceState) {
         try {
             Router.injectParams(this);
         } catch (Exception e) {
@@ -89,7 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 启动activity
      */
-    protected void onSetupActivity(Bundle savedInstanceState) {
+    protected void onSetup(Bundle savedInstanceState) {
         // init toolbar
         if (showToolbar) {
             initToolbar();
@@ -133,7 +135,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
         }
         super.onDestroy();
-        // unregister receiver
+        // 注销广播
         if (mExistAppBroadcastReceiver != null) {
             unregisterReceiver(mExistAppBroadcastReceiver);
         }
@@ -377,4 +379,43 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         iRouter.go(this);
     }
+
+    //##########  状态布局  ##########
+    protected StatusLayoutManager statusLayoutManager;
+
+    /**
+     * 初始化状态布局
+     *
+     * @param container
+     */
+    protected void initStatusLayout(View container) {
+        statusLayoutManager = new StatusLayoutManager.Builder(container)
+                .setLoadingLayout(R.layout.view_loading)
+                .setOnStatusChildClickListener(new DefaultOnStatusChildClickListener() {
+
+                    @Override
+                    public void onErrorChildClick(View view) {
+                        loadData();
+                    }
+
+                    @Override
+                    public void onEmptyChildClick(View view) {
+                        loadData();
+                    }
+
+                    @Override
+                    public void onCustomerChildClick(View view) {
+                        loadData();
+                    }
+
+                }).build();
+    }
+
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+
+    }
+
 }

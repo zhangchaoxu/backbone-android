@@ -50,7 +50,7 @@ public class EmptyFragment extends BaseFragment {
     }
 
     @Override
-    protected void onSetupFragment(View view, Bundle savedInstanceState) {
+    protected void onSetup(View view, Bundle savedInstanceState) {
     }
 
     /**

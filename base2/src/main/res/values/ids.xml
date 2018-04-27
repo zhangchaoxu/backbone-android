@@ -9,6 +9,7 @@
     <item name="srl_container" type="id">false</item>
     <item name="rv_list" type="id">false</item>
     <item name="pager" type="id">false</item>
+    <item name="container" type="id">false</item>
     <item name="banner" type="id">false</item>
     <item name="fake_toolbar" type="id">false</item>
     <item name="toolbar" type="id">false</item>

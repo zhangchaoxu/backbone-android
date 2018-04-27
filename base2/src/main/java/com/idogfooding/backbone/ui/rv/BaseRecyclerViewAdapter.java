@@ -1,4 +1,4 @@
-package com.idogfooding.backbone.ui.recyclerview;
+package com.idogfooding.backbone.ui.rv;
 
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;

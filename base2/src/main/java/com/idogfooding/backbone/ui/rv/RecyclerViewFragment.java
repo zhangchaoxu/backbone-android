@@ -1,4 +1,4 @@
-package com.idogfooding.backbone.ui.recyclerview;
+package com.idogfooding.backbone.ui.rv;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -46,8 +46,8 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
     }
 
     @Override
-    protected void onSetupFragment(View view, Bundle savedInstanceState) {
-        super.onSetupFragment(view, savedInstanceState);
+    protected void onSetup(View view, Bundle savedInstanceState) {
+        super.onSetup(view, savedInstanceState);
 
         onConfigureRecyclerView();
         mTopButton = view.findViewById(R.id.fab_top);

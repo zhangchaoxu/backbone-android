@@ -26,8 +26,8 @@ public abstract class TabLayoutPagerActivity extends BaseActivity {
     }
 
     @Override
-    protected void onSetupActivity(Bundle savedInstanceState) {
-        super.onSetupActivity(savedInstanceState);
+    protected void onSetup(Bundle savedInstanceState) {
+        super.onSetup(savedInstanceState);
 
         tabLayout = findViewById(R.id.tab_layout);
         pager = findViewById(R.id.pager);

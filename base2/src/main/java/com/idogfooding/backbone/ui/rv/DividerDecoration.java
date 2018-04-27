@@ -1,4 +1,4 @@
-package com.idogfooding.backbone.ui.recyclerview;
+package com.idogfooding.backbone.ui.rv;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

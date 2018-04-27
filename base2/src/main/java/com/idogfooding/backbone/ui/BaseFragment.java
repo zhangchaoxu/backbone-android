@@ -24,8 +24,11 @@ import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.ui.tab.TabLayoutPagerActivity;
 import com.idogfooding.backbone.widget.TopBar;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.bakumon.statuslayoutmanager.library.DefaultOnStatusChildClickListener;
+import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
 
 /**
  * BaseFragment
@@ -51,7 +54,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        onConfigureFragment();
+        onConfig(savedInstanceState);
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
@@ -78,16 +81,16 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        onSetupFragment(view, savedInstanceState);
+        onSetup(view, savedInstanceState);
     }
 
     /**
-     * onSetupFragment
+     * onSetup
      *
      * @param view
      * @param savedInstanceState
      */
-    protected void onSetupFragment(View view, Bundle savedInstanceState) {
+    protected void onSetup(View view, Bundle savedInstanceState) {
         // init toolbar
         if (showToolbar) {
             toolbar = view.findViewById(R.id.toolbar);
@@ -134,7 +137,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 配置fragment
      */
-    protected void onConfigureFragment() {
+    protected void onConfig(Bundle savedInstanceState) {
         try {
             Router.injectParams(this);
         } catch (Exception e) {
@@ -194,11 +197,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // BINDING RESET
-        // Fragments have a different view lifecycle than activities.
-        // When binding a fragment in onCreateView, set the views to null in onDestroyView.
-        // Butter Knife returns an Unbinder instance when you call bind to do this for you.
-        // Call its unbind method in the appropriate lifecycle callback.
         unbinder.unbind();
     }
 
@@ -333,6 +331,43 @@ public abstract class BaseFragment extends Fragment {
             iRouter.requestCode(routeRequest.getRequestCode());
         }
         iRouter.go(this);
+    }
+
+    //##########  状态布局  ##########
+    protected StatusLayoutManager statusLayoutManager;
+
+    /**
+     * 初始化状态布局
+     * @param container
+     */
+    protected void initStatusLayout(View container) {
+        statusLayoutManager = new StatusLayoutManager.Builder(container)
+                .setLoadingLayout(R.layout.view_loading)
+                .setOnStatusChildClickListener(new DefaultOnStatusChildClickListener() {
+
+                    @Override
+                    public void onErrorChildClick(View view) {
+                        loadData();
+                    }
+
+                    @Override
+                    public void onEmptyChildClick(View view) {
+                        loadData();
+                    }
+
+                    @Override
+                    public void onCustomerChildClick(View view) {
+                        loadData();
+                    }
+
+                }).build();
+    }
+
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+
     }
 
 }

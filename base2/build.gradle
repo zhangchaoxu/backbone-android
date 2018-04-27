@@ -80,7 +80,7 @@ dependencies {
     // TabLayout
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:' + versions.FlycoTabLayout
     // StatusLayoutManager https://github.com/Bakumon/StatusLayoutManager
-    api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.2'
+    api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.4'
     // router
     api 'com.chenenyu.router:router:' + versions.router
 
