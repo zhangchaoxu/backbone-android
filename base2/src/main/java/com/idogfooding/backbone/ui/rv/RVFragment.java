@@ -20,12 +20,12 @@ import java.util.List;
 
 /**
  * RecyclerViewFragment
- * support list and page
- * support refresh and auto load next page
+ * 支持列表和分页模式
+ * 支持下拉刷新和自动加载下一页
  *
  * @author Charles
  */
-public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>> extends BaseFragment
+public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>> extends BaseFragment
         implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     // Refresh and RecyclerView
@@ -136,7 +136,7 @@ public abstract class RecyclerViewFragment<T, A extends BaseQuickAdapter<T, Base
      * 获得Grid布局
      *
      * @param orientation 布局方向
-     * @param spanCount   grid条数
+     * @param spanCount   每行(列)的数目
      * @return LayoutManager
      */
     protected RecyclerView.LayoutManager getGridLayoutManager(@RecyclerView.Orientation int orientation, int spanCount) {

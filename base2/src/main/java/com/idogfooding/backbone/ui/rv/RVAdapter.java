@@ -24,17 +24,17 @@ import java.util.List;
  *
  * @author Charles
  */
-public class BaseRecyclerViewAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, K> {
+public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, K> {
 
-    public BaseRecyclerViewAdapter(@LayoutRes int layoutResId, @Nullable List<T> data) {
+    public RVAdapter(@LayoutRes int layoutResId, @Nullable List<T> data) {
         super(layoutResId, data);
     }
 
-    public BaseRecyclerViewAdapter(@Nullable List<T> data) {
+    public RVAdapter(@Nullable List<T> data) {
         super(data);
     }
 
-    public BaseRecyclerViewAdapter(@LayoutRes int layoutResId) {
+    public RVAdapter(@LayoutRes int layoutResId) {
         super(layoutResId);
     }
 
