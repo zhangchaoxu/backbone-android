@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 
 /**
  * 方形图片
+ *
+ * @author Charles
  */
 public class SquareImageView extends AppCompatImageView {
 

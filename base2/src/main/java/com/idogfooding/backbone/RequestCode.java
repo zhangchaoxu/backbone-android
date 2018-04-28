@@ -2,6 +2,7 @@ package com.idogfooding.backbone;
 
 /**
  * RequestCode
+ * 预定义常用RequestCode
  *
  * @author Charles
  */
