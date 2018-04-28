@@ -19,13 +19,15 @@ import com.idogfooding.backbone.ui.BaseFragment;
 import java.util.List;
 
 /**
- * RecyclerViewFragment
+ * RVFragment
  * 支持列表和分页模式
- * 支持下拉刷新和自动加载下一页
+ * BaseQuickAdapter自动加载下一页
+ * SwipeRefreshLayout实现下拉刷新
  *
  * @author Charles
  */
-public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>> extends BaseFragment
+public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>>
+        extends BaseFragment
         implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     // Refresh and RecyclerView
@@ -49,7 +51,6 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
     protected void onSetup(View view, Bundle savedInstanceState) {
         super.onSetup(view, savedInstanceState);
 
-        onConfigureRecyclerView();
         mTopButton = view.findViewById(R.id.fab_top);
         cfgTopButton();
 
@@ -69,41 +70,43 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
         initHeaderAndFooterView();
     }
 
-    /**
-     * 配置RecyclerView
-     * 比如设置refreshable和loadMore
-     */
-    protected void onConfigureRecyclerView() {
-
-    }
-
     protected boolean initHeaderAndFooterView() {
         return false;
     }
 
     protected abstract void createAdapter();
 
-    protected void cfgTopButton() {
+    /**
+     * 设置底部右下角的按钮
+     * 默认翻到顶部
+     */
+    protected boolean cfgTopButton() {
         if (null == mTopButton)
-            return;
+            return false;
 
         mTopButton.setOnClickListener(v -> smoothScrollToPosition(0));
+        return true;
     }
 
     /**
      * 平滑移动到指定位置
      *
-     * @param position
+     * @param position 指定位置
      */
-    protected void smoothScrollToPosition(int position) {
+    protected boolean smoothScrollToPosition(int position) {
+        if (mRecyclerView == null)
+            return false;
+
         mRecyclerView.smoothScrollToPosition(position);
+        return true;
     }
 
-    protected void cfgRecyclerView() {
+    protected boolean cfgRecyclerView() {
         // cfg RecyclerView
         mRecyclerView.setLayoutManager(getLayoutManager());
         clearItemChangeAnimations();
         cfgItemDecoration();
+        return true;
     }
 
     /**
@@ -145,6 +148,9 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
         return manager;
     }
 
+    /**
+     * 配置下拉刷新
+     */
     protected void cfgSwipeRefresh() {
         // cfg SwipeRefreshLayout
         mSwipeRefreshLayout.setEnabled(refreshable);
