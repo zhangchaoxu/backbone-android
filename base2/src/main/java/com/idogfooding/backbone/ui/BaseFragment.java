@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -318,7 +319,15 @@ public abstract class BaseFragment extends Fragment {
     protected void handleUserLoginSuccess(Intent data) {
         if (data == null)
             return;
-        RouteRequest routeRequest = data.getParcelableExtra("routeRequest");
+
+        handleRouteRequest(data.getParcelableExtra("routeRequest"));
+    }
+
+    /**
+     * 处理RouteRequest
+     * @param routeRequest
+     */
+    protected void handleRouteRequest(RouteRequest routeRequest) {
         if (routeRequest == null)
             return;
 
@@ -328,6 +337,27 @@ public abstract class BaseFragment extends Fragment {
         }
         if (0 != routeRequest.getRequestCode()) {
             iRouter.requestCode(routeRequest.getRequestCode());
+        }
+        if (null != routeRequest.getAddedInterceptors() && !routeRequest.getAddedInterceptors().isEmpty()) {
+            iRouter.addInterceptors(routeRequest.getAddedInterceptors().toArray(new String[routeRequest.getAddedInterceptors().size()]));
+        }
+        if (null != routeRequest.getRemovedInterceptors() && !routeRequest.getRemovedInterceptors().isEmpty()) {
+            iRouter.skipInterceptors(routeRequest.getRemovedInterceptors().toArray(new String[routeRequest.getRemovedInterceptors().size()]));
+        }
+        if (0 != routeRequest.getFlags()) {
+            iRouter.addFlags(routeRequest.getFlags());
+        }
+        if (null != routeRequest.getRouteCallback()) {
+            iRouter.callback(routeRequest.getRouteCallback());
+        }
+        if (!TextUtils.isEmpty(routeRequest.getAction())) {
+            iRouter.setAction(routeRequest.getAction());
+        }
+        if (!TextUtils.isEmpty(routeRequest.getType())) {
+            iRouter.setType(routeRequest.getType());
+        }
+        if (0 != routeRequest.getExitAnim() && 0 != routeRequest.getEnterAnim()) {
+            iRouter.anim(routeRequest.getEnterAnim(), routeRequest.getExitAnim());
         }
         iRouter.go(this);
     }
