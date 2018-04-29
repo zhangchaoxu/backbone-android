@@ -50,7 +50,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.2'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.14.0') {
+    api('com.blankj:utilcode:1.14.1') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/bumptech/glide/
@@ -61,7 +61,7 @@ dependencies {
         exclude(group: 'com.android.support')
     }
 
-    // core widget
+    // widget
     // https://github.com/JakeWharton/butterknife
     api('com.jakewharton:butterknife:9.0.0-SNAPSHOT') {
         exclude(group: 'com.android.support')

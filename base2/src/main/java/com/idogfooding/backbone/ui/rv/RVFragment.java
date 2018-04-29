@@ -6,11 +6,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.fondesa.recyclerviewdivider.RecyclerViewDivider;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.network.ApiException;
 import com.idogfooding.backbone.network.PageResult;
@@ -123,7 +126,36 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
      * space支持间隔和颜色自定义,多用于GridLayout
      */
     protected void cfgItemDecoration() {
-        mRecyclerView.addItemDecoration(new DividerDecoration());
+        addSpaceItemDecoration(10);
+        //mRecyclerView.addItemDecoration(new DividerDecoration());
+    }
+
+    /**
+     * 提供默认的sapce分割条
+     *
+     * @param dpSize
+     */
+    protected void addSpaceItemDecoration(int dpSize) {
+        RecyclerViewDivider.with(getContext())
+                .size(SizeUtils.dp2px(dpSize))
+                .asSpace()
+                .hideLastDivider()
+                .build()
+                .addTo(mRecyclerView);
+    }
+
+    /**
+     * 提供默认的颜色分割条
+     *
+     * @param dpSize
+     */
+    protected void addColorItemDecoration(int dpSize, int color) {
+        RecyclerViewDivider.with(getContext())
+                .size(SizeUtils.dp2px(dpSize))
+                .color(color)
+                .hideLastDivider()
+                .build()
+                .addTo(mRecyclerView);
     }
 
     /**
@@ -145,6 +177,18 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
     protected RecyclerView.LayoutManager getGridLayoutManager(@RecyclerView.Orientation int orientation, int spanCount) {
         GridLayoutManager manager = new GridLayoutManager(getContext(), spanCount);
         manager.setOrientation(orientation);
+        return manager;
+    }
+
+    /**
+     * 获得瀑布布局
+     *
+     * @param orientation 布局方向
+     * @param spanCount   每行(列)的数目
+     * @return LayoutManager
+     */
+    protected RecyclerView.LayoutManager getStaggeredGridLayoutManager(@RecyclerView.Orientation int orientation, int spanCount) {
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(spanCount, orientation);
         return manager;
     }
 
