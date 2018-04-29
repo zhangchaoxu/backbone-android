@@ -21,10 +21,9 @@ import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
-import com.idogfooding.backbone.ui.tab.TabLayoutPagerActivity;
+import com.idogfooding.backbone.ui.tab.TabPagerActivity;
 import com.idogfooding.backbone.widget.TopBar;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.bakumon.statuslayoutmanager.library.DefaultOnStatusChildClickListener;
@@ -277,10 +276,10 @@ public abstract class BaseFragment extends Fragment {
      * @param index
      */
     protected void switchToTab(int index) {
-        if (getActivity() == null || !(getActivity() instanceof TabLayoutPagerActivity))
+        if (getActivity() == null || !(getActivity() instanceof TabPagerActivity))
             return;
 
-        ((TabLayoutPagerActivity) getActivity()).setCurrentTab(index);
+        ((TabPagerActivity) getActivity()).setCurrentTab(index);
     }
 
     // glide load

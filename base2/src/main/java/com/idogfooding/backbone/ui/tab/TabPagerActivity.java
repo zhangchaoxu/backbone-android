@@ -10,11 +10,11 @@ import com.idogfooding.backbone.ui.BaseActivity;
 import com.idogfooding.backbone.widget.ViewPager;
 
 /**
- * TabLayoutPagerActivity
+ * TabPagerActivity
  *
  * @author Charles
  */
-public abstract class TabLayoutPagerActivity extends BaseActivity {
+public abstract class TabPagerActivity extends BaseActivity {
 
     protected CommonTabLayout tabLayout;
     protected ViewPager pager;

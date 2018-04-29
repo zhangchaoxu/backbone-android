@@ -24,8 +24,9 @@ import java.net.UnknownHostException;
 import okhttp3.ResponseBody;
 
 /**
- * base network Callback
+ * 基础网络调用的回调
  * 支持显示加载中对话框,解析JSON,处理错误
+ * see {https://github.com/jeasonlzy/okhttp-OkGo/wiki/Callback}
  *
  * @author Charles
  */
@@ -34,22 +35,10 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     protected Context context;
     protected Fragment fragment;
 
-    // loading progress
-    private MaterialDialog progressView;
-
-    /**
-     * 初始化加载中对话框
-     *
-     * @param context
-     */
-    private void initProcessDialog(Context context, String loadingContent) {
-        progressView = new MaterialDialog.Builder(context)
-                .content(TextUtils.isEmpty(loadingContent) ? context.getString(com.idogfooding.backbone.R.string.msg_loading) : loadingContent)
-                .progress(true, 0)
-                .cancelable(false)
-                .canceledOnTouchOutside(false)
-                .build();
-    }
+    // 加载中对话框
+    private MaterialDialog loadingDialog;
+    // 是否在完成调用后,dismiss加载中对话框
+    private boolean dismissLoading = true;
 
     public BaseCallback(Context context) {
         this(context, false);
@@ -59,44 +48,59 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
         this(fragment, false);
     }
 
-    public BaseCallback(Context context, boolean showDialog) {
-        this(context, showDialog, null);
+    public BaseCallback(Context context, boolean showLoading) {
+        this(context, showLoading, true, null);
     }
 
-    public BaseCallback(Fragment fragment, boolean showDialog) {
-        this(fragment, showDialog, null);
+    public BaseCallback(Fragment fragment, boolean showLoading) {
+        this(fragment, showLoading, true, null);
     }
 
-    public BaseCallback(Context context, boolean showDialog, String loadingContent) {
+    public BaseCallback(Fragment fragment, boolean showDialog, boolean dismissLoading, String loadingContent) {
+        this(fragment.getContext(), showDialog, dismissLoading, loadingContent);
+        this.fragment = fragment;
+    }
+
+    public BaseCallback(Context context, boolean showLoading, boolean dismissLoading, String loadingContent) {
         super();
         this.context = context;
-        if (showDialog) {
-            initProcessDialog(context, loadingContent);
+        this.dismissLoading = dismissLoading;
+        if (showLoading) {
+            initLoadingDialog(context, loadingContent);
         }
     }
 
-    public BaseCallback(Fragment fragment, boolean showDialog, String loadingContent) {
-        this(fragment.getContext(), showDialog, loadingContent);
-        this.fragment = fragment;
+    /**
+     * 初始化加载中对话框
+     *
+     * @param context
+     */
+    private void initLoadingDialog(Context context, String loadingContent) {
+        loadingDialog = new MaterialDialog.Builder(context)
+                .content(TextUtils.isEmpty(loadingContent) ? context.getString(com.idogfooding.backbone.R.string.msg_loading) : loadingContent)
+                .progress(true, 0)
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .build();
     }
 
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
-        if (progressView != null && !progressView.isShowing()) {
-            progressView.show();
+        if (loadingDialog != null && !loadingDialog.isShowing()) {
+            loadingDialog.show();
         }
     }
 
     @Override
     public void onFinish() {
-        if (progressView != null && progressView.isShowing()) {
-            progressView.dismiss();
+        if (loadingDialog != null && loadingDialog.isShowing() && dismissLoading) {
+            loadingDialog.dismiss();
         }
     }
 
     @Override
-    public T convertResponse(okhttp3.Response response) throws Throwable {
+    public T convertResponse(okhttp3.Response response) {
         ResponseBody body = response.body();
         if (null == body)
             return null;
@@ -155,11 +159,11 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      * 解析返回实体包
      */
     @SuppressWarnings("unchecked")
-    protected T convertResultType(JsonReader jsonReader, Type typeArgument, Type type) throws Throwable {
+    protected T convertResultType(JsonReader jsonReader, Type typeArgument, Type type) {
         // Callback泛型是HttpResult,直接解析成HttpResult
         HttpResult httpResult = getGson().fromJson(jsonReader, Void.class == typeArgument ? HttpResult.class : type);
         if (null == httpResult) {
-            throw new IllegalArgumentException("数据解析错误");
+            throw new BoneException(BoneException.CODE_JSON_EXCEPTION);
         } else {
             if (httpResult.isSuccess()) {
                 return (T) httpResult;
@@ -173,16 +177,22 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     public void onSuccess(Response<T> response) {
         if (response == null) {
             response = new Response<>();
-            response.setException(new IllegalStateException("网络请求返回数据失败"));
+            response.setException(new BoneException(BoneException.CODE_NO_RESPONSE_EXCEPTION));
             onError(response);
         } else if (response.body() == null) {
-            response.setException(new IllegalStateException("网络请求返回数据未空"));
+            response.setException(new BoneException(BoneException.CODE_NO_BODY_EXCEPTION));
             onError(response);
         } else {
             onSuccessData(response, response.body());
         }
     }
 
+    /**
+     * 当真的获取到数据，并且数据不为空
+     *
+     * @param response
+     * @param data
+     */
     protected void onSuccessData(Response<T> response, T data) {
 
     }
@@ -200,25 +210,23 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
             exception.printStackTrace();
 
         if (null == exception) {
-            response.setException(new IllegalStateException("网络请求发生未知错误"));
-            onSysError(response);
-        } else if (exception instanceof UnknownHostException || exception instanceof ConnectException) {
-            response.setException(new IllegalStateException("网络连接失败,请检查网络链接!"));
-            onSysError(response);
+            onSysError(response, BoneException.CODE_NULL_EXCEPTION);
+        } else if (exception instanceof UnknownHostException) {
+            onSysError(response, BoneException.CODE_UNKNOWNHOST_EXCEPTION);
+        } else if (exception instanceof ConnectException) {
+            onSysError(response, BoneException.CODE_CONNECT_EXCEPTION);
         } else if (exception instanceof SocketTimeoutException) {
-            response.setException(new IllegalStateException("网络请求超时"));
-            onSysError(response);
+            onSysError(response, BoneException.CODE_SOCKETTIMEOUT_EXCEPTION);
         } else if (exception instanceof HttpException) {
-            response.setException(new IllegalStateException("服务器返回异常:" + exception.getMessage()));
-            onSysError(response);
+            onSysError(response, BoneException.CODE_HTTP_EXCEPTION);
         } else if (exception instanceof StorageException) {
-            response.setException(new IllegalStateException("存储读取异常,请检查存储是否存在并有权限"));
-            onSysError(response);
+            onSysError(response, BoneException.CODE_STORAGE_EXCEPTION);
         } else if (exception instanceof ApiException) {
-            onApiError(response, (ApiException) exception);
+            onSysError(response, BoneException.CODE_API_EXCEPTION);
+        } else if (exception instanceof BoneException) {
+            onSysError(response, ((BoneException) exception).getCode());
         } else {
-            response.setException(new IllegalStateException("网络请求未知错误"));
-            onSysError(response);
+            onSysError(response, BoneException.CODE_OTHER_EXCEPTION);
         }
     }
 
@@ -227,8 +235,12 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      *
      * @param response
      */
-    protected void onSysError(Response<T> response) {
-        ToastUtils.showShort(response.getException().getMessage());
+    protected void onSysError(Response<T> response, int errorCode) {
+        if (errorCode == BoneException.CODE_API_EXCEPTION) {
+            onApiError(response, (ApiException) response.getException());
+        } else {
+            ToastUtils.showShort(BoneException.getMsgByCode(errorCode));
+        }
     }
 
     /**
