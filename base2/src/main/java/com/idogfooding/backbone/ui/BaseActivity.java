@@ -23,7 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chenenyu.router.IRouter;
@@ -31,6 +33,7 @@ import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
+import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.yanzhenjie.permission.AndPermission;
@@ -107,6 +110,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 左侧按钮默认关闭
         toolbar.setVisibility(View.VISIBLE);
         toolbar.setOnLeftTextClickListener(v -> onBackPressed());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!FragmentUtils.dispatchBackPress(getSupportFragmentManager())) {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -372,6 +382,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 处理RouteRequest
+     *
      * @param routeRequest
      */
     protected void handleRouteRequest(RouteRequest routeRequest) {

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.FragmentUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chenenyu.router.IRouter;
@@ -36,7 +37,7 @@ import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
  *
  * @author Charles
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements FragmentUtils.OnBackClickListener {
 
     private Unbinder unbinder;
 
@@ -96,6 +97,15 @@ public abstract class BaseFragment extends Fragment {
             toolbar = view.findViewById(R.id.toolbar);
             initToolbar();
         }
+    }
+
+    /**
+     * 处理fragment的back点击事件
+     * 返回false表示不处理
+     * 返回true表示fragment已经处理
+     */
+    public boolean onBackClick() {
+        return false;
     }
 
     //##########  toolbar ##########
@@ -325,6 +335,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 处理RouteRequest
+     *
      * @param routeRequest
      */
     protected void handleRouteRequest(RouteRequest routeRequest) {
@@ -367,6 +378,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 初始化状态布局
+     *
      * @param container
      */
     protected void initStatusLayout(View container) {
