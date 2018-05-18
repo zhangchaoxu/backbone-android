@@ -390,6 +390,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         IRouter iRouter = Router.build(routeRequest.getUri());
         if (null != routeRequest.getExtras()) {
             iRouter.with(routeRequest.getExtras());
+            // 是否跳转，默认跳转
+            boolean redirect = routeRequest.getExtras().getBoolean("redirect", true);
+            if (!redirect)
+                return;
         }
         if (0 != routeRequest.getRequestCode()) {
             iRouter.requestCode(routeRequest.getRequestCode());
