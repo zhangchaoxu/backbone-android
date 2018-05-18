@@ -1,17 +1,17 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.2.9"
+version = "2.3.0"
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '28.0.0-rc1'
+    buildToolsVersion '28.0.0-rc2'
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
 
-        versionCode 229
+        versionCode 230
         versionName version
 
         multiDexEnabled true
@@ -51,17 +51,18 @@ dependencies {
     api('com.lzy.net:okgo:3.0.4') {
         exclude(group: 'com.squareup.okhttp3')
     }
+    // https://github.com/square/okhttp
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.4'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.14.3') {
+    api('com.blankj:utilcode:1.15.1') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/bumptech/glide/
     api 'com.github.bumptech.glide:glide:4.7.1'
     // https://github.com/yanzhenjie/AndPermission
-    api('com.yanzhenjie:permission:2.0.0-rc4') {
+    api('com.yanzhenjie:permission:2.0.0-rc5') {
         exclude(group: 'com.android.support')
     }
 
@@ -71,7 +72,7 @@ dependencies {
         exclude(group: 'com.android.support')
     }
     // https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     // https://github.com/Fondesa/RecyclerViewDivider
     api('com.github.fondesa:recycler-view-divider:2.0.1') {
         exclude(group: 'com.android.support')
@@ -85,7 +86,7 @@ dependencies {
     // https://github.com/Bakumon/StatusLayoutManager
     api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.4'
     // https://github.com/chenenyu/Router
-    api 'com.chenenyu.router:router:1.4.1'
+    api 'com.chenenyu.router:router:1.4.2'
 
 }
 
