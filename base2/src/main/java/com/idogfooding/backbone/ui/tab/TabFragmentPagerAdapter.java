@@ -1,6 +1,7 @@
 package com.idogfooding.backbone.ui.tab;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class TabFragmentPagerAdapter extends FragmentPagerAdapter {
 
     protected final Activity activity;
+    protected Bundle bundle;
 
     protected ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     protected ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -25,6 +27,15 @@ public class TabFragmentPagerAdapter extends FragmentPagerAdapter {
     public TabFragmentPagerAdapter(FragmentActivity activity) {
         super(activity.getSupportFragmentManager());
         this.activity = activity;
+        onConfigPagerAdapter(activity);
+        initTabEntities();
+        initFragments();
+    }
+
+    public TabFragmentPagerAdapter(FragmentActivity activity, Bundle bundle) {
+        super(activity.getSupportFragmentManager());
+        this.activity = activity;
+        this.bundle = bundle;
         onConfigPagerAdapter(activity);
         initTabEntities();
         initFragments();
