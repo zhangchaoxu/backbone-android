@@ -19,6 +19,7 @@ import com.idogfooding.backbone.network.ApiException;
 import com.idogfooding.backbone.network.PageResult;
 import com.idogfooding.backbone.ui.BaseFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -249,6 +250,9 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
     }
 
     protected void onLoadNext(PageResult<T> pagedResult, boolean refresh, boolean loadMore) {
+        if (pagedResult == null || null == pagedResult.getList()) {
+            pagedResult = new PageResult<>(new ArrayList<>());
+        }
         List<T> list = pagedResult.getList();
 
         if (refresh) {
