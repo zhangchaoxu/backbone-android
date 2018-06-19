@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.3.7"
+version = "2.3.8"
 
 android {
     compileSdkVersion 28
@@ -11,7 +11,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
 
-        versionCode 237
+        versionCode 238
         versionName version
 
         multiDexEnabled true
@@ -54,13 +54,15 @@ dependencies {
     // https://github.com/square/okhttp
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     // https://github.com/google/gson
-    api 'com.google.code.gson:gson:2.8.4'
+    api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.16.4') {
+    api('com.blankj:utilcode:1.17.0') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/bumptech/glide/
-    api 'com.github.bumptech.glide:glide:4.7.1'
+    api('com.github.bumptech.glide:glide:4.7.1') {
+        exclude(group: 'com.android.support')
+    }
     // https://github.com/yanzhenjie/AndPermission
     api('com.yanzhenjie:permission:2.0.0-rc11') {
         exclude(group: 'com.android.support')

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.multidex.MultiDex;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class BaseApplication extends Application {
 
     static Context _context;
     static Resources _resource;
+    static SPUtils _spInstance;
 
     @Override
     public void onCreate() {
@@ -47,6 +49,19 @@ public class BaseApplication extends Application {
         return _resource;
     }
 
+    /**
+     * get SP Utils instance
+     */
+    protected SPUtils getSPInstance() {
+        if (_spInstance == null) {
+            _spInstance = SPUtils.getInstance();
+        }
+        return _spInstance;
+    }
+
+    /**
+     * is app process in running
+     */
     protected boolean isProcessInRunning() {
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         if (null == activityManager)
