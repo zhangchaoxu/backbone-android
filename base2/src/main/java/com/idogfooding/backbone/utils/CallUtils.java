@@ -7,8 +7,16 @@ import android.net.Uri;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.idogfooding.backbone.R;
 
+/**
+ * 拨打电话工具包
+ *
+ * @author Charles
+ */
 public class CallUtils {
 
+    /**
+     * 拨打电话
+     */
     public static void call(Context context, String phone) {
         new MaterialDialog.Builder(context)
                 .content("确认拨打电话:" + phone + "?")
