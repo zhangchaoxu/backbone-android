@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chenenyu.router.IRouter;
@@ -32,6 +33,7 @@ import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
+import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.yanzhenjie.permission.AndPermission;
@@ -458,6 +460,21 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected void loadData() {
 
+    }
+
+    /**
+     * 双击返回退出App
+     * 检查fragment中的backpressed
+     * 在Home的onBackPressed中调用
+     */
+    protected void doubleClickExit() {
+        if (!FragmentUtils.dispatchBackPress(getSupportFragmentManager())) {
+            if (DoubleClickExit.check()) {
+                closeAllActivity();
+            } else {
+                ToastUtils.showShort(R.string.msg_double_click_exit);
+            }
+        }
     }
 
 }
