@@ -26,6 +26,8 @@ import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.ui.tab.TabPagerActivity;
 import com.idogfooding.backbone.widget.TopBar;
 
+import java.util.Map;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.bakumon.statuslayoutmanager.library.DefaultOnStatusChildClickListener;
@@ -353,11 +355,15 @@ public abstract class BaseFragment extends Fragment implements FragmentUtils.OnB
         if (0 != routeRequest.getRequestCode()) {
             iRouter.requestCode(routeRequest.getRequestCode());
         }
-        if (null != routeRequest.getAddedInterceptors() && !routeRequest.getAddedInterceptors().isEmpty()) {
-            iRouter.addInterceptors(routeRequest.getAddedInterceptors().toArray(new String[routeRequest.getAddedInterceptors().size()]));
-        }
-        if (null != routeRequest.getRemovedInterceptors() && !routeRequest.getRemovedInterceptors().isEmpty()) {
-            iRouter.skipInterceptors(routeRequest.getRemovedInterceptors().toArray(new String[routeRequest.getRemovedInterceptors().size()]));
+        if (null != routeRequest.getTempInterceptors()) {
+            Map<String, Boolean> tempInterceptors = routeRequest.getTempInterceptors();
+            for (String key : tempInterceptors.keySet()) {
+                if (tempInterceptors.get(key)) {
+                    iRouter.addInterceptors(key);
+                } else {
+                    iRouter.skipInterceptors(key);
+                }
+            }
         }
         if (0 != routeRequest.getFlags()) {
             iRouter.addFlags(routeRequest.getFlags());

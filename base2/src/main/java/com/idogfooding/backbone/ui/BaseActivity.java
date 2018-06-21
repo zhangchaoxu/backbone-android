@@ -41,6 +41,7 @@ import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.SettingService;
 
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import me.bakumon.statuslayoutmanager.library.DefaultOnStatusChildClickListener;
@@ -400,11 +401,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (0 != routeRequest.getRequestCode()) {
             iRouter.requestCode(routeRequest.getRequestCode());
         }
-        if (null != routeRequest.getAddedInterceptors() && !routeRequest.getAddedInterceptors().isEmpty()) {
-            iRouter.addInterceptors(routeRequest.getAddedInterceptors().toArray(new String[routeRequest.getAddedInterceptors().size()]));
-        }
-        if (null != routeRequest.getRemovedInterceptors() && !routeRequest.getRemovedInterceptors().isEmpty()) {
-            iRouter.skipInterceptors(routeRequest.getRemovedInterceptors().toArray(new String[routeRequest.getRemovedInterceptors().size()]));
+        if (null != routeRequest.getTempInterceptors()) {
+            Map<String, Boolean> tempInterceptors = routeRequest.getTempInterceptors();
+            for (String key : tempInterceptors.keySet()) {
+                if (tempInterceptors.get(key)) {
+                    iRouter.addInterceptors(key);
+                } else {
+                    iRouter.skipInterceptors(key);
+                }
+            }
         }
         if (0 != routeRequest.getFlags()) {
             iRouter.addFlags(routeRequest.getFlags());
