@@ -344,43 +344,12 @@ public abstract class BaseFragment extends Fragment implements FragmentUtils.OnB
         if (routeRequest == null)
             return;
 
-        IRouter iRouter = Router.build(routeRequest.getUri());
-        if (null != routeRequest.getExtras()) {
-            iRouter.with(routeRequest.getExtras());
-            // 是否跳转，默认跳转
-            boolean redirect = routeRequest.getExtras().getBoolean("redirect", true);
-            if (!redirect)
-                return;
+        // 是否跳转，默认跳转
+        if (null != routeRequest.getExtras() && !routeRequest.getExtras().getBoolean("redirect", true)) {
+            return;
         }
-        if (0 != routeRequest.getRequestCode()) {
-            iRouter.requestCode(routeRequest.getRequestCode());
-        }
-        if (null != routeRequest.getTempInterceptors()) {
-            Map<String, Boolean> tempInterceptors = routeRequest.getTempInterceptors();
-            for (String key : tempInterceptors.keySet()) {
-                if (tempInterceptors.get(key)) {
-                    iRouter.addInterceptors(key);
-                } else {
-                    iRouter.skipInterceptors(key);
-                }
-            }
-        }
-        if (0 != routeRequest.getFlags()) {
-            iRouter.addFlags(routeRequest.getFlags());
-        }
-        if (null != routeRequest.getRouteCallback()) {
-            iRouter.callback(routeRequest.getRouteCallback());
-        }
-        if (!TextUtils.isEmpty(routeRequest.getAction())) {
-            iRouter.setAction(routeRequest.getAction());
-        }
-        if (!TextUtils.isEmpty(routeRequest.getType())) {
-            iRouter.setType(routeRequest.getType());
-        }
-        if (0 != routeRequest.getExitAnim() && 0 != routeRequest.getEnterAnim()) {
-            iRouter.anim(routeRequest.getEnterAnim(), routeRequest.getExitAnim());
-        }
-        iRouter.go(this);
+
+        Router.build(routeRequest).go(this);
     }
 
     //##########  状态布局  ##########
