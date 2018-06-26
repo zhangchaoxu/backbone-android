@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.4.1"
+version = "2.4.2"
 
 android {
     compileSdkVersion 28
@@ -11,7 +11,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
 
-        versionCode 241
+        versionCode 242
         versionName version
 
         multiDexEnabled true
@@ -88,7 +88,7 @@ dependencies {
     // https://github.com/Bakumon/StatusLayoutManager
     api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.4'
     // https://github.com/chenenyu/Router
-    api 'com.chenenyu.router:router:1.5.0'
+    api 'com.chenenyu.router:router:1.5.1'
 
 
 }
