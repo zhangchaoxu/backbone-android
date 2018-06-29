@@ -150,11 +150,7 @@ public abstract class BaseFragment extends Fragment implements FragmentUtils.OnB
      * 配置fragment
      */
     protected void onConfig(Bundle savedInstanceState) {
-        try {
-            Router.injectParams(this);
-        } catch (Exception e) {
-            // no inject router params
-        }
+        Router.injectParams(this);
         // cfg fragment, like set showToolbar
     }
 

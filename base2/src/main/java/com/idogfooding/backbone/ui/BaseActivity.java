@@ -78,11 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * onConfigureActivity
      */
     protected void onConfig(Bundle savedInstanceState) {
-        try {
-            Router.injectParams(this);
-        } catch (Exception e) {
-            // no inject router params
-        }
+        Router.injectParams(this);
     }
 
     /**
