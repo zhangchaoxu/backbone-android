@@ -91,7 +91,6 @@ dependencies {
     // https://github.com/chenenyu/Router
     api 'com.chenenyu.router:router:1.5.2'
 
-
 }
 
 apply from: './lib-release.gradle'
