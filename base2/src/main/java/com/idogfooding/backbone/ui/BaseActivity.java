@@ -328,11 +328,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 注册监听软键盘显示状态发生变化
      */
     protected void registerSoftInputChanged() {
-        KeyboardUtils.registerSoftInputChangedListener(this, height -> onSoftInputChanged(KeyboardUtils.isSoftInputVisible(this)));
+        // fix bug 5497
+        KeyboardUtils.fixAndroidBug5497(this);
         // 点击空白区域,隐藏软键盘
         KeyboardUtils.clickBlankArea2HideSoftInput();
         // 修复内存泄露问题
         KeyboardUtils.fixSoftInputLeaks(this);
+        // 监听键盘变化
+        KeyboardUtils.registerSoftInputChangedListener(this, height -> onSoftInputChanged(KeyboardUtils.isSoftInputVisible(this), height));
     }
 
     /**
@@ -341,7 +344,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param visible
      */
-    protected void onSoftInputChanged(boolean visible) {
+    protected void onSoftInputChanged(boolean visible, int height) {
 
     }
 
