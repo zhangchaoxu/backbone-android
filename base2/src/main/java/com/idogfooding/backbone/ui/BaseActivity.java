@@ -3,6 +3,7 @@ package com.idogfooding.backbone.ui;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.FragmentUtils;
@@ -33,11 +35,13 @@ import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
+import com.idogfooding.backbone.permission.RuntimeRationale;
 import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Setting;
 import com.yanzhenjie.permission.SettingService;
 
 import java.util.List;
@@ -251,39 +255,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void askForPermissions(String... permissions) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             AndPermission.with(this)
+                    .runtime()
                     .permission(permissions)
-                    .rationale((context, permissions1, executor) -> {
-                        List<String> permissionNames = Permission.transformText(context, permissions1);
-                        String message = context.getString(R.string.message_permission_rationale, TextUtils.join("\n", permissionNames));
-                        new AlertDialog.Builder(this)
-                                .setCancelable(false)
-                                .setTitle(R.string.tips)
-                                .setMessage(message)
-                                .setPositiveButton(R.string.resume, (dialog, which) -> executor.execute())
-                                .setNegativeButton(R.string.cancel, (dialog, which) -> executor.cancel())
-                                .show();
-                    })
+                    .rationale(new RuntimeRationale())
                     .onGranted(permissions12 -> afterPermissionGranted())
-                    .onDenied(permissions13 -> {
-                        //if (AndPermission.hasAlwaysDeniedPermission(this, permissions13)) {
-                        List<String> permissionNames = Permission.transformText(this, permissions13);
-                        String message = getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
-
-                        SettingService settingService = AndPermission.permissionSetting(this);
-                        new AlertDialog.Builder(this)
-                                .setCancelable(false)
-                                .setTitle(R.string.tips)
-                                .setMessage(message)
-                                .setPositiveButton(R.string.settings, (dialog, which) -> settingService.execute())
-                                .setNegativeButton(R.string.no, (dialog, which) -> settingService.cancel())
-                                .show();
-                        //}
-                    })
+                    .onDenied(permissions13 -> showSettingDialog(BaseActivity.this, permissions13))
                     .start();
         } else {
             afterPermissionGranted();
         }
+    }
 
+    /**
+     * Display setting dialog.
+     */
+    public void showSettingDialog(Context context, final List<String> permissions) {
+        List<String> permissionNames = Permission.transformText(context, permissions);
+        String message = context.getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
+        new AlertDialog.Builder(context)
+                .setCancelable(false)
+                .setTitle(R.string.tips)
+                .setMessage(message)
+                .setPositiveButton(R.string.settings, (dialog, which) -> AndPermission.with(this)
+                        .runtime()
+                        .setting()
+                        .onComeback(() -> {
+                        })
+                        .start())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                })
+                .show();
     }
 
     /**

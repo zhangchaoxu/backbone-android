@@ -52,4 +52,8 @@
     <string name="message_permission_always_failed">我们需要以下权限，请在设置中为我们开启：\n\n%1$s</string>
     <string name="message_permission_rationale">允许以下权限以便程序继续执行：\n\n%1$s</string>
 
+    <string name="message_install_failed">您的手机不运行我们安装App</string>
+    <string name="message_overlay_failed">您的手机不允许我们拉取其它应用信息</string>
+
+
 </resources>
