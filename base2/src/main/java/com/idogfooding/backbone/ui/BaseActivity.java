@@ -3,7 +3,6 @@ package com.idogfooding.backbone.ui;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -22,7 +21,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.FragmentUtils;
@@ -30,7 +28,6 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.chenenyu.router.IRouter;
 import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
@@ -41,11 +38,8 @@ import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
-import com.yanzhenjie.permission.Setting;
-import com.yanzhenjie.permission.SettingService;
 
 import java.util.List;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import me.bakumon.statuslayoutmanager.library.DefaultOnStatusChildClickListener;
@@ -145,6 +139,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
+        if (mTipDialog != null && mTipDialog.isShowing()) {
+            mTipDialog.dismiss();
+        }
         super.onDestroy();
         // 注销广播
         if (mExistAppBroadcastReceiver != null) {
@@ -204,6 +201,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoadingDialog(String content) {
+        if (isFinishing() || !hasWindowFocus())
+            return;
+
+
         if (null == mLoadingDialog) {
             mLoadingDialog = new MaterialDialog.Builder(this)
                     .content(content)
@@ -216,6 +217,31 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
     // [-] Loading Dialog
+
+    // [+] tip dialog
+    private MaterialDialog mTipDialog;
+
+    protected void showTipDialog(String msg, MaterialDialog.SingleButtonCallback callback) {
+        if (isFinishing() || !hasWindowFocus())
+            return;
+
+        if (null == mLoadingDialog) {
+            mTipDialog = new MaterialDialog.Builder(this)
+                    .title(R.string.tips)
+                    .content(msg)
+                    .positiveText(R.string.confirm)
+                    .onPositive(callback)
+                    .show();
+        } else {
+            mTipDialog.setContent(msg);
+            mTipDialog.show();
+        }
+    }
+
+    protected void showTipDialog(String msg) {
+        this.showTipDialog(msg, null);
+    }
+    // [-] tip dialog
 
     @ColorInt
     protected int color(@ColorRes int res) {
@@ -449,6 +475,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                 ToastUtils.showShort(R.string.msg_double_click_exit);
             }
         }
+    }
+
+    // finish activity with result
+    public void finish(int resultCode) {
+        this.finish(resultCode, null);
+    }
+
+    public void finish(int resultCode, Intent data) {
+        setResult(resultCode, data);
+        finish();
     }
 
 }
