@@ -201,7 +201,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoadingDialog(String content) {
-        if (isFinishing() || !hasWindowFocus())
+        if (isFinishing())
             return;
 
 
@@ -222,7 +222,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private MaterialDialog mTipDialog;
 
     protected void showTipDialog(String msg, MaterialDialog.SingleButtonCallback callback) {
-        if (isFinishing() || !hasWindowFocus())
+        if (isFinishing())
             return;
 
         if (null == mLoadingDialog) {
