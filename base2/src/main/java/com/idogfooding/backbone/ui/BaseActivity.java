@@ -221,7 +221,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     // [+] tip dialog
     private MaterialDialog mTipDialog;
 
-    protected void showTipDialog(String msg, MaterialDialog.SingleButtonCallback callback) {
+    public void showTipDialog(String msg, MaterialDialog.SingleButtonCallback callback) {
         if (isFinishing())
             return;
 
@@ -238,7 +238,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void showTipDialog(String msg) {
+    public void showTipDialog(String msg) {
         this.showTipDialog(msg, null);
     }
     // [-] tip dialog
