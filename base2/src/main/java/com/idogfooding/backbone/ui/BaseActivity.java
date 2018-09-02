@@ -225,7 +225,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isFinishing())
             return;
 
-        if (null == mLoadingDialog) {
+        if (null == mTipDialog) {
             mTipDialog = new MaterialDialog.Builder(this)
                     .title(R.string.tips)
                     .content(msg)
