@@ -3,6 +3,7 @@ package com.idogfooding.backbone.network;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -77,7 +78,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     private void initLoadingDialog(Context context, String loadingContent) {
         mLoadingDialog = KProgressHUD.create(context)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel(loadingContent)
+                .setLabel(StringUtils.isEmpty(loadingContent) ? null : loadingContent)
                 .setCancellable(false)
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f);

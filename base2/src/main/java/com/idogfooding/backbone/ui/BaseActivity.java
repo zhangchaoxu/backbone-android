@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -194,7 +195,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoading() {
-        showLoading("");
+        showLoading(null);
     }
 
     public void showLoading(int contentResId) {
@@ -212,7 +213,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .setAnimationSpeed(2)
                     .setDimAmount(0.5f);
         }
-        mLoadingDialog.setLabel(content);
+        mLoadingDialog.setLabel(StringUtils.isEmpty(content) ? null : content);
         mLoadingDialog.show();
     }
     // [-] Loading Dialog
