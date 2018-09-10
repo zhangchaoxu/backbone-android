@@ -36,6 +36,7 @@ import com.idogfooding.backbone.permission.RuntimeRationale;
 import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
@@ -185,36 +186,34 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Shows the progress UI and hides the login_bg form.
      */
-    private MaterialDialog mLoadingDialog;
+    private KProgressHUD mLoadingDialog;
 
     public void dismissLoading() {
         if (null != mLoadingDialog && mLoadingDialog.isShowing() && !isFinishing())
             mLoadingDialog.dismiss();
     }
 
-    public void showLoadingDialog() {
-        showLoadingDialog(R.string.msg_loading);
+    public void showLoading() {
+        showLoading("");
     }
 
-    public void showLoadingDialog(int contentResId) {
-        showLoadingDialog(getString(contentResId));
+    public void showLoading(int contentResId) {
+        showLoading(getString(contentResId));
     }
 
-    public void showLoadingDialog(String content) {
+    public void showLoading(String content) {
         if (isFinishing())
             return;
 
-
         if (null == mLoadingDialog) {
-            mLoadingDialog = new MaterialDialog.Builder(this)
-                    .content(content)
-                    .progress(true, 0)
-                    .cancelable(false)
-                    .show();
-        } else {
-            mLoadingDialog.setContent(content);
-            mLoadingDialog.show();
+            mLoadingDialog = KProgressHUD.create(this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(false)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f);
         }
+        mLoadingDialog.setLabel(content);
+        mLoadingDialog.show();
     }
     // [-] Loading Dialog
 

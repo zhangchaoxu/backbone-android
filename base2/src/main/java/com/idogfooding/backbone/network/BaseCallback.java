@@ -2,13 +2,12 @@ package com.idogfooding.backbone.network;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.exception.StorageException;
@@ -36,7 +35,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     protected Fragment fragment;
 
     // 加载中对话框
-    private MaterialDialog loadingDialog;
+    private KProgressHUD mLoadingDialog;
     // 是否在完成调用后,dismiss加载中对话框
     private boolean dismissLoading = true;
 
@@ -76,26 +75,26 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      * @param context
      */
     private void initLoadingDialog(Context context, String loadingContent) {
-        loadingDialog = new MaterialDialog.Builder(context)
-                .content(TextUtils.isEmpty(loadingContent) ? context.getString(com.idogfooding.backbone.R.string.msg_loading) : loadingContent)
-                .progress(true, 0)
-                .cancelable(false)
-                .canceledOnTouchOutside(false)
-                .build();
+        mLoadingDialog = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(loadingContent)
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
     }
 
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
-        if (loadingDialog != null && !loadingDialog.isShowing()) {
-            loadingDialog.show();
+        if (mLoadingDialog != null && !mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
         }
     }
 
     @Override
     public void onFinish() {
-        if (loadingDialog != null && loadingDialog.isShowing() && dismissLoading) {
-            loadingDialog.dismiss();
+        if (mLoadingDialog != null && mLoadingDialog.isShowing() && dismissLoading) {
+            mLoadingDialog.dismiss();
         }
     }
 
