@@ -1,0 +1,1 @@
+gradlew :base2:dependencies
