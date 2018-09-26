@@ -1,17 +1,17 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.6.1"
+version = "2.6.2"
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 261
+        versionCode 262
         versionName version
 
         multiDexEnabled true
@@ -35,7 +35,7 @@ android {
     }
 }
 
-def supportLib = "28.0.0-rc02"
+def supportLib = "28.0.0"
 
 dependencies {
     // support
