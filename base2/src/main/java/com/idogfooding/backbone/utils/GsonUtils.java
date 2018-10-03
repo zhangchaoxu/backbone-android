@@ -22,6 +22,10 @@ public abstract class GsonUtils {
 
     private static final Gson GSON_NO_NULLS = createGson(false);
 
+    private GsonUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
     /**
      * Create the standard {@link Gson} configuration
      *

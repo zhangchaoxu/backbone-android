@@ -7,6 +7,8 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.callback.AbsCallback;
@@ -221,6 +223,8 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
             onSysError(response, BoneException.CODE_HTTP_EXCEPTION);
         } else if (exception instanceof StorageException) {
             onSysError(response, BoneException.CODE_STORAGE_EXCEPTION);
+        } else if (exception instanceof JsonParseException) {
+            onSysError(response, BoneException.CODE_JSON_EXCEPTION);
         } else if (exception instanceof ApiException) {
             onSysError(response, BoneException.CODE_API_EXCEPTION);
         } else if (exception instanceof BoneException) {
