@@ -262,11 +262,11 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
         }
 
         if (list.size() > 0) {
-            if (pagedResult.hasNextPage()) {
+            if (pagedResult.isLastPage()) {
+                mAdapter.loadMoreEnd();
+            } else {
                 pageNumber++;
                 mAdapter.loadMoreComplete();
-            } else {
-                mAdapter.loadMoreEnd();
             }
         } else {
             if (refresh) {

@@ -24,7 +24,7 @@ android {
 
     dexOptions {
         javaMaxHeapSize "8g" //specify the heap size for the dex process
-        preDexLibraries = false //delete the already predexed libraries
+        preDexLibraries = false //delete the already pre dex libraries
     }
 
     buildTypes {
@@ -44,6 +44,7 @@ dependencies {
     api 'com.android.support:cardview-v7:' + supportLib
     api 'com.android.support:design:' + supportLib
     api 'com.android.support:percent:' + supportLib
+
     // multidex
     api 'com.android.support:multidex:1.0.3'
 
@@ -57,7 +58,7 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
 
     // https://github.com/Blankj/AndroidUtilCode
-    api ('com.blankj:utilcode:1.20.3') {
+    api ('com.blankj:utilcode:1.20.4') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/bumptech/glide/

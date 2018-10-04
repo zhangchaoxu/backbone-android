@@ -1,5 +1,7 @@
 package com.idogfooding.backbone.network;
 
+import com.google.gson.annotations.JsonAdapter;
+
 import java.util.List;
 
 /**
@@ -11,29 +13,25 @@ import java.util.List;
 public class PageResult<T> extends BaseEntity {
 
     private List<T> list;
-    private int pageNumber;                // page number
-    private int pageSize;                // result amount of this page
-    private int totalPage;                // total page
-    private int totalRow;                // total row
-    private boolean hasNextPage;
+    private int pageNumber;
+    private int pageSize;
+    private int totalPage;
+    private int totalRow;
+    @JsonAdapter(BooleanTypeAdapter.class)
+    private boolean lastPage;
 
-    /**
-     * Constructor.
-     *
-     * @param list       the list of paginate result
-     */
     public PageResult(List<T> list) {
         this.list = list;
         this.pageNumber = 1;
         this.pageSize = 1;
         this.totalPage = 1;
         this.totalRow = 1;
-        this.hasNextPage = false;
+        this.lastPage = false;
     }
 
     public PageResult(List<T> list, boolean hasNextPage) {
         this.list = list;
-        this.hasNextPage = hasNextPage;
+        this.lastPage = hasNextPage;
     }
 
     public PageResult(List<T> list, int pageNumber, int pageSize, int totalPage, int totalRow) {
@@ -42,53 +40,54 @@ public class PageResult<T> extends BaseEntity {
         this.pageSize = pageSize;
         this.totalPage = totalPage;
         this.totalRow = totalRow;
-        this.hasNextPage = pageNumber != totalPage;
+        this.lastPage = pageNumber != totalPage;
     }
 
-    /**
-     * Return list of this page.
-     */
     public List<T> getList() {
         return list;
     }
 
-    /**
-     * Return page number.
-     */
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
     public int getPageNumber() {
         return pageNumber;
     }
 
-    /**
-     * Return page size.
-     */
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
     public int getPageSize() {
         return pageSize;
     }
 
-    /**
-     * Return total page.
-     */
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
     public int getTotalPage() {
         return totalPage;
     }
 
-    /**
-     * Return total row.
-     */
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
     public int getTotalRow() {
         return totalRow;
     }
 
-    public boolean isFirstPage() {
-        return pageNumber == 1;
+    public void setTotalRow(int totalRow) {
+        this.totalRow = totalRow;
     }
 
     public boolean isLastPage() {
-        return pageNumber == totalPage;
+        return lastPage;
     }
 
-    public boolean hasNextPage() {
-        return hasNextPage;
+    public void setLastPage(boolean lastPage) {
+        this.lastPage = lastPage;
     }
 }

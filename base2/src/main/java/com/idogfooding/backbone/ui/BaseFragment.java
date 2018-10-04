@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +17,12 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.chenenyu.router.IRouter;
 import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.ui.tab.TabPagerActivity;
 import com.idogfooding.backbone.widget.TopBar;
-
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
