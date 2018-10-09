@@ -11,11 +11,12 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * 将数字转成boolean
+ * 解析成为Boolean，json中经常用0和1来指代boolean
  *
  * @author Charles
  */
 public class BooleanTypeAdapter extends TypeAdapter<Boolean> {
+
     @Override
     public void write(JsonWriter out, Boolean value) throws IOException {
         if (value == null) {
