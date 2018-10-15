@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.TypeAdapter;
+import com.google.gson.internal.bind.DateTypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.callback.AbsCallback;
@@ -22,6 +24,7 @@ import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 
@@ -147,6 +150,8 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
         builder.setDateFormat("yyyy-MM-dd HH:mm:ss");
         // 如果返回是long格式,则如下注册type
         // builder.registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()));
+        builder.registerTypeAdapter(Boolean.class, new BooleanTypeAdapter()); // 注册boolean的
+        //builder.registerTypeAdapter(Date.class, new DateTypeAdapter()); // 注册Date的
         return builder.create();
     }
 
