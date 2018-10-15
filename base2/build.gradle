@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.6.3"
+version = "2.6.4"
 
 android {
     compileSdkVersion 28
@@ -11,7 +11,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 263
+        versionCode 264
         versionName version
 
         multiDexEnabled true
@@ -76,7 +76,7 @@ dependencies {
 
     // widget
     // https://github.com/JakeWharton/butterknife
-    api ('com.jakewharton:butterknife:9.0.0-SNAPSHOT') {
+    api ('com.jakewharton:butterknife:9.0.0-rc1') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/CymChad/BaseRecyclerViewAdapterHelper

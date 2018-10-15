@@ -30,9 +30,7 @@ import java.util.List;
  *
  * @author Charles
  */
-public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>>
-        extends BaseFragment
-        implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder>> extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     // Refresh and RecyclerView
     protected SwipeRefreshLayout mSwipeRefreshLayout;
@@ -118,7 +116,9 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
      * see {https://www.jianshu.com/p/654dac931667}
      */
     protected void clearItemChangeAnimations() {
-        mRecyclerView.getItemAnimator().setChangeDuration(0);
+        if (null != mRecyclerView.getItemAnimator()) {
+            mRecyclerView.getItemAnimator().setChangeDuration(0);
+        }
     }
 
     /**
