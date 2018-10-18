@@ -3,9 +3,11 @@
 
     <!-- Toolbar高度,不包含状态栏及下划线 -->
     <dimen name="toolbar_height">56dp</dimen>
+
     <!-- Toolbar左右按钮高度 -->
     <dimen name="toolbar_action_height">48dp</dimen>
     <dimen name="toolbar_action_width">48dp</dimen>
+
     <!-- Toolbar状态栏高度 -->
     <dimen name="status_bar_height">0dp</dimen>
     <dimen name="tab_bar_bottom">54dp</dimen>
