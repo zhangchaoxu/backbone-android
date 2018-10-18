@@ -16,13 +16,13 @@ public class BaseEntity implements Serializable {
     }
 
     // is item checked
-    private transient boolean _checked;
+    private transient boolean __checked;
 
-    public boolean is_checked() {
-        return _checked;
+    public boolean is__checked() {
+        return __checked;
     }
 
-    public void set_checked(boolean _checked) {
-        this._checked = _checked;
+    public void set__checked(boolean __checked) {
+        this.__checked = __checked;
     }
 }
