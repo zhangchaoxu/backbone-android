@@ -12,8 +12,8 @@
         tl:tl_iconVisible="false"
         tl:tl_indicator_color="?attr/colorPrimary"
         tl:tl_indicator_height="4dp"
-        tl:tl_textSelectColor="?attr/colorPrimary"
-        tl:tl_textUnselectColor="@color/primary_text"
+        tl:tl_textSelectColor="@color/top_tab_selected"
+        tl:tl_textUnselectColor="@color/top_tab_unselected"
         tl:tl_textsize="16sp"/>
 
     <com.idogfooding.backbone.widget.ViewPager

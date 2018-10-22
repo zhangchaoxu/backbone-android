@@ -62,4 +62,9 @@
         <item name="title_statusBarLightMode">true</item>
     </style>
 
+    <style name="Toolbar.Trans" parent="@style/Toolbar">
+        <item name="android:background">@color/transparent</item>
+        <item name="title_statusColor">@color/transparent</item>
+    </style>
+
 </resources>

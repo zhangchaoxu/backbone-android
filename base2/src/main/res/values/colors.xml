@@ -20,6 +20,11 @@
     <color name="swipe_refresh_process">@color/primary</color>
     <color name="swipe_refresh_end">@color/primary_light</color>
 
+    <color name="bottom_tab_selected">@color/primary</color>
+    <color name="bottom_tab_unselected">@color/black</color>
+    <color name="top_tab_selected">@color/primary</color>
+    <color name="top_tab_unselected">@color/black</color>
+
     <!-- base color -->
     <color name="transparent">#00000000</color>
     <color name="half_transparent">#60000000</color>

@@ -8,12 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.fondesa.recyclerviewdivider.RecyclerViewDivider;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.network.ApiException;
 import com.idogfooding.backbone.network.PageResult;
@@ -127,36 +126,7 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
      * space支持间隔和颜色自定义,多用于GridLayout
      */
     protected void cfgItemDecoration() {
-        addSpaceItemDecoration(10);
-        //mRecyclerView.addItemDecoration(new DividerDecoration());
-    }
-
-    /**
-     * 提供默认的sapce分割条
-     *
-     * @param dpSize
-     */
-    protected void addSpaceItemDecoration(int dpSize) {
-        RecyclerViewDivider.with(getContext())
-                .size(SizeUtils.dp2px(dpSize))
-                .asSpace()
-                .hideLastDivider()
-                .build()
-                .addTo(mRecyclerView);
-    }
-
-    /**
-     * 提供默认的颜色分割条
-     *
-     * @param dpSize
-     */
-    protected void addColorItemDecoration(int dpSize, int color) {
-        RecyclerViewDivider.with(getContext())
-                .size(SizeUtils.dp2px(dpSize))
-                .color(color)
-                .hideLastDivider()
-                .build()
-                .addTo(mRecyclerView);
+        mRecyclerView.addItemDecoration(new DividerDecoration());
     }
 
     /**
@@ -241,7 +211,7 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
 
     protected void loadData(boolean refresh, boolean loadMore) {
         if (mAdapter.getData().isEmpty() && !mSwipeRefreshLayout.isRefreshing()) {
-            mAdapter.setEmptyView(R.layout.view_loading);
+            mAdapter.setEmptyView(R.layout.view_loading,  (ViewGroup) mRecyclerView.getParent());
         }
     }
 
@@ -270,7 +240,7 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
             }
         } else {
             if (refresh) {
-                mAdapter.setEmptyView(R.layout.view_empty);
+                mAdapter.setEmptyView(getEmptyView());
             }
             mAdapter.loadMoreEnd();
         }
@@ -280,13 +250,40 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
         onLoadCache(refresh, loadMore, pagedResult.getList());
     }
 
+    protected View emptyView;
+    protected View errorView;
+
+    protected View getEmptyView() {
+        return getEmptyView(R.layout.view_empty);
+    }
+
+    protected View getEmptyView(int viewResId) {
+        if (emptyView == null) {
+            emptyView = getLayoutInflater().inflate(viewResId, (ViewGroup) mRecyclerView.getParent(), false);
+            emptyView.setOnClickListener(v -> onRefresh());
+        }
+        return emptyView;
+    }
+
+    protected View getErrorView() {
+        return getEmptyView(R.layout.view_error);
+    }
+
+    protected View getErrorView(int viewResId) {
+        if (errorView == null) {
+            errorView = getLayoutInflater().inflate(viewResId, (ViewGroup) mRecyclerView.getParent(), false);
+            errorView.setOnClickListener(v -> onRefresh());
+        }
+        return errorView;
+    }
+
     /**
      * on list load error
      */
     protected void onLoadError(Throwable throwable) {
         mSwipeRefreshLayout.setRefreshing(false);
         if (mAdapter.getData().isEmpty()) {
-            mAdapter.setEmptyView(R.layout.view_error);
+            mAdapter.setEmptyView(getErrorView());
         }
         mAdapter.loadMoreFail();
         if (throwable instanceof ApiException) {
