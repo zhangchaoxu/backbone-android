@@ -38,6 +38,7 @@ import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.MessageDialog;
+import com.kongzue.dialog.v2.Notification;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -240,6 +241,21 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
 
         TipDialog.show(this, msg, TipDialog.SHOW_TIME_SHORT, toastType);
+    }
+
+    public void showNotifyDialog(String msg) {
+        showNotifyDialog(msg, TipDialog.TYPE_WARNING);
+    }
+
+    public void showNotifyDialog(String msg, int type) {
+        showNotifyDialog(0, null, msg, type);
+    }
+
+    public void showNotifyDialog(int id, Notification.OnNotificationClickListener onNotificationClickListener, String msg, int type) {
+        if (isFinishing())
+            return;
+
+        Notification.show(this, id, msg, type).setOnNotificationClickListener(onNotificationClickListener);
     }
     // [-] tip dialog
 

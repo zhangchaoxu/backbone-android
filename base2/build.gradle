@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.7.2"
+version = "2.7.3"
 
 android {
     compileSdkVersion 28
@@ -11,7 +11,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 272
+        versionCode 273
         versionName version
 
         multiDexEnabled true
