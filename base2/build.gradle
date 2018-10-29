@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.7.3"
+version = "2.7.4"
 
 android {
     compileSdkVersion 28
@@ -11,7 +11,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 273
+        versionCode 274
         versionName version
 
         multiDexEnabled true
@@ -94,7 +94,9 @@ dependencies {
         exclude(group: 'com.android.support')
     }*/
     // https://github.com/kongzue/Dialog
-    api 'com.kongzue.dialog:dialog:2.3.4'
+    api ('com.kongzue.dialog:dialog:2.3.4') {
+        exclude(group: 'com.android.support')
+    }
 }
 
 apply from: './lib-release.gradle'
