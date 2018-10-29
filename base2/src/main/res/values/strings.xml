@@ -11,7 +11,7 @@
     <string name="about">关于</string>
     <string name="tips">提示</string>
 
-    <string name="msg_loading">请稍候&#8230;</string>
+    <string name="msg_loading">加载中&#8230;</string>
     <string name="msg_network_unavailable">网络不可用，请检查网络后重试</string>
     <string name="msg_data_empty">数据为空</string>
     <string name="msg_data_error">数据错误</string>

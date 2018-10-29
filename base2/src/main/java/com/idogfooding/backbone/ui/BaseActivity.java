@@ -3,6 +3,7 @@ package com.idogfooding.backbone.ui;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -22,10 +23,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -37,7 +36,11 @@ import com.idogfooding.backbone.permission.RuntimeRationale;
 import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
-import com.kaopiz.kprogresshud.KProgressHUD;
+import com.kongzue.dialog.v2.DialogSettings;
+import com.kongzue.dialog.v2.MessageDialog;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
@@ -138,13 +141,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-            mLoadingDialog.dismiss();
-        }
-        if (mTipDialog != null && mTipDialog.isShowing()) {
-            mTipDialog.dismiss();
-        }
         super.onDestroy();
+        DialogSettings.unloadAllDialog();
         // 注销广播
         if (mExistAppBroadcastReceiver != null) {
             unregisterReceiver(mExistAppBroadcastReceiver);
@@ -184,14 +182,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     // [+] Loading Dialog
+
     /**
      * Shows the progress UI and hides the login_bg form.
      */
-    private KProgressHUD mLoadingDialog;
-
     public void dismissLoading() {
-        if (null != mLoadingDialog && mLoadingDialog.isShowing() && !isFinishing())
-            mLoadingDialog.dismiss();
+        if (!isFinishing())
+
+            WaitDialog.dismiss();
     }
 
     public void showLoading() {
@@ -206,40 +204,42 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isFinishing())
             return;
 
-        if (null == mLoadingDialog) {
-            mLoadingDialog = KProgressHUD.create(this)
-                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setCancellable(false)
-                    .setAnimationSpeed(2)
-                    .setDimAmount(0.5f);
-        }
-        mLoadingDialog.setLabel(StringUtils.isEmpty(content) ? null : content);
-        mLoadingDialog.show();
+        WaitDialog.show(this, content);
     }
     // [-] Loading Dialog
 
     // [+] tip dialog
-    private MaterialDialog mTipDialog;
-
-    public void showTipDialog(String msg, MaterialDialog.SingleButtonCallback callback) {
+    public void showMessageDialog(String msg, DialogInterface.OnClickListener onClickListener) {
         if (isFinishing())
             return;
 
-        if (null == mTipDialog) {
-            mTipDialog = new MaterialDialog.Builder(this)
-                    .title(R.string.tips)
-                    .content(msg)
-                    .positiveText(R.string.confirm)
-                    .onPositive(callback)
-                    .show();
-        } else {
-            mTipDialog.setContent(msg);
-            mTipDialog.show();
-        }
+        MessageDialog.show(this, getString(R.string.tips), msg, getString(R.string.confirm), onClickListener);
+    }
+
+    public void showMessageDialog(String msg) {
+        showMessageDialog(msg, null);
+    }
+
+    public void showConfirmDialog(String msg, DialogInterface.OnClickListener onConfirmClickListener) {
+        showConfirmDialog(msg, getString(R.string.confirm), onConfirmClickListener, getString(R.string.cancel), null);
+    }
+
+    public void showConfirmDialog(String msg, String confirmText, DialogInterface.OnClickListener onConfirmClickListener, String cancelText, DialogInterface.OnClickListener onCancelClickListener) {
+        if (isFinishing())
+            return;
+
+        SelectDialog.show(this, getString(R.string.tips), msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener);
     }
 
     public void showTipDialog(String msg) {
-        this.showTipDialog(msg, null);
+        showTipDialog(msg, TipDialog.TYPE_WARNING);
+    }
+
+    public void showTipDialog(String msg, int toastType) {
+        if (isFinishing())
+            return;
+
+        TipDialog.show(this, msg, TipDialog.SHOW_TIME_SHORT, toastType);
     }
     // [-] tip dialog
 

@@ -3,16 +3,13 @@ package com.idogfooding.backbone.network;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.internal.bind.DateTypeAdapter;
 import com.google.gson.stream.JsonReader;
-import com.kaopiz.kprogresshud.KProgressHUD;
+import com.idogfooding.backbone.R;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.exception.StorageException;
@@ -24,7 +21,6 @@ import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.Date;
 
 import okhttp3.ResponseBody;
 
@@ -40,10 +36,10 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     protected Context context;
     protected Fragment fragment;
 
-    // 加载中对话框
-    private KProgressHUD mLoadingDialog;
-    // 是否在完成调用后,dismiss加载中对话框
-    private boolean dismissLoading = true;
+    // 是否在完成调用后,dismiss加载框
+    protected boolean dismissLoading = true;
+    // 是否在启动时候，显示加载框
+    protected boolean showLoading = true;
 
     public BaseCallback(Context context) {
         this(context, false);
@@ -69,38 +65,22 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     public BaseCallback(Context context, boolean showLoading, boolean dismissLoading, String loadingContent) {
         super();
         this.context = context;
+        this.showLoading = showLoading;
         this.dismissLoading = dismissLoading;
-        if (showLoading) {
-            initLoadingDialog(context, loadingContent);
-        }
-    }
-
-    /**
-     * 初始化加载中对话框
-     *
-     * @param context
-     */
-    private void initLoadingDialog(Context context, String loadingContent) {
-        mLoadingDialog = KProgressHUD.create(context)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel(StringUtils.isEmpty(loadingContent) ? null : loadingContent)
-                .setCancellable(false)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f);
     }
 
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
-        if (mLoadingDialog != null && !mLoadingDialog.isShowing()) {
-            mLoadingDialog.show();
+        if (showLoading) {
+            WaitDialog.show(context, context.getString(R.string.msg_loading));
         }
     }
 
     @Override
     public void onFinish() {
-        if (mLoadingDialog != null && mLoadingDialog.isShowing() && dismissLoading) {
-            mLoadingDialog.dismiss();
+        if (dismissLoading) {
+            WaitDialog.dismiss();
         }
     }
 
