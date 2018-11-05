@@ -1,10 +1,13 @@
 package com.idogfooding.backbone;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.request.target.ViewTarget;
@@ -18,6 +21,9 @@ import java.util.List;
  */
 public class BaseApplication extends Application {
 
+    private static final String TAG = "BaseApplication";
+    private static BaseApplication sInstance;
+
     static Context _context;
     static Resources _resource;
     static SPUtils _spInstance;
@@ -25,6 +31,10 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
+        // register activity lifecycle callback
+        registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+
         _context = getApplicationContext();
         _resource = _context.getResources();
 
@@ -47,6 +57,10 @@ public class BaseApplication extends Application {
 
     public static synchronized Resources resource() {
         return _resource;
+    }
+
+    public static BaseApplication getInstance() {
+        return sInstance;
     }
 
     /**
@@ -86,5 +100,43 @@ public class BaseApplication extends Application {
         // auto gc when the memory is low
         System.gc();
     }
+
+    private ActivityLifecycleCallbacks mActivityLifecycleCallbacks = new ActivityLifecycleCallbacks() {
+
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            Log.d(TAG, "onActivityCreated() called with: activity = [" + activity + "], savedInstanceState = [" + savedInstanceState + "]");
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+            Log.d(TAG, "onActivityStarted() called with: activity = [" + activity + "]");
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            Log.d(TAG, "onActivityResumed() called with: activity = [" + activity + "]");
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+            Log.d(TAG, "onActivityPaused() called with: activity = [" + activity + "]");
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+            Log.d(TAG, "onActivityStopped() called with: activity = [" + activity + "]");
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            Log.d(TAG, "onActivitySaveInstanceState() called with: activity = [" + activity + "], outState = [" + outState + "]");
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            Log.d(TAG, "onActivityDestroyed() called with: activity = [" + activity + "]");
+        }
+    };
 
 }
