@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jakewharton.butterknife'
 
-version = "2.7.7"
+version = "2.7.8"
 
 android {
     compileSdkVersion 28
@@ -11,7 +10,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 277
+        versionCode 278
         versionName version
 
         multiDexEnabled true
@@ -49,7 +48,7 @@ dependencies {
     api 'com.android.support:multidex:1.0.3'
 
     // https://github.com/square/okhttp
-    api 'com.squareup.okhttp3:okhttp:3.11.0'
+    api 'com.squareup.okhttp3:okhttp:3.12.0'
     // https://github.com/jeasonlzy/okhttp-OkGo
     api('com.lzy.net:okgo:3.0.4') {
         exclude(group: 'com.squareup.okhttp3')
@@ -65,7 +64,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.21.2') {
+    api('com.blankj:utilcode:1.22.0') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/yanzhenjie/AndPermission
@@ -75,7 +74,7 @@ dependencies {
 
     // widget
     // https://github.com/JakeWharton/butterknife
-    api('com.jakewharton:butterknife:9.0.0-rc1') {
+    api('com.jakewharton:butterknife:9.0.0-rc2') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/CymChad/BaseRecyclerViewAdapterHelper
@@ -92,7 +91,7 @@ dependencies {
         exclude(group: 'com.android.support')
     }*/
     // https://github.com/kongzue/Dialog
-    api ('com.kongzue.dialog:dialog:2.3.8') {
+    api ('com.kongzue.dialog:dialog:2.3.9') {
         exclude(group: 'com.android.support')
     }
 }
