@@ -194,7 +194,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoading() {
-        showLoading(null);
+        showLoading(getString(R.string.msg_loading));
     }
 
     public void showLoading(int contentResId) {
