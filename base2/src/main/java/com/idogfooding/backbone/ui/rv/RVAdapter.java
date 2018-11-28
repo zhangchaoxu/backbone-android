@@ -3,7 +3,9 @@ package com.idogfooding.backbone.ui.rv;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
@@ -48,7 +50,15 @@ public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, 
      */
     @ColorInt
     protected int color(@ColorRes int res) {
-        return ContextCompat.getColor(mContext, res);
+        return mContext.getResources().getColor(res);
+    }
+
+    /**
+     * 获取文字
+     */
+    @NonNull
+    protected String getString(@StringRes int resId, Object... formatArgs) {
+        return mContext.getString(resId, formatArgs);
     }
 
     // 是否多选模式,默认单选模式

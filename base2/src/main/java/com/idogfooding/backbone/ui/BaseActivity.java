@@ -143,7 +143,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // 注销dialog
         DialogSettings.unloadAllDialog();
+        // 修复内存泄露问题
+        KeyboardUtils.fixSoftInputLeaks(this);
+        // 注销keyboard监听器
+        KeyboardUtils.unregisterSoftInputChangedListener(this);
         // 注销广播
         if (mExistAppBroadcastReceiver != null) {
             unregisterReceiver(mExistAppBroadcastReceiver);
@@ -344,7 +349,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param imageView        图片view
      * @param model            加载对象
-     * @param placeholderResId placeholader资源id
+     * @param placeholderResId place holder资源id
      * @param errorResId       error 资源id
      */
     protected void loadImage(ImageView imageView, Object model, int placeholderResId, int errorResId) {
@@ -375,8 +380,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         KeyboardUtils.fixAndroidBug5497(this);
         // 点击空白区域,隐藏软键盘
         KeyboardUtils.clickBlankArea2HideSoftInput();
-        // 修复内存泄露问题
-        KeyboardUtils.fixSoftInputLeaks(this);
         // 监听键盘变化
         KeyboardUtils.registerSoftInputChangedListener(this, height -> onSoftInputChanged(KeyboardUtils.isSoftInputVisible(this), height));
     }
