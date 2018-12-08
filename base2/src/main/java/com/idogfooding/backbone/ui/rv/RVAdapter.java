@@ -42,7 +42,7 @@ public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, 
 
     @Override
     protected void convert(K helper, T item) {
-        // 转变
+        // convert
     }
 
     /**
@@ -51,6 +51,11 @@ public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, 
     @ColorInt
     protected int color(@ColorRes int res) {
         return mContext.getResources().getColor(res);
+    }
+
+    @ColorInt
+    protected int getColor(@ColorRes int res) {
+        return color(res);
     }
 
     /**
@@ -77,20 +82,37 @@ public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, 
 
     /**
      * 添加选中记录
-     *
-     * @param position
      */
     public void addCheckedPosition(Integer position) {
         if (multiCheckMode) {
             // 多选模式
             if (!checkedPositions.contains(position)) {
                 checkedPositions.add(position);
+                notifyItemChanged(position);
             }
         } else {
             // 单选模式
             checkedPositions.clear();
             checkedPositions.add(position);
+            notifyDataSetChanged();
         }
+    }
+
+    /**
+     * 全选
+     */
+    public void addCheckedAll() {
+        for (int i = 0; i < getItemCount(); i ++) {
+            checkedPositions.add(i);
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 全不选
+     */
+    public void removeCheckedAll() {
+        checkedPositions.clear();
         notifyDataSetChanged();
     }
 
@@ -104,12 +126,13 @@ public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, 
             // 多选模式
             if (!checkedPositions.contains(position)) {
                 checkedPositions.remove(position);
+                notifyItemChanged(position);
             }
         } else {
             // 单选模式
             checkedPositions.clear();
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     /**
@@ -119,14 +142,18 @@ public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, 
      */
     public void changeCheckedStatus(Integer position) {
         if (checkedPositions.contains(position)) {
+            // 已选中状态，则去除
             checkedPositions.remove(position);
+            notifyItemChanged(position);
         } else {
+            // 未选中状态，则选中
             if (!isMultiCheckMode()) {
+                // 单选模式先clear
                 checkedPositions.clear();
             }
             checkedPositions.add(position);
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public List<Integer> getCheckedPositions() {
@@ -142,7 +169,11 @@ public class RVAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, 
     }
 
     public T getCheckedItem() {
-        return getItem(getCheckedPosition());
+        if (getCheckedPosition() < 0 || getCheckedPosition() >= getItemCount()) {
+            return null;
+        } else {
+            return getItem(getCheckedPosition());
+        }
     }
 
     public List<T> getCheckedItems() {
