@@ -1,5 +1,6 @@
 package com.idogfooding.backbone;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
@@ -9,10 +10,21 @@ import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.request.target.ViewTarget;
+import com.kongzue.dialog.util.TextInfo;
+import com.kongzue.dialog.v2.DialogSettings;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Base Application
@@ -37,11 +49,6 @@ public class BaseApplication extends Application {
 
         _context = getApplicationContext();
         _resource = _context.getResources();
-
-        // fix glide issue "You must not call setTag() on a view Glide is targeting"
-        // https://github.com/bumptech/glide/issues/370
-        // http://stackoverflow.com/questions/34833627/error-you-must-not-call-settag-on-a-view-glide-is-targeting-when-use-glide/35096552
-        ViewTarget.setTagId(R.id.glide_tag);
     }
 
     @Override
@@ -67,8 +74,12 @@ public class BaseApplication extends Application {
      * get SP Utils instance
      */
     protected SPUtils getSPInstance() {
+        return this.getSPInstance("app");
+    }
+
+    protected SPUtils getSPInstance(String spName) {
         if (_spInstance == null) {
-            _spInstance = SPUtils.getInstance();
+            _spInstance = SPUtils.getInstance(spName);
         }
         return _spInstance;
     }
@@ -99,6 +110,66 @@ public class BaseApplication extends Application {
         super.onLowMemory();
         // auto gc when the memory is low
         System.gc();
+    }
+
+    /**
+     * 初始化网络日志
+     */
+    protected void initOkHttp() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
+        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
+        loggingInterceptor.setColorLevel(Level.INFO);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .connectTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)
+                .build();
+        OkGo.getInstance()
+                .init(this)
+                .setOkHttpClient(okHttpClient);
+    }
+
+    /**
+     * 设置对话框
+     */
+    protected void initDialog() {
+        // init dialog
+        DialogSettings.DEBUGMODE = false;
+        DialogSettings.type = DialogSettings.TYPE_KONGZUE;
+        DialogSettings.tip_theme = DialogSettings.THEME_LIGHT;
+        DialogSettings.use_blur = false;
+    }
+
+    /**
+     * 初始化日志
+     */
+    protected void initLog() {
+        LogUtils.getConfig()
+                .setLogSwitch(BuildConfig.DEBUG)
+                .setConsoleSwitch(BuildConfig.DEBUG)
+                .setLogHeadSwitch(true)
+                .setLog2FileSwitch(true)
+                .setFilePrefix("app")
+                .setBorderSwitch(true)
+                .setSingleTagSwitch(true)
+                .setConsoleFilter(LogUtils.V)
+                .setFileFilter(LogUtils.D)
+                .setStackDeep(1)
+                .setStackOffset(0)
+                .setSaveDays(30);
+    }
+
+    /**
+     * 初始化crash
+     */
+    @SuppressLint("MissingPermission")
+    protected void initCrash(boolean reload) {
+        CrashUtils.init((crashInfo, e) -> {
+            LogUtils.e(crashInfo);
+            if (reload) {
+                // 重启app
+                AppUtils.relaunchApp();
+            }
+        });
     }
 
     private ActivityLifecycleCallbacks mActivityLifecycleCallbacks = new ActivityLifecycleCallbacks() {
