@@ -25,4 +25,8 @@ public class BaseEntity implements Serializable {
     public void set__checked(boolean __checked) {
         this.__checked = __checked;
     }
+
+    public void change__checked() {
+        set__checked(!is__checked());
+    }
 }
