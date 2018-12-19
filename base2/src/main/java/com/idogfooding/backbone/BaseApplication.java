@@ -7,6 +7,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
@@ -142,6 +145,25 @@ public class BaseApplication extends Application {
         DialogSettings.type = DialogSettings.TYPE_KONGZUE;
         DialogSettings.tip_theme = DialogSettings.THEME_LIGHT;
         DialogSettings.use_blur = false;
+        // 对话框标题文字样式
+        DialogSettings.dialogTitleTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(18);
+        // 对话框内容文字样式
+        DialogSettings.dialogContentTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        // 对话框积极按钮（一般为确定按钮）文字样式，若未设置此样式则会使用 dialogButtonTextInfo 代替
+        DialogSettings.dialogOkButtonTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        DialogSettings.dialogButtonTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        // 提示框文本样式
+        DialogSettings.tipTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        // 菜单文字样式
+        DialogSettings.menuTextInfo  = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+    }
+
+    /**
+     * 获取颜色
+     */
+    @ColorInt
+    protected int color(@ColorRes int res) {
+        return getResources().getColor(res);
     }
 
     /**
