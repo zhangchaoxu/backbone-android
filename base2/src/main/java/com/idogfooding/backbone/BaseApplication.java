@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.kongzue.dialog.util.TextInfo;
 import com.kongzue.dialog.v2.DialogSettings;
@@ -49,6 +50,10 @@ public class BaseApplication extends Application {
 
         _context = getApplicationContext();
         _resource = _context.getResources();
+
+        // init utils
+        Utils.init(this);
+        ViewTarget.setTagId(R.id.glide_tag);
     }
 
     @Override

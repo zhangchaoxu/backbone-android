@@ -143,12 +143,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // 注销dialog
-        DialogSettings.unloadAllDialog();
         // 修复内存泄露问题
         KeyboardUtils.fixSoftInputLeaks(this);
         // 注销keyboard监听器
-        KeyboardUtils.unregisterSoftInputChangedListener(this);
+        // KeyboardUtils.unregisterSoftInputChangedListener(this);
         // 注销广播
         if (mExistAppBroadcastReceiver != null) {
             unregisterReceiver(mExistAppBroadcastReceiver);

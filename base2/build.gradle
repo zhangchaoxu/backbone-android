@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-version = "2.8.8"
+version = "2.8.9"
 
 android {
     compileSdkVersion 28
@@ -10,7 +10,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 288
+        versionCode 289
         versionName version
 
         multiDexEnabled true
@@ -64,7 +64,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.22.1') {
+    api('com.blankj:utilcode:1.22.5') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/yanzhenjie/AndPermission
@@ -91,7 +91,7 @@ dependencies {
         exclude(group: 'com.android.support')
     }*/
     // https://github.com/kongzue/Dialog
-    api ('com.kongzue.dialog:dialog:2.4.0') {
+    api ('com.kongzue.dialog:dialog:2.4.3') {
         exclude(group: 'com.android.support')
     }
 }
