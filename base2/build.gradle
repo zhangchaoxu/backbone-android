@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-version = "2.9.1"
+version = "2.9.2"
 
 android {
     compileSdkVersion 28
@@ -10,7 +10,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 2901
+        versionCode 2902
         versionName version
 
         multiDexEnabled true
@@ -91,7 +91,7 @@ dependencies {
         exclude(group: 'com.android.support')
     }*/
     // https://github.com/kongzue/Dialog
-    api ('com.kongzue.dialog:dialog:2.4.3') {
+    api ('com.kongzue.dialog:dialog:2.4.4') {
         exclude(group: 'com.android.support')
     }
 }

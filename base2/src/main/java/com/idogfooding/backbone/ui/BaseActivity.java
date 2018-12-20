@@ -36,7 +36,6 @@ import com.idogfooding.backbone.permission.RuntimeRationale;
 import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
-import com.kongzue.dialog.v2.DialogSettings;
 import com.kongzue.dialog.v2.MessageDialog;
 import com.kongzue.dialog.v2.Notification;
 import com.kongzue.dialog.v2.SelectDialog;
@@ -217,7 +216,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isFinishing())
             return;
 
-        MessageDialog.show(this, getString(R.string.tips), msg, getString(R.string.confirm), onClickListener);
+        MessageDialog.build(this, getString(R.string.tips), msg, getString(R.string.confirm), onClickListener).showDialog();
     }
 
     public void showMessageDialog(String msg) {
@@ -232,7 +231,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isFinishing())
             return;
 
-        SelectDialog.show(this, getString(R.string.tips), msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener);
+        SelectDialog.build(this, getString(R.string.tips), msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener).showDialog();
     }
 
     public void showTipDialog(String msg) {
@@ -243,7 +242,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isFinishing())
             return;
 
-        TipDialog.show(this, msg, TipDialog.SHOW_TIME_SHORT, toastType);
+        TipDialog.build(this, msg, TipDialog.SHOW_TIME_SHORT, toastType).showDialog();
     }
 
     public void showNotifyDialog(String msg) {
