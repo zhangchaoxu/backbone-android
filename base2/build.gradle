@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-version = "2.9.2"
+version = "2.9.3"
 
 android {
     compileSdkVersion 28
@@ -10,7 +10,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 2902
+        versionCode 2903
         versionName version
 
         multiDexEnabled true
@@ -64,7 +64,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.22.5') {
+    api('com.blankj:utilcode:1.22.7') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/yanzhenjie/AndPermission
@@ -74,7 +74,7 @@ dependencies {
 
     // widget
     // https://github.com/JakeWharton/butterknife
-    api('com.jakewharton:butterknife:9.0.0-rc2') {
+    api('com.jakewharton:butterknife:9.0.0-rc3') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/CymChad/BaseRecyclerViewAdapterHelper
