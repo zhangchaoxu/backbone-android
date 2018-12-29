@@ -141,7 +141,7 @@ public class BaseApplication extends Application {
     protected void initDialog() {
         // init dialog
         DialogSettings.DEBUGMODE = false;
-        DialogSettings.type = DialogSettings.TYPE_KONGZUE;
+        DialogSettings.style  = DialogSettings.STYLE_KONGZUE;
         DialogSettings.tip_theme = DialogSettings.THEME_LIGHT;
         DialogSettings.use_blur = false;
         // 对话框标题文字样式
