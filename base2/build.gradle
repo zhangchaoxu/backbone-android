@@ -64,7 +64,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.22.9') {
+    api('com.blankj:utilcode:1.22.10') {
         exclude(group: 'com.android.support')
     }
     // https://github.com/yanzhenjie/AndPermission
@@ -91,7 +91,7 @@ dependencies {
         exclude(group: 'com.android.support')
     }*/
     // https://github.com/kongzue/Dialog
-    api ('com.kongzue.dialog:dialog:2.4.5') {
+    api ('com.kongzue.dialog:dialog:2.4.6') {
         exclude(group: 'com.android.support')
     }
 }

@@ -190,9 +190,10 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Shows the progress UI and hides the login_bg form.
      */
     public void dismissLoading() {
-        if (!isFinishing())
+        if (isFinishing())
+            return;
 
-            WaitDialog.dismiss();
+        WaitDialog.dismiss();
     }
 
     public void showLoading() {
@@ -212,11 +213,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     // [-] Loading Dialog
 
     // [+] tip dialog
-    public void showMessageDialog(String msg, DialogInterface.OnClickListener onClickListener) {
+    public void showMessageDialog(String title, String msg, DialogInterface.OnClickListener onClickListener) {
         if (isFinishing())
             return;
 
-        MessageDialog.build(this, getString(R.string.tips), msg, getString(R.string.confirm), onClickListener).showDialog();
+        MessageDialog.build(this, title, msg, getString(R.string.confirm), onClickListener).showDialog();
+    }
+
+    public void showMessageDialog(String msg, DialogInterface.OnClickListener onClickListener) {
+        this.showMessageDialog(null, msg, onClickListener);
     }
 
     public void showMessageDialog(String msg) {
@@ -228,10 +233,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showConfirmDialog(String msg, String confirmText, DialogInterface.OnClickListener onConfirmClickListener, String cancelText, DialogInterface.OnClickListener onCancelClickListener) {
+        this.showConfirmDialog( null, msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener);
+    }
+
+    public void showConfirmDialog(String title, String msg, String confirmText, DialogInterface.OnClickListener onConfirmClickListener, String cancelText, DialogInterface.OnClickListener onCancelClickListener) {
         if (isFinishing())
             return;
 
-        SelectDialog.build(this, getString(R.string.tips), msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener).showDialog();
+        SelectDialog.build(this, title, msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener).showDialog();
     }
 
     public void showTipDialog(String msg) {
@@ -382,6 +391,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * **谨慎使用**
+     * 会引发内存溢出
+     *
      * 当软键盘显示状态发生变化
      * 使用之前先调用registerKeyboardChanged
      *
@@ -398,7 +410,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected void clearEditTextFocus() {
         View view = getCurrentFocus();
-        if (null != view && view instanceof EditText)
+        if (view instanceof EditText)
             view.clearFocus();
     }
 
