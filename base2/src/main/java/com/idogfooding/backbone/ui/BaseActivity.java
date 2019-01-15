@@ -143,7 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 修复内存泄露问题
-        KeyboardUtils.fixSoftInputLeaks(this);
+        // KeyboardUtils.fixSoftInputLeaks(this);
         // 注销keyboard监听器
         // KeyboardUtils.unregisterSoftInputChangedListener(this);
         // 注销广播
