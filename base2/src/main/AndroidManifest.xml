@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.idogfooding.backbone">
 
 <!--
@@ -22,5 +23,22 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     &lt;!&ndash; android 8.0 安装未知来源应用 &ndash;&gt;
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />-->
+
+    <application
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <!-- file path provider -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.camera.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_camera" />
+        </provider>
+
+    </application>
 
 </manifest>
