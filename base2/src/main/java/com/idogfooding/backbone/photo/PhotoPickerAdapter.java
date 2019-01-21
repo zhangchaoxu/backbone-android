@@ -73,7 +73,7 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         //Step.3
         switch (holder.getItemViewType()) {
             case PhotoPickerEntity.TYPE_ADD:
-                holder.getView(R.id.iv_photo).setBackgroundResource(getMorePhotoResId());
+                ((ImageView)holder.getView(R.id.iv_photo)).setImageResource(getMorePhotoResId());
                 break;
             case PhotoPickerEntity.TYPE_FILE:
                 holder.setVisible(R.id.iv_delete, false);
