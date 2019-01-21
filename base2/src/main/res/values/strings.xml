@@ -55,5 +55,7 @@
     <string name="message_install_failed">您的手机不运行我们安装App</string>
     <string name="message_overlay_failed">您的手机不允许我们拉取其它应用信息</string>
 
+    <string name="camera">摄像头</string>
+    <string name="album">相册</string>
 
 </resources>

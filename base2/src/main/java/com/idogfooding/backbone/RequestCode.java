@@ -93,7 +93,10 @@ public interface RequestCode {
 
     // 200-300 位置
     int LOCATION_CHOOSE = 200; // 位置选择
-    int CITY_CHOOSE = 201; // 城市选择
+    int PROVINCE_CHOOSE = 201; // 省选择
+    int CITY_CHOOSE = 202; // 市选择
+    int AREA_CHOOSE = 203; // 区选择
+    int ADDRESS_CHOOSE = 204; // 地址选择
 
     // 300-400 form common user
     int USER_LOGIN = 300; // 用户登录

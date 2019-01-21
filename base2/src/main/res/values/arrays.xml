@@ -7,4 +7,10 @@
         <item>@color/swipe_refresh_end</item>
     </integer-array>
 
+    <!-- 图片来源 -->
+    <string-array name="photo_type">
+        <item>@string/camera</item>
+        <item>@string/album</item>
+    </string-array>
+
 </resources>

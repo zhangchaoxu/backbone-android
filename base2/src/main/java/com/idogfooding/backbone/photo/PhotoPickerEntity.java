@@ -2,6 +2,11 @@ package com.idogfooding.backbone.photo;
 
 import java.io.Serializable;
 
+/**
+ * photo picker entity
+ *
+ * @author Charles
+ */
 public class PhotoPickerEntity implements Serializable {
 
     public final static int TYPE_ADD = 1; // 添加图片

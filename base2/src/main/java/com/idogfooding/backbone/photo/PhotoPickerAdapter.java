@@ -26,8 +26,10 @@ import java.util.List;
 public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, BaseViewHolder> {
 
     private int maxCount = 9; // 最大支持数量
-    private boolean addEnable = true; // 是否允许添加
+    private boolean moreEnable = true; // 是否允许添加
+    private boolean deleteEnable = false; // 是否允许删除
     private int morePhotoResId = R.mipmap.ic_photo_add; // 添加更多的图片资源
+    private int deletePhotoResId = R.mipmap.ic_photo_add; //删除的图片资源
 
     public int getMaxCount() {
         return maxCount;
@@ -37,12 +39,20 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         this.maxCount = maxCount;
     }
 
-    public boolean isAddEnable() {
-        return addEnable;
+    public boolean isMoreEnable() {
+        return moreEnable;
     }
 
-    public void setAddEnable(boolean addEnable) {
-        this.addEnable = addEnable;
+    public void setMoreEnable(boolean moreEnable) {
+        this.moreEnable = moreEnable;
+    }
+
+    public boolean isDeleteEnable() {
+        return deleteEnable;
+    }
+
+    public void setDeleteEnable(boolean deleteEnable) {
+        this.deleteEnable = deleteEnable;
     }
 
     public int getMorePhotoResId() {
@@ -51,6 +61,14 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
 
     public void setMorePhotoResId(int morePhotoResId) {
         this.morePhotoResId = morePhotoResId;
+    }
+
+    public int getDeletePhotoResId() {
+        return deletePhotoResId;
+    }
+
+    public void setDeletePhotoResId(int deletePhotoResId) {
+        this.deletePhotoResId = deletePhotoResId;
     }
 
     public PhotoPickerAdapter(ArrayList<PhotoPickerEntity> photoPaths) {
@@ -99,38 +117,62 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
                         .into((ImageView) holder.getView(R.id.iv_photo));
                 break;
         }
-
     }
 
     @Override
     public void setNewData(@Nullable List<PhotoPickerEntity> data) {
-        if (addEnable) {
+        if (isMoreEnable()) {
             if (data == null)
                 data = new ArrayList<>();
+
             if (data.size() < getMaxCount())
                 data.add(new PhotoPickerEntity(PhotoPickerEntity.TYPE_ADD));
-            super.setNewData(data);
-        } else {
-            super.setNewData(data);
         }
+        super.setNewData(data);
     }
 
     @Override
     public void addData(@NonNull Collection<? extends PhotoPickerEntity> newData) {
-        super.addData(newData);
+        List<PhotoPickerEntity> list = getRealPhotoEntities();
+        list.addAll(newData);
+        this.setNewData(list);
     }
 
-    public List<PhotoPickerEntity> getRealPhotoEntities() {
-        List<PhotoPickerEntity> list = getData();
-        for (PhotoPickerEntity entity : list) {
-            if (entity.getType() == PhotoPickerEntity.TYPE_ADD) {
-                list.remove(entity);
+    @Override
+    public void addData(@NonNull PhotoPickerEntity entity) {
+        List<PhotoPickerEntity> list = getRealPhotoEntities();
+        list.add(entity);
+        this.setNewData(list);
+    }
+
+    /**
+     * 获得实际的图片数量
+     */
+    protected int getRealPhotoCount() {
+        int count = 0;
+        for (PhotoPickerEntity entity : getData()) {
+            if (entity.getType() != PhotoPickerEntity.TYPE_ADD) {
+                count ++;
             }
         }
-        return list;
+        return count;
     }
 
-    public ArrayList<String> getRealPhotos() {
+    protected List<PhotoPickerEntity> getRealPhotoEntities() {
+        if (isMoreEnable()) {
+            List<PhotoPickerEntity> list = getData();
+            for (PhotoPickerEntity entity : list) {
+                if (entity.getType() == PhotoPickerEntity.TYPE_ADD) {
+                    list.remove(entity);
+                }
+            }
+            return list;
+        } else {
+            return getData();
+        }
+    }
+
+    protected ArrayList<String> getRealPhotos() {
         ArrayList<String> list = new ArrayList<>();
         for (PhotoPickerEntity entity : getData()) {
             if (entity.getType() != PhotoPickerEntity.TYPE_ADD) {
