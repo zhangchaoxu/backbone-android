@@ -3,6 +3,7 @@ package com.idogfooding.backbone.photo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +30,7 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
     private boolean moreEnable = true; // 是否允许添加
     private boolean deleteEnable = false; // 是否允许删除
     private int morePhotoResId = R.mipmap.ic_photo_add; // 添加更多的图片资源
-    private int deletePhotoResId = R.mipmap.ic_photo_add; //删除的图片资源
+    private int deletePhotoResId = R.mipmap.ic_photo_delete; //删除的图片资源
 
     public int getMaxCount() {
         return maxCount;
@@ -84,6 +85,17 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         getMultiTypeDelegate().registerItemType(PhotoPickerEntity.TYPE_ADD, R.layout.__picker_item_photo_add)
                 .registerItemType(PhotoPickerEntity.TYPE_FILE, R.layout.__picker_item_photo)
                 .registerItemType(PhotoPickerEntity.TYPE_URL, R.layout.__picker_item_photo);
+        // click listener
+        setOnItemChildClickListener((adapter, view, position) -> {
+            if (R.id.iv_delete == view.getId()) {
+                if (isMoreEnable() && getRealPhotoCount() == getMaxCount()) {
+                    remove(position);
+                    getData().add(new PhotoPickerEntity(PhotoPickerEntity.TYPE_ADD));
+                } else {
+                    remove(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -91,10 +103,9 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         //Step.3
         switch (holder.getItemViewType()) {
             case PhotoPickerEntity.TYPE_ADD:
-                ((ImageView)holder.getView(R.id.iv_photo)).setImageResource(getMorePhotoResId());
+                ((ImageView) holder.getView(R.id.iv_photo)).setImageResource(getMorePhotoResId());
                 break;
             case PhotoPickerEntity.TYPE_FILE:
-                holder.setVisible(R.id.iv_delete, false);
                 Uri uri = Uri.fromFile(new File(data.getPath()));
                 Glide.with(mContext)
                         .load(uri)
@@ -104,9 +115,15 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
                                 .error(R.mipmap.ic_photo_placeholder))
                         .thumbnail(0.1f)
                         .into((ImageView) holder.getView(R.id.iv_photo));
+                if (isDeleteEnable()) {
+                    holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
+                    ((ImageView) holder.getView(R.id.iv_delete)).setImageResource(getDeletePhotoResId());
+                } else {
+                    holder.getView(R.id.iv_delete).setVisibility(View.GONE);
+                }
+                holder.addOnClickListener(R.id.iv_delete);
                 break;
             case PhotoPickerEntity.TYPE_URL:
-                holder.setVisible(R.id.iv_delete, false);
                 Glide.with(mContext)
                         .load(data.getThumbnail())
                         .apply(new RequestOptions()
@@ -115,7 +132,24 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
                                 .error(R.mipmap.ic_photo_placeholder))
                         .thumbnail(0.1f)
                         .into((ImageView) holder.getView(R.id.iv_photo));
+                if (isDeleteEnable()) {
+                    holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
+                    ((ImageView) holder.getView(R.id.iv_delete)).setImageResource(getDeletePhotoResId());
+                } else {
+                    holder.getView(R.id.iv_delete).setVisibility(View.GONE);
+                }
+                holder.addOnClickListener(R.id.iv_delete);
                 break;
+        }
+    }
+
+    @Override
+    public void remove(int position) {
+        getData().remove(position);
+        super.remove(position);
+        // 删除以后，需要根据情况加上添加按钮
+        if (isMoreEnable()) {
+            addData(new PhotoPickerEntity(PhotoPickerEntity.TYPE_ADD));
         }
     }
 
@@ -148,7 +182,7 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
     /**
      * 获得实际的图片数量
      */
-    protected int getRealPhotoCount() {
+    public int getRealPhotoCount() {
         int count = 0;
         for (PhotoPickerEntity entity : getData()) {
             if (entity.getType() != PhotoPickerEntity.TYPE_ADD) {
@@ -158,7 +192,7 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         return count;
     }
 
-    protected List<PhotoPickerEntity> getRealPhotoEntities() {
+    public List<PhotoPickerEntity> getRealPhotoEntities() {
         if (isMoreEnable()) {
             List<PhotoPickerEntity> list = getData();
             for (PhotoPickerEntity entity : list) {
@@ -172,7 +206,7 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         }
     }
 
-    protected ArrayList<String> getRealPhotos() {
+    public ArrayList<String> getRealPhotos() {
         ArrayList<String> list = new ArrayList<>();
         for (PhotoPickerEntity entity : getData()) {
             if (entity.getType() != PhotoPickerEntity.TYPE_ADD) {
