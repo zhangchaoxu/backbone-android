@@ -1,6 +1,9 @@
 package com.idogfooding.backbone.photo;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * photo picker entity
@@ -55,6 +58,19 @@ public class PhotoPickerEntity implements Serializable {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    /**
+     * 将文件数组转换为entity数组
+     * @param files 文件数组
+     * @return entity数组
+     */
+    public static List<PhotoPickerEntity> filesToEntities(List<File> files) {
+        List<PhotoPickerEntity> entities = new ArrayList<>();
+        for (File file : files) {
+            entities.add(new PhotoPickerEntity(PhotoPickerEntity.TYPE_FILE, file.getPath()));
+        }
+        return entities;
     }
 
 }

@@ -88,12 +88,7 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         // click listener
         setOnItemChildClickListener((adapter, view, position) -> {
             if (R.id.iv_delete == view.getId()) {
-                if (isMoreEnable() && getRealPhotoCount() == getMaxCount()) {
-                    remove(position);
-                    getData().add(new PhotoPickerEntity(PhotoPickerEntity.TYPE_ADD));
-                } else {
-                    remove(position);
-                }
+                remove(position);
             }
         });
     }
@@ -145,11 +140,11 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
 
     @Override
     public void remove(int position) {
-        getData().remove(position);
-        super.remove(position);
-        // 删除以后，需要根据情况加上添加按钮
-        if (isMoreEnable()) {
-            addData(new PhotoPickerEntity(PhotoPickerEntity.TYPE_ADD));
+        if (isMoreEnable() && getRealPhotoCount() == getMaxCount()) {
+            super.remove(position);
+            getData().add(new PhotoPickerEntity(PhotoPickerEntity.TYPE_ADD));
+        } else {
+            super.remove(position);
         }
     }
 
