@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -101,9 +102,8 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
                 ((ImageView) holder.getView(R.id.iv_photo)).setImageResource(getMorePhotoResId());
                 break;
             case PhotoPickerEntity.TYPE_FILE:
-                Uri uri = Uri.fromFile(new File(data.getPath()));
                 Glide.with(mContext)
-                        .load(uri)
+                        .load(Uri.fromFile(new File(StringUtils.isTrimEmpty(data.getThumbnail()) ? data.getPath() : data.getThumbnail())))
                         .apply(new RequestOptions()
                                 .centerCrop()
                                 .placeholder(R.mipmap.ic_photo_placeholder)
@@ -120,7 +120,7 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
                 break;
             case PhotoPickerEntity.TYPE_URL:
                 Glide.with(mContext)
-                        .load(data.getThumbnail())
+                        .load(StringUtils.isTrimEmpty(data.getThumbnail()) ? data.getPath() : data.getThumbnail())
                         .apply(new RequestOptions()
                                 .centerCrop()
                                 .placeholder(R.mipmap.ic_photo_placeholder)
@@ -201,11 +201,21 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         }
     }
 
-    public ArrayList<String> getRealPhotos() {
+    public ArrayList<String> getRawPhotos() {
         ArrayList<String> list = new ArrayList<>();
         for (PhotoPickerEntity entity : getData()) {
             if (entity.getType() != PhotoPickerEntity.TYPE_ADD) {
                 list.add(entity.getPath());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<String> getThumbnailPhotos() {
+        ArrayList<String> list = new ArrayList<>();
+        for (PhotoPickerEntity entity : getData()) {
+            if (entity.getType() != PhotoPickerEntity.TYPE_ADD) {
+                list.add(entity.getThumbnail());
             }
         }
         return list;
