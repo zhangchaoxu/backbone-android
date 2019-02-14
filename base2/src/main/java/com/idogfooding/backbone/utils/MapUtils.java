@@ -24,14 +24,13 @@ public class MapUtils {
     public static void goNaviMap(Context context, String name, double lat, double lng) {
         new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT)
                 .setTitle("导航")
-                .setCancelable(true)
                 .setItems(new String[]{"百度地图", "高德地图"}, (dialog, which) -> {
                     if (0 == which) {
                         // 百度地图
                         try {
                             Intent intent = new Intent();
                             intent.setData(Uri.parse("baidumap://map/direction?coord_type=gcj02"
-                                    + "&src=idogfooding|exchange"
+                                    + "&src=idogfooding|backbone"
                                     + "&origin="
                                     + "&destination=name:" + name
                                     + "|latlng:" + lat + "," + lng));
@@ -44,7 +43,7 @@ public class MapUtils {
                         // 高德地图
                         try {
                             Intent intent = new Intent("android.intent.action.VIEW",
-                                    Uri.parse("androidamap://navi?sourceApplication=exchange&poiname="
+                                    Uri.parse("androidamap://navi?sourceApplication=backbone&poiname="
                                             + name
                                             + "&lat=" + lat
                                             + "&lon=" + lng + "&dev=1&style=0"));

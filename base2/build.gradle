@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-version = "2.9.18"
+version = "2.9.19"
 
 android {
     compileSdkVersion 28
@@ -10,7 +10,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 
-        versionCode 2918
+        versionCode 2910
         versionName version
 
         multiDexEnabled true
