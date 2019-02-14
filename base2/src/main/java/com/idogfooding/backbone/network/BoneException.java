@@ -52,6 +52,12 @@ public class BoneException extends RuntimeException {
     public static final int CODE_OTHER_EXCEPTION = 300012;
     public static final String MSG_OTHER_EXCEPTION = "其他未知异常";
 
+    public static final int CODE_NO_BODY_DATA_EXCEPTION = 300013;
+    public static final String MSG_NO_BODY_DATA_EXCEPTION = "数据内容为空";
+
+    public static final int CODE_ERROR_DATA_TYPE_EXCEPTION = 300014;
+    public static final String MSG_ERROR_DATA_TYPE_EXCEPTION = "错误的数据类型定义";
+
     public static String getMsgByCode(int errorCode) {
         switch (errorCode) {
             case CODE_SUCCESS:
@@ -82,6 +88,10 @@ public class BoneException extends RuntimeException {
                 return MSG_API_EXCEPTION;
             case CODE_OTHER_EXCEPTION:
                 return MSG_OTHER_EXCEPTION;
+            case CODE_NO_BODY_DATA_EXCEPTION:
+                return MSG_NO_BODY_DATA_EXCEPTION;
+            case CODE_ERROR_DATA_TYPE_EXCEPTION:
+                return MSG_ERROR_DATA_TYPE_EXCEPTION;
             default:
                 return MSG_OTHER_EXCEPTION;
         }

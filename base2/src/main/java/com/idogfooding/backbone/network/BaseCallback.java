@@ -170,7 +170,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
             response.setException(new BoneException(BoneException.CODE_NO_BODY_EXCEPTION));
             onError(response);
         } else {
-            onSuccessData(response, response.body());
+            onSuccessBodyData(response, response.body());
         }
     }
 
@@ -182,6 +182,24 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      */
     protected void onSuccessData(Response<T> response, T data) {
 
+    }
+
+    /**
+     * 当返回的原始数据不为空
+     *
+     * @param response
+     * @param data
+     */
+    protected void onSuccessBodyData(Response<T> response, T data) {
+        if (data instanceof HttpResult) {
+            if (((HttpResult) data).getData() == null) {
+                onSysError(response, BoneException.CODE_NO_BODY_DATA_EXCEPTION);
+            } else {
+                onSuccessData(response, data);
+            }
+        } else {
+            onSysError(response, BoneException.CODE_ERROR_DATA_TYPE_EXCEPTION);
+        }
     }
 
     /**
