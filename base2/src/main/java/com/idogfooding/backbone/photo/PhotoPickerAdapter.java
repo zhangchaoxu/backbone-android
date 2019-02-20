@@ -37,40 +37,57 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
         return maxCount;
     }
 
-    public void setMaxCount(int maxCount) {
+    public PhotoPickerAdapter setMaxCount(int maxCount) {
         this.maxCount = maxCount;
+        return this;
     }
 
     public boolean isMoreEnable() {
         return moreEnable;
     }
 
-    public void setMoreEnable(boolean moreEnable) {
+    public PhotoPickerAdapter setMoreEnable(boolean moreEnable) {
         this.moreEnable = moreEnable;
+        return this;
     }
 
     public boolean isDeleteEnable() {
         return deleteEnable;
     }
 
-    public void setDeleteEnable(boolean deleteEnable) {
+    public PhotoPickerAdapter setDeleteEnable(boolean deleteEnable) {
         this.deleteEnable = deleteEnable;
+        return this;
     }
 
     public int getMorePhotoResId() {
         return morePhotoResId;
     }
 
-    public void setMorePhotoResId(int morePhotoResId) {
+    public PhotoPickerAdapter setMorePhotoResId(int morePhotoResId) {
         this.morePhotoResId = morePhotoResId;
+        return this;
     }
 
     public int getDeletePhotoResId() {
         return deletePhotoResId;
     }
 
-    public void setDeletePhotoResId(int deletePhotoResId) {
+    public PhotoPickerAdapter setDeletePhotoResId(int deletePhotoResId) {
         this.deletePhotoResId = deletePhotoResId;
+        return this;
+    }
+
+    /**
+     * 初始化一下，把更多按钮加上
+     */
+    public PhotoPickerAdapter init() {
+        if (isMoreEnable()) {
+            List<PhotoPickerEntity> data = new ArrayList<>();
+            data.add(new PhotoPickerEntity(PhotoPickerEntity.TYPE_ADD));
+            super.setNewData(data);
+        }
+        return this;
     }
 
     public PhotoPickerAdapter(ArrayList<PhotoPickerEntity> photoPaths) {
