@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -30,6 +31,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
+import com.idogfooding.backbone.BaseApplication;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.permission.RuntimeRationale;
@@ -42,8 +44,9 @@ import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.runtime.Permission;
 
+import java.nio.charset.CoderResult;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -325,18 +328,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showSettingDialog(Context context, final List<String> permissions) {
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = context.getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
+
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setTitle(R.string.tips)
                 .setMessage(message)
-                .setPositiveButton(R.string.settings, (dialog, which) -> AndPermission.with(this)
-                        .runtime()
-                        .setting()
-                        .onComeback(() -> {
-                        })
-                        .start())
-                .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                })
+                .setPositiveButton(R.string.settings, (dialog, which) -> AndPermission.with(this).runtime().setting().start(RequestCode.PERMISSION_SETTINGS))
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {})
                 .show();
     }
 
@@ -418,6 +416,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RequestCode.USER_LOGIN && resultCode == Activity.RESULT_OK) {
             handleUserLoginSuccess(data);
+        } if (requestCode == RequestCode.PERMISSION_SETTINGS) {
+            Toast.makeText(this, R.string.message_setting_comeback, Toast.LENGTH_SHORT).show();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

@@ -49,6 +49,7 @@
     <string name="msg_list_loading_more">更多加载中&#8230;</string>
 
     <string name="permission_setting">权限设置</string>
+    <string name="message_setting_comeback">用户从设置页面返回</string>
     <string name="message_permission_always_failed">我们需要以下权限，请在设置中为我们开启：\n\n%1$s</string>
     <string name="message_permission_rationale">允许以下权限以便程序继续执行：\n\n%1$s</string>
 
@@ -57,5 +58,6 @@
 
     <string name="camera">摄像头</string>
     <string name="album">相册</string>
+
 
 </resources>

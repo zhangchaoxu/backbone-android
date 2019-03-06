@@ -1,6 +1,5 @@
 package com.idogfooding.backbone.utils;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,7 +17,7 @@ public class CallUtils {
      * 拨打电话
      */
     public static void call(Context context, String phone) {
-        new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT)
+        new android.support.v7.app.AlertDialog.Builder(context, android.app.AlertDialog.THEME_HOLO_LIGHT)
                 .setMessage("确认拨打电话:" + phone + "?")
                 .setPositiveButton(R.string.confirm, (dialog, which) -> {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
