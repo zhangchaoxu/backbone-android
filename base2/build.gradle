@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-version = "2.9.22"
+version = "2.9.25"
 
 android {
     compileSdkVersion 28
@@ -10,7 +10,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 
-        versionCode 2922
+        versionCode 2925
         versionName version
 
         multiDexEnabled true
@@ -64,7 +64,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.23.6') {
+    api('com.blankj:utilcode:1.23.7') {
         exclude(group: 'com.android.support')
         exclude(group: 'com.google.code.gson')
     }
@@ -86,7 +86,7 @@ dependencies {
     // https://github.com/Bakumon/StatusLayoutManager
     api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.4'
     // https://github.com/chenenyu/Router
-    api 'com.chenenyu.router:router:1.6.0'
+    api 'com.chenenyu.router:router:1.6.2'
     // https://github.com/kongzue/Dialog
     api ('com.kongzue.dialog:dialog:2.4.8') {
         exclude(group: 'com.android.support')

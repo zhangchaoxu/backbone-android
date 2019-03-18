@@ -23,15 +23,15 @@ public class PageResult<T> extends BaseEntity {
     public PageResult(List<T> list) {
         this.list = list;
         this.pageNumber = 1;
-        this.pageSize = 1;
+        this.pageSize = 10;
         this.totalPage = 1;
         this.totalRow = 1;
-        this.lastPage = false;
+        this.lastPage = true;
     }
 
-    public PageResult(List<T> list, boolean hasNextPage) {
+    public PageResult(List<T> list, boolean lastPage) {
         this.list = list;
-        this.lastPage = hasNextPage;
+        this.lastPage = lastPage;
     }
 
     public PageResult(List<T> list, int pageNumber, int pageSize, int totalPage, int totalRow) {
