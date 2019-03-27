@@ -102,6 +102,27 @@ public abstract class RVFragment<T, A extends BaseQuickAdapter<T, BaseViewHolder
         return true;
     }
 
+    /**
+     * 平滑移动到指定位置和距离
+     *
+     * 与smoothScrollToPosition的区别是
+     * smoothScrollToPosition只会将position的item移入视野内，但是位于屏幕的底部还是头部无法确定
+     * scrollToPositionWithOffset可以指定移到屏幕的某个位置，比如offset=0表示顶部
+     *
+     * @param position 指定位置
+     */
+    protected boolean scrollToPositionWithOffset(int position, int offset) {
+        if (mRecyclerView == null)
+            return false;
+
+        if (mRecyclerView.getLayoutManager() == null)
+            return false;
+
+
+        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(position,offset);
+        return true;
+    }
+
     protected boolean cfgRecyclerView() {
         // cfg RecyclerView
         mRecyclerView.setLayoutManager(getLayoutManager());

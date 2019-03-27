@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-version = "2.9.25"
+version = "2.9.26"
 
 android {
     compileSdkVersion 28
@@ -10,7 +10,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 
-        versionCode 2925
+        versionCode 2926
         versionName version
 
         multiDexEnabled true
@@ -88,7 +88,7 @@ dependencies {
     // https://github.com/chenenyu/Router
     api 'com.chenenyu.router:router:1.6.2'
     // https://github.com/kongzue/Dialog
-    api ('com.kongzue.dialog:dialog:2.4.8') {
+    api ('com.kongzue.dialog:dialog:2.4.8.1') {
         exclude(group: 'com.android.support')
     }
 }
