@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 
-version = "2.9.27"
 
 android {
     compileSdkVersion 28
@@ -10,8 +9,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 
-        versionCode 2927
-        versionName version
+        versionCode 2928
+        versionName "2.9.28"
 
         multiDexEnabled true
     }
@@ -93,4 +92,4 @@ dependencies {
     }
 }
 
-apply from: './lib-release.gradle'
+apply from: './bintray-release.gradle'
