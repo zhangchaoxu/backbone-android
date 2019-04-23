@@ -31,7 +31,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chenenyu.router.RouteRequest;
 import com.chenenyu.router.Router;
-import com.idogfooding.backbone.BaseApplication;
 import com.idogfooding.backbone.R;
 import com.idogfooding.backbone.RequestCode;
 import com.idogfooding.backbone.permission.RuntimeRationale;
@@ -46,7 +45,6 @@ import com.kongzue.dialog.v2.WaitDialog;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
-import java.nio.charset.CoderResult;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -329,12 +327,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = context.getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
 
-        new AlertDialog.Builder(context)
+        new AlertDialog.Builder(context, android.app.AlertDialog.THEME_HOLO_LIGHT)
                 .setCancelable(false)
                 .setTitle(R.string.tips)
                 .setMessage(message)
-                .setPositiveButton(R.string.settings, (dialog, which) -> AndPermission.with(this).runtime().setting().start(RequestCode.PERMISSION_SETTINGS))
-                .setNegativeButton(R.string.cancel, (dialog, which) -> {})
+                .setPositiveButton(R.string.settings, (dialog, which) -> {
+                    AndPermission.with(this).runtime().setting().start(RequestCode.PERMISSION_SETTINGS);
+                    finish();
+                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> finish())
                 .show();
     }
 
@@ -417,7 +418,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (requestCode == RequestCode.USER_LOGIN && resultCode == Activity.RESULT_OK) {
             handleUserLoginSuccess(data);
         } if (requestCode == RequestCode.PERMISSION_SETTINGS) {
-            Toast.makeText(this, R.string.message_setting_comeback, Toast.LENGTH_SHORT).show();
+            askForPermissions();
+            // Toast.makeText(this, R.string.message_setting_comeback, Toast.LENGTH_SHORT).show();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
