@@ -3,7 +3,6 @@ package com.idogfooding.backbone.ui;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -22,7 +21,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -37,11 +35,13 @@ import com.idogfooding.backbone.permission.RuntimeRationale;
 import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
-import com.kongzue.dialog.v2.MessageDialog;
-import com.kongzue.dialog.v2.Notification;
-import com.kongzue.dialog.v2.SelectDialog;
-import com.kongzue.dialog.v2.TipDialog;
-import com.kongzue.dialog.v2.WaitDialog;
+import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
+import com.kongzue.dialog.interfaces.OnNotificationClickListener;
+import com.kongzue.dialog.util.BaseDialog;
+import com.kongzue.dialog.v3.MessageDialog;
+import com.kongzue.dialog.v3.Notification;
+import com.kongzue.dialog.v3.TipDialog;
+import com.kongzue.dialog.v3.WaitDialog;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
@@ -214,14 +214,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     // [-] Loading Dialog
 
     // [+] tip dialog
-    public void showMessageDialog(String title, String msg, DialogInterface.OnClickListener onClickListener) {
+    public void showMessageDialog(String title, String msg, OnDialogButtonClickListener onClickListener) {
         if (isFinishing())
             return;
 
-        MessageDialog.build(this, title, msg, getString(R.string.confirm), onClickListener).showDialog();
+        MessageDialog.build(this)
+                .setTitle(title)
+                .setMessage(msg)
+                .setOkButton(R.string.confirm, onClickListener)
+                .show();
     }
 
-    public void showMessageDialog(String msg, DialogInterface.OnClickListener onClickListener) {
+    public void showMessageDialog(String msg, OnDialogButtonClickListener onClickListener) {
         this.showMessageDialog(null, msg, onClickListener);
     }
 
@@ -229,45 +233,46 @@ public abstract class BaseActivity extends AppCompatActivity {
         showMessageDialog(msg, null);
     }
 
-    public void showConfirmDialog(String msg, DialogInterface.OnClickListener onConfirmClickListener) {
+    public void showConfirmDialog(String msg, OnDialogButtonClickListener onConfirmClickListener) {
         showConfirmDialog(msg, getString(R.string.confirm), onConfirmClickListener, getString(R.string.cancel), null);
     }
 
-    public void showConfirmDialog(String msg, String confirmText, DialogInterface.OnClickListener onConfirmClickListener, String cancelText, DialogInterface.OnClickListener onCancelClickListener) {
+    public void showConfirmDialog(String msg, String confirmText, OnDialogButtonClickListener onConfirmClickListener, String cancelText, OnDialogButtonClickListener onCancelClickListener) {
         this.showConfirmDialog( null, msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener);
     }
 
-    public void showConfirmDialog(String title, String msg, String confirmText, DialogInterface.OnClickListener onConfirmClickListener, String cancelText, DialogInterface.OnClickListener onCancelClickListener) {
+    public void showConfirmDialog(String title, String msg, String confirmText, OnDialogButtonClickListener onConfirmClickListener, String cancelText, OnDialogButtonClickListener onCancelClickListener) {
         if (isFinishing())
             return;
 
-        SelectDialog.build(this, title, msg, confirmText, onConfirmClickListener, cancelText, onCancelClickListener).showDialog();
+        MessageDialog.build(this)
+                .setTitle(title)
+                .setMessage(msg)
+                .setOkButton(confirmText, onConfirmClickListener)
+                .setCancelButton(cancelText, onCancelClickListener)
+                .show();
     }
 
     public void showTipDialog(String msg) {
-        showTipDialog(msg, TipDialog.TYPE_WARNING);
+        showTipDialog(msg, TipDialog.TYPE.WARNING);
     }
 
-    public void showTipDialog(String msg, int toastType) {
+    public void showTipDialog(String msg, TipDialog.TYPE toastType) {
         if (isFinishing())
             return;
 
-        TipDialog.build(this, msg, TipDialog.SHOW_TIME_SHORT, toastType).showDialog();
+        TipDialog.show(this, msg, toastType);
     }
 
     public void showNotifyDialog(String msg) {
-        showNotifyDialog(msg, TipDialog.TYPE_WARNING);
+        showNotifyDialog(msg);
     }
 
-    public void showNotifyDialog(String msg, int type) {
-        showNotifyDialog(0, null, msg, type);
-    }
-
-    public void showNotifyDialog(int id, Notification.OnNotificationClickListener onNotificationClickListener, String msg, int type) {
+    public void showNotifyDialog(String msg, OnNotificationClickListener onNotificationClickListener) {
         if (isFinishing())
             return;
 
-        Notification.show(this, id, msg, type).setOnNotificationClickListener(onNotificationClickListener);
+        Notification.show(this, msg).setOnNotificationClickListener(onNotificationClickListener);
     }
     // [-] tip dialog
 
@@ -327,16 +332,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         List<String> permissionNames = Permission.transformText(context, permissions);
         String message = context.getString(R.string.message_permission_always_failed, TextUtils.join("\n", permissionNames));
 
-        new AlertDialog.Builder(context, android.app.AlertDialog.THEME_HOLO_LIGHT)
-                .setCancelable(false)
-                .setTitle(R.string.tips)
-                .setMessage(message)
-                .setPositiveButton(R.string.settings, (dialog, which) -> {
-                    AndPermission.with(this).runtime().setting().start(RequestCode.PERMISSION_SETTINGS);
-                    finish();
-                })
-                .setNegativeButton(R.string.cancel, (dialog, which) -> finish())
-                .show();
+        showConfirmDialog(message, getString(R.string.settings), (baseDialog, v) -> {
+            AndPermission.with(this).runtime().setting().start(RequestCode.PERMISSION_SETTINGS);
+            finish();
+            return false;
+        }, getString(R.string.cancel), (baseDialog, v) -> {
+            finish();
+            return false;
+        });
     }
 
     /**

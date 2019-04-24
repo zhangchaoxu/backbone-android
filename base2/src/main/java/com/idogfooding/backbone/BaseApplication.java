@@ -18,8 +18,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.request.target.ViewTarget;
+import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.util.TextInfo;
-import com.kongzue.dialog.v2.DialogSettings;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 
@@ -141,20 +141,19 @@ public class BaseApplication extends Application {
     protected void initDialog() {
         // init dialog
         DialogSettings.DEBUGMODE = false;
-        DialogSettings.style  = DialogSettings.STYLE_KONGZUE;
-        DialogSettings.tip_theme = DialogSettings.THEME_LIGHT;
-        DialogSettings.use_blur = false;
+        DialogSettings.isUseBlur = false;
+        DialogSettings.cancelableTipDialog = false;
+        DialogSettings.cancelable = false;
+        DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
+        DialogSettings.theme = DialogSettings.THEME.LIGHT;
         // 对话框标题文字样式
-        DialogSettings.dialogTitleTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(18);
+        DialogSettings.titleTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(18);
         // 对话框内容文字样式
-        DialogSettings.dialogContentTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
-        // 对话框积极按钮（一般为确定按钮）文字样式，若未设置此样式则会使用 dialogButtonTextInfo 代替
-        DialogSettings.dialogOkButtonTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
-        DialogSettings.dialogButtonTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
-        // 提示框文本样式
-        DialogSettings.tipTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
-        // 菜单文字样式
-        DialogSettings.menuTextInfo  = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        DialogSettings.contentTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        //全局默认按钮文字样式
+        DialogSettings.buttonTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        // 全局焦点按钮文字样式（一般指确定按钮）
+        DialogSettings.buttonPositiveTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
     }
 
     /**

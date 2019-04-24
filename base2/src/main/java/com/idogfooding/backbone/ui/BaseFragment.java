@@ -250,7 +250,7 @@ public abstract class BaseFragment extends Fragment implements FragmentUtils.OnB
     }
 
     //##########  Protected helper methods ##########
-    protected BaseActivity getBaseActivity() {
+    public BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();
     }
 

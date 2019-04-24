@@ -73,3 +73,10 @@
 -dontwarn org.conscrypt.**
 # A resource is loaded with a relative path so the package of this class must be preserved.
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+#
+-keep class com.kongzue.dialog.** { *; }
+-dontwarn com.kongzue.dialog.**
+
+# DialogV3 https://github.com/kongzue/DialogV3
+-keep class android.view.** { *; }

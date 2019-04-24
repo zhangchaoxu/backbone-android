@@ -3,6 +3,7 @@ package com.idogfooding.backbone.ui.tab;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.idogfooding.backbone.R;
@@ -109,6 +110,18 @@ public abstract class TabPagerActivity extends BaseActivity {
             return adapter.getItem(tabLayout.getCurrentTab());
         } else {
             return null;
+        }
+    }
+
+    public void showTabMsg(int position, int num) {
+        if (0 >= position || position < adapter.getCount() - 1) {
+            if (num <= 0) {
+                tabLayout.hideMsg(position);
+            } else {
+                tabLayout.showMsg(position, num);
+            }
+        } else {
+            LogUtils.e("showTabMsg in error position = " + position);
         }
     }
 }

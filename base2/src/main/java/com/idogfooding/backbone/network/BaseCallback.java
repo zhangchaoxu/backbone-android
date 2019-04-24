@@ -1,15 +1,20 @@
 package com.idogfooding.backbone.network;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.chenenyu.router.Router;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
 import com.idogfooding.backbone.R;
-import com.kongzue.dialog.v2.WaitDialog;
+import com.idogfooding.backbone.RequestCode;
+import com.idogfooding.backbone.ui.BaseFragment;
+import com.kongzue.dialog.v3.TipDialog;
+import com.kongzue.dialog.v3.WaitDialog;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.exception.StorageException;
@@ -33,55 +38,42 @@ import okhttp3.ResponseBody;
  */
 public abstract class BaseCallback<T> extends AbsCallback<T> {
 
-    protected Context context;
-    protected Fragment fragment;
+    protected AppCompatActivity activity;
+    protected BaseFragment fragment;
 
-    // 是否在完成调用后,dismiss加载框
-    protected boolean dismissLoading = true;
     // 是否在启动时候，显示加载框
     protected boolean showLoading = true;
 
-    public BaseCallback(Context context) {
-        this(context, false);
+    public BaseCallback(AppCompatActivity activity) {
+        this(activity, false);
     }
 
-    public BaseCallback(Fragment fragment) {
+    public BaseCallback(BaseFragment fragment) {
         this(fragment, false);
     }
 
-    public BaseCallback(Context context, boolean showLoading) {
-        this(context, showLoading, true, null);
-    }
-
-    public BaseCallback(Fragment fragment, boolean showLoading) {
-        this(fragment, showLoading, true, null);
-    }
-
-    public BaseCallback(Fragment fragment, boolean showDialog, boolean dismissLoading, String loadingContent) {
-        this(fragment.getContext(), showDialog, dismissLoading, loadingContent);
+    public BaseCallback(BaseFragment fragment, boolean showLoading) {
+        this(fragment.getBaseActivity(), showLoading);
         this.fragment = fragment;
     }
 
-    public BaseCallback(Context context, boolean showLoading, boolean dismissLoading, String loadingContent) {
+    public BaseCallback(AppCompatActivity activity, boolean showLoading) {
         super();
-        this.context = context;
+        this.activity = activity;
         this.showLoading = showLoading;
-        this.dismissLoading = dismissLoading;
     }
 
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
         if (showLoading) {
-            WaitDialog.show(context, context.getString(R.string.msg_loading));
+            WaitDialog.show(activity, R.string.msg_loading);
         }
     }
 
     @Override
     public void onFinish() {
-        if (dismissLoading) {
-            WaitDialog.dismiss();
-        }
+        LogUtils.v("api call finish");
     }
 
     @Override
@@ -229,7 +221,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
         } else if (exception instanceof JsonParseException) {
             onSysError(response, BoneException.CODE_JSON_EXCEPTION);
         } else if (exception instanceof ApiException) {
-            onSysError(response, BoneException.CODE_API_EXCEPTION);
+            onApiError(response, (ApiException) response.getException());
         } else if (exception instanceof BoneException) {
             onSysError(response, ((BoneException) exception).getCode());
         } else {
@@ -239,25 +231,51 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
 
     /**
      * 除服务器返回错误以外的系统错误
+     * *如果做其它处理，记得dialog.dismiss*
      *
      * @param response
      */
     protected void onSysError(Response<T> response, int errorCode) {
-        if (errorCode == BoneException.CODE_API_EXCEPTION) {
-            onApiError(response, (ApiException) response.getException());
-        } else {
-            ToastUtils.showShort(BoneException.getMsgByCode(errorCode));
-        }
+        TipDialog.show(activity, BoneException.getMsgByCode(errorCode), TipDialog.TYPE.ERROR);
     }
 
     /**
-     * 服务器返回错误
+     * 接口返回的错误
+     * *如果做其它处理，记得dialog.dismiss*
      *
      * @param response
      * @param exception
      */
     protected void onApiError(Response<T> response, ApiException exception) {
-        ToastUtils.showShort(exception.getMessage());
+        if (exception.isUnauthorized()) {
+            onApi401Error(response, exception);
+        } else {
+            onApiLogicError(response, exception);
+        }
+    }
+
+    protected void onApi401Error(Response<T> response, ApiException exception) {
+        WaitDialog.dismiss();
+        // 清空已经登录保存的用户信息, 跳转到登录页面
+        if (null != fragment) {
+            Router.build("Login").requestCode(RequestCode.USER_LOGIN).go(fragment);
+        } else if (null != activity) {
+            Router.build("Login").requestCode(RequestCode.USER_LOGIN).go(activity);
+        } else {
+            ToastUtils.showLong("未授权跳转失败,请传上下文参数");
+            Log.e("ApiCallBack", "未授权跳转失败,请传上下文参数");
+        }
+    }
+
+    /**
+     * 接口逻辑错误，不包括认证失败问题
+     * *如果做其它处理，记得dialog.dismiss*
+     *
+     * @param response
+     * @param exception
+     */
+    protected void onApiLogicError(Response<T> response, ApiException exception) {
+        TipDialog.show(activity, exception.getMessage(), TipDialog.TYPE.ERROR);
     }
 
 }
