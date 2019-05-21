@@ -36,6 +36,7 @@ import com.idogfooding.backbone.utils.DoubleClickExit;
 import com.idogfooding.backbone.widget.TopBar;
 import com.idogfooding.backbone.widget.ViewPager;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
+import com.kongzue.dialog.interfaces.OnDismissListener;
 import com.kongzue.dialog.interfaces.OnNotificationClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.v3.MessageDialog;
@@ -258,10 +259,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showTipDialog(String msg, TipDialog.TYPE toastType) {
+        showTipDialog(msg, toastType, null);
+    }
+
+    public void showTipDialog(String msg, TipDialog.TYPE toastType, OnDismissListener onDismissListener) {
         if (isFinishing())
             return;
 
-        TipDialog.show(this, msg, toastType);
+        TipDialog.show(this, msg, toastType).setOnDismissListener(onDismissListener);
     }
 
     public void showNotifyDialog(String msg) {
