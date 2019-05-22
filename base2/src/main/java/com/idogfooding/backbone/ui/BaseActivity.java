@@ -38,7 +38,6 @@ import com.idogfooding.backbone.widget.ViewPager;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnDismissListener;
 import com.kongzue.dialog.interfaces.OnNotificationClickListener;
-import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.v3.MessageDialog;
 import com.kongzue.dialog.v3.Notification;
 import com.kongzue.dialog.v3.TipDialog;
