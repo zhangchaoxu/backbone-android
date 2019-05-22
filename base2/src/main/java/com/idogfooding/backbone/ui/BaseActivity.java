@@ -254,30 +254,30 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void showTipDialog(String msg) {
-        showTipDialog(msg, TipDialog.TYPE.WARNING);
+    public TipDialog showTipDialog(String msg) {
+        return showTipDialog(msg, TipDialog.TYPE.WARNING);
     }
 
-    public void showTipDialog(String msg, TipDialog.TYPE toastType) {
-        showTipDialog(msg, toastType, null);
+    public TipDialog showTipDialog(String msg, TipDialog.TYPE toastType) {
+        return showTipDialog(msg, toastType, null);
     }
 
-    public void showTipDialog(String msg, TipDialog.TYPE toastType, OnDismissListener onDismissListener) {
+    public TipDialog showTipDialog(String msg, TipDialog.TYPE toastType, OnDismissListener onDismissListener) {
         if (isFinishing())
-            return;
+            return null;
 
-        TipDialog.show(this, msg, toastType).setOnDismissListener(onDismissListener);
+        return TipDialog.show(this, msg, toastType).setOnDismissListener(onDismissListener).setCancelable(true);
     }
 
     public void showNotifyDialog(String msg) {
         showNotifyDialog(msg);
     }
 
-    public void showNotifyDialog(String msg, OnNotificationClickListener onNotificationClickListener) {
+    public Notification showNotifyDialog(String msg, OnNotificationClickListener onNotificationClickListener) {
         if (isFinishing())
-            return;
+            return null;
 
-        Notification.show(this, msg).setOnNotificationClickListener(onNotificationClickListener);
+        return Notification.show(this, msg).setOnNotificationClickListener(onNotificationClickListener);
     }
     // [-] tip dialog
 

@@ -151,13 +151,13 @@ public class BaseApplication extends Application {
         DialogSettings.theme = DialogSettings.THEME.LIGHT;
         DialogSettings.tipTheme = DialogSettings.THEME.LIGHT;
         // 对话框标题文字样式
-        DialogSettings.titleTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(titleSize);
+        DialogSettings.titleTextInfo = new TextInfo().setFontColor(color(R.color.black1)).setFontSize(titleSize);
         // 对话框内容文字样式
-        DialogSettings.contentTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(btnSize);
+        DialogSettings.contentTextInfo = new TextInfo().setFontColor(color(R.color.black1)).setFontSize(btnSize);
         //全局默认按钮文字样式
-        DialogSettings.buttonTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(btnSize);
+        DialogSettings.buttonTextInfo = new TextInfo().setFontColor(color(R.color.black1)).setFontSize(btnSize);
         // 全局焦点按钮文字样式（一般指确定按钮）
-        DialogSettings.buttonPositiveTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(btnSize);
+        DialogSettings.buttonPositiveTextInfo = new TextInfo().setFontColor(color(R.color.black1)).setFontSize(btnSize);
     }
 
     /**

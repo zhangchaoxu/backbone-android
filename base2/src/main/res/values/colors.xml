@@ -32,6 +32,7 @@
     <color name="half_transparent_light">#aa000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="black1">#212121</color>
     <color name="white_pressed">@color/gray7</color>
     <color name="gray0">#F9F9F9</color>
     <color name="gray1">#F1F2F1</color>
