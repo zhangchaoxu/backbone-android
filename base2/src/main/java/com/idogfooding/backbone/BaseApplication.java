@@ -135,10 +135,13 @@ public class BaseApplication extends Application {
                 .setOkHttpClient(okHttpClient);
     }
 
+    protected void initDialog() {
+        this.initDialog(18, 16);
+    }
     /**
      * 设置对话框
      */
-    protected void initDialog() {
+    protected void initDialog(int titleSize, int btnSize) {
         // init dialog
         DialogSettings.DEBUGMODE = false;
         DialogSettings.isUseBlur = false;
@@ -146,14 +149,15 @@ public class BaseApplication extends Application {
         DialogSettings.cancelable = false;
         DialogSettings.style = DialogSettings.STYLE.STYLE_KONGZUE;
         DialogSettings.theme = DialogSettings.THEME.LIGHT;
+        DialogSettings.tipTheme = DialogSettings.THEME.LIGHT;
         // 对话框标题文字样式
-        DialogSettings.titleTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(18);
+        DialogSettings.titleTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(titleSize);
         // 对话框内容文字样式
-        DialogSettings.contentTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        DialogSettings.contentTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(btnSize);
         //全局默认按钮文字样式
-        DialogSettings.buttonTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        DialogSettings.buttonTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(btnSize);
         // 全局焦点按钮文字样式（一般指确定按钮）
-        DialogSettings.buttonPositiveTextInfo = new TextInfo().setFontColor(color(R.color.primary_text)).setFontSize(16);
+        DialogSettings.buttonPositiveTextInfo = new TextInfo().setFontColor(color(com.idogfooding.backbone.R.color.primary_text)).setFontSize(btnSize);
     }
 
     /**
