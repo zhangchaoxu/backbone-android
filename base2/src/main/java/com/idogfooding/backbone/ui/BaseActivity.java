@@ -266,8 +266,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         return TipDialog.show(this, msg, toastType)
                 .setOnDismissListener(onDismissListener)
-                .setCancelable(true)
-                .setTipTime(1500);
+                .setCancelable(true);
 
     }
 

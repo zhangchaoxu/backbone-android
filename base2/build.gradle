@@ -8,8 +8,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 
-        versionCode 2945
-        versionName "2.9.45"
+        versionCode 2946
+        versionName "2.9.46"
 
         multiDexEnabled true
     }
@@ -86,7 +86,7 @@ dependencies {
     // https://github.com/chenenyu/Router
     api 'com.chenenyu.router:router:1.6.3'
     // https://github.com/kongzue/Dialog
-    api('com.kongzue.dialog_v3:dialog:3.0.2') {
+    api('com.kongzue.dialog_v3:dialog:3.0.3') {
         exclude(group: 'com.android.support')
     }
 }

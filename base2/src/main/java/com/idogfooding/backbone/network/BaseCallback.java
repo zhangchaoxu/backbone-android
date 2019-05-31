@@ -237,8 +237,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      */
     protected void onSysError(Response<T> response, int errorCode) {
         TipDialog.show(activity, BoneException.getMsgByCode(errorCode), TipDialog.TYPE.ERROR)
-                .setCancelable(true)
-                .setTipTime(1500);
+                .setCancelable(true);
     }
 
     /**
@@ -278,8 +277,7 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      */
     protected void onApiLogicError(Response<T> response, ApiException exception) {
         TipDialog.show(activity, exception.getMessage(), TipDialog.TYPE.ERROR)
-                .setCancelable(true)
-                .setTipTime(1500);
+                .setCancelable(true);
     }
 
 }
