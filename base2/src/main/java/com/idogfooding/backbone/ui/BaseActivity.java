@@ -264,7 +264,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isFinishing())
             return null;
 
-        return TipDialog.show(this, msg, toastType).setOnDismissListener(onDismissListener).setCancelable(true);
+        return TipDialog.show(this, msg, toastType)
+                .setOnDismissListener(onDismissListener)
+                .setCancelable(true)
+                .setTipTime(1500);
+
     }
 
     public void showNotifyDialog(String msg) {
