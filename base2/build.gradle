@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.0'
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
 
-        versionCode 2947
-        versionName "2.9.47"
+        versionCode 2950
+        versionName "2.9.50"
 
         multiDexEnabled true
     }
@@ -85,7 +85,7 @@ dependencies {
     api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.4'
     // https://github.com/chenenyu/Router
     api 'com.chenenyu.router:router:1.6.3'
-    // https://github.com/kongzue/Dialog
+    // https://github.com/kongzue/DialogV3
     api('com.kongzue.dialog_v3:dialog:3.0.5') {
         exclude(group: 'com.android.support')
     }
