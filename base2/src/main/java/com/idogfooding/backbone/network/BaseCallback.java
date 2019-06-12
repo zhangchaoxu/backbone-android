@@ -1,5 +1,6 @@
 package com.idogfooding.backbone.network;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -259,9 +260,15 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
         WaitDialog.dismiss();
         // 清空已经登录保存的用户信息, 跳转到登录页面
         if (null != fragment) {
-            Router.build("Login").requestCode(RequestCode.USER_LOGIN).go(fragment);
+            Router.build("Login")
+                    .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    .requestCode(RequestCode.USER_LOGIN)
+                    .go(fragment);
         } else if (null != activity) {
-            Router.build("Login").requestCode(RequestCode.USER_LOGIN).go(activity);
+            Router.build("Login")
+                    .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    .requestCode(RequestCode.USER_LOGIN)
+                    .go(activity);
         } else {
             ToastUtils.showLong("未授权跳转失败,请传上下文参数");
             Log.e("ApiCallBack", "未授权跳转失败,请传上下文参数");
