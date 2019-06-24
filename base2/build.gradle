@@ -8,8 +8,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
 
-        versionCode 2952
-        versionName "2.9.52"
+        versionCode 2953
+        versionName "2.9.53"
 
         multiDexEnabled true
     }
@@ -84,7 +84,7 @@ dependencies {
     // https://github.com/Bakumon/StatusLayoutManager
     api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.4'
     // https://github.com/chenenyu/Router
-    api 'com.chenenyu.router:router:1.6.3'
+    api 'com.chenenyu.router:router:1.6.4'
     // https://github.com/kongzue/DialogV3
     api('com.kongzue.dialog_v3:dialog:3.0.8') {
         exclude(group: 'com.android.support')
