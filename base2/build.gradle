@@ -8,8 +8,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
 
-        versionCode 2953
-        versionName "2.9.53"
+        versionCode 2954
+        versionName "2.9.54"
 
         multiDexEnabled true
     }
@@ -62,7 +62,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.24.4') {
+    api('com.blankj:utilcode:1.25.0') {
         exclude(group: 'com.android.support')
         exclude(group: 'com.google.code.gson')
     }
@@ -84,7 +84,7 @@ dependencies {
     // https://github.com/Bakumon/StatusLayoutManager
     api 'com.github.zhangchaoxu:StatusLayoutManager:1.0.4'
     // https://github.com/chenenyu/Router
-    api 'com.chenenyu.router:router:1.6.4'
+    api 'com.chenenyu.router:router:1.6.5'
     // https://github.com/kongzue/DialogV3
     api('com.kongzue.dialog_v3:dialog:3.0.8') {
         exclude(group: 'com.android.support')
