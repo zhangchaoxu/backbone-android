@@ -10,7 +10,6 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 
 import java.util.ArrayList;
 
-
 /**
  * Pager adapter that provides the current fragment
  *
