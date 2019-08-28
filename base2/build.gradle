@@ -2,14 +2,14 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.0'
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
 
-        versionCode 2955
-        versionName "2.9.55"
+        versionCode 2956
+        versionName "2.9.56"
 
         multiDexEnabled true
     }
@@ -62,7 +62,7 @@ dependencies {
     // https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
     // https://github.com/Blankj/AndroidUtilCode
-    api('com.blankj:utilcode:1.25.2') {
+    api('com.blankj:utilcode:1.25.9') {
         exclude(group: 'com.android.support')
         exclude(group: 'com.google.code.gson')
     }
@@ -86,7 +86,7 @@ dependencies {
     // https://github.com/chenenyu/Router
     api 'com.chenenyu.router:router:1.6.5'
     // https://github.com/kongzue/DialogV3
-    api('com.kongzue.dialog_v3:dialog:3.1.0') {
+    api('com.kongzue.dialog_v3:dialog:3.1.1') {
         exclude(group: 'com.android.support')
     }
 }
