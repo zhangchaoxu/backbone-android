@@ -8,8 +8,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
 
-        versionCode 2957
-        versionName "2.9.57"
+        versionCode 2958
+        versionName "2.9.58"
 
         multiDexEnabled true
     }

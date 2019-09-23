@@ -47,6 +47,11 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     // 是否在启动时候，显示加载框
     protected boolean showLoading;
 
+    public BaseCallback(boolean showLoading) {
+        super();
+        this.showLoading = showLoading;
+    }
+
     public BaseCallback(Context context) {
         this(context, false);
     }
