@@ -1,5 +1,6 @@
 package com.idogfooding.backbone.network;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,11 +40,22 @@ import okhttp3.ResponseBody;
  */
 public abstract class BaseCallback<T> extends AbsCallback<T> {
 
+    protected Context context;
     protected AppCompatActivity activity;
     protected BaseFragment fragment;
 
     // 是否在启动时候，显示加载框
-    protected boolean showLoading = true;
+    protected boolean showLoading;
+
+    public BaseCallback(Context context) {
+        this(context, false);
+    }
+
+    public BaseCallback(Context context, boolean showLoading) {
+        super();
+        this.context = context;
+        this.showLoading = showLoading;
+    }
 
     public BaseCallback(AppCompatActivity activity) {
         this(activity, false);
@@ -59,15 +71,14 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
     }
 
     public BaseCallback(AppCompatActivity activity, boolean showLoading) {
-        super();
+        this(activity.getBaseContext(), showLoading);
         this.activity = activity;
-        this.showLoading = showLoading;
     }
 
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
-        if (showLoading) {
+        if (showLoading && activity != null) {
             WaitDialog.show(activity, R.string.msg_loading);
         }
     }
@@ -237,8 +248,11 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      * @param response
      */
     protected void onSysError(Response<T> response, int errorCode) {
-        TipDialog.show(activity, BoneException.getMsgByCode(errorCode), TipDialog.TYPE.ERROR)
-                .setCancelable(true);
+        if (activity != null) {
+            TipDialog.show(activity, BoneException.getMsgByCode(errorCode), TipDialog.TYPE.ERROR).setCancelable(true);
+        } else {
+            ToastUtils.showLong(BoneException.getMsgByCode(errorCode));
+        }
     }
 
     /**
@@ -283,8 +297,11 @@ public abstract class BaseCallback<T> extends AbsCallback<T> {
      * @param exception
      */
     protected void onApiLogicError(Response<T> response, ApiException exception) {
-        TipDialog.show(activity, exception.getMessage(), TipDialog.TYPE.ERROR)
-                .setCancelable(true);
+        if (activity != null) {
+            TipDialog.show(activity, exception.getMessage(), TipDialog.TYPE.ERROR).setCancelable(true);
+        } else {
+            ToastUtils.showLong(exception.getMessage());
+        }
     }
 
 }
