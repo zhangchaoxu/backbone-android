@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
@@ -25,7 +26,7 @@ import java.util.List;
  *
  * @author Charles
  */
-public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, BaseViewHolder> {
+public class PhotoPickerAdapter extends BaseMultiItemQuickAdapter<PhotoPickerEntity, BaseViewHolder> {
 
     private int maxCount = 9; // 最大支持数量
     private boolean moreEnable = true; // 是否允许添加
@@ -92,17 +93,9 @@ public class PhotoPickerAdapter extends BaseQuickAdapter<PhotoPickerEntity, Base
 
     public PhotoPickerAdapter(ArrayList<PhotoPickerEntity> photoPaths) {
         super(photoPaths);
-        //Step.1
-        setMultiTypeDelegate(new MultiTypeDelegate<PhotoPickerEntity>() {
-            @Override
-            protected int getItemType(PhotoPickerEntity entity) {
-                return entity.getType();
-            }
-        });
-        //Step.2
-        getMultiTypeDelegate().registerItemType(PhotoPickerEntity.TYPE_ADD, R.layout.__picker_item_photo_add)
-                .registerItemType(PhotoPickerEntity.TYPE_FILE, R.layout.__picker_item_photo)
-                .registerItemType(PhotoPickerEntity.TYPE_URL, R.layout.__picker_item_photo);
+        addItemType(PhotoPickerEntity.TYPE_ADD, R.layout.__picker_item_photo_add);
+        addItemType(PhotoPickerEntity.TYPE_FILE, R.layout.__picker_item_photo);
+        addItemType(PhotoPickerEntity.TYPE_URL, R.layout.__picker_item_photo);
         // click listener
         setOnItemChildClickListener((adapter, view, position) -> {
             if (R.id.iv_delete == view.getId()) {

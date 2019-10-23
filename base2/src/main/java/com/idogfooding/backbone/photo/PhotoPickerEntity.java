@@ -1,6 +1,7 @@
 package com.idogfooding.backbone.photo;
 
 import com.blankj.utilcode.util.ObjectUtils;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.File;
 import java.io.Serializable;
@@ -12,11 +13,16 @@ import java.util.List;
  *
  * @author Charles
  */
-public class PhotoPickerEntity implements Serializable {
+public class PhotoPickerEntity implements Serializable, MultiItemEntity {
 
     public final static int TYPE_ADD = 1; // 添加图片
     public final static int TYPE_FILE = 2; // 文件
     public final static int TYPE_URL = 3; // http开头的网址
+
+    @Override
+    public int getItemType() {
+        return type;
+    }
 
     public PhotoPickerEntity(int type) {
         this.type = type;
