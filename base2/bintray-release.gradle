@@ -4,7 +4,7 @@ publish {
     userOrg = 'zhangchaoxu'
     groupId = 'com.idogfooding.backbone'
     artifactId = 'base2'
-    publishVersion = '2.9.61'
+    publishVersion = '2.9.70'
     desc = 'backbone base lib 2'
     website = 'https://github.com/zhangchaoxu/backbone-android'
 }
